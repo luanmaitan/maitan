@@ -1,0 +1,319 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEvents, formatEventForCalendar, CATEGORIES, TAGS } from '../lib/calendario';
+
+// Carrega eventos
+const events = getEvents();
+const formattedEvents = events.map(formatEventForCalendar);
+---
+
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/main.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/main.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.10/main.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.10/main.min.css" rel="stylesheet" />
+
+<Layout title="Maitan Hub | Calendário">
+    <section class="space-y-8">
+        <header class="space-y-4">
+            <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Calendário</h1>
+            <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+                Organize seus eventos, compromissos e atividades em um calendário interativo.
+            </p>
+        </header>
+
+        <!-- Filtros de Categorias -->
+        <div class="space-y-4 border-b border-neutral-100 dark:border-neutral-800 pb-6">
+            <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Categorias:</span>
+                <button 
+                    id="filter-all"
+                    class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 border border-transparent bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium filter-btn active"
+                    data-category="all"
+                >
+                    Todas
+                </button>
+                {Object.entries(CATEGORIES).map(([key, category]) => (
+                    <button
+                        class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent filter-btn"
+                        data-category={key}
+                        style={`--category-color: ${category.color}`}
+                    >
+                        <span class="w-2 h-2 rounded-full" style={`background-color: ${category.color}`}></span>
+                        {category.name}
+                    </button>
+                ))}
+            </div>
+
+            <!-- Filtros de Tags -->
+            <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Tags:</span>
+                <button 
+                    id="filter-tags-all"
+                    class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100 tag-filter-btn active"
+                    data-tag="all"
+                >
+                    Todas
+                </button>
+                {TAGS.map(tag => (
+                    <button
+                        class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400 tag-filter-btn"
+                        data-tag={tag}
+                    >
+                        {tag}
+                    </button>
+                ))}
+            </div>
+        </div>
+
+        <!-- Calendário -->
+        <div id="calendar" class="bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800 p-4"></div>
+    </section>
+</Layout>
+
+<script define:vars={{ eventsData: formattedEvents }}>
+    import { Calendar } from '@fullcalendar/core';
+    import dayGridPlugin from '@fullcalendar/daygrid';
+    import timeGridPlugin from '@fullcalendar/timegrid';
+    import interactionPlugin from '@fullcalendar/interaction';
+    import listPlugin from '@fullcalendar/list';
+
+    // Inicializa o calendário
+    const calendarEl = document.getElementById('calendar');
+    if (calendarEl) {
+        const calendar = new Calendar(calendarEl, {
+            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
+            initialView: 'dayGridMonth',
+            initialDate: new Date(), // Ancora no dia atual
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            locale: 'pt-br',
+            firstDay: 1, // Segunda-feira
+            events: eventsData,
+            eventClick: function(info) {
+                // Mostra informações do evento ao clicar
+                const event = info.event;
+                const extendedProps = event.extendedProps;
+                const tags = extendedProps.tags || [];
+                const description = extendedProps.description || '';
+                
+                let message = `${event.title}\n\n`;
+                if (description) {
+                    message += `${description}\n\n`;
+                }
+                if (tags.length > 0) {
+                    message += `Tags: ${tags.join(', ')}\n`;
+                }
+                message += `Categoria: ${extendedProps.category || 'N/A'}`;
+                
+                alert(message);
+            },
+            eventDisplay: 'block',
+            height: 'auto',
+            contentHeight: 'auto',
+            aspectRatio: 1.8
+        });
+
+        calendar.render();
+
+        // Filtros de categoria
+        const categoryFilters = document.querySelectorAll('.filter-btn');
+        let activeCategory = 'all';
+        let activeTag = 'all';
+
+        categoryFilters.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                activeCategory = category || 'all';
+                
+                // Atualiza estado visual
+                categoryFilters.forEach(b => b.classList.remove('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium'));
+                this.classList.add('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium');
+                
+                applyFilters();
+            });
+        });
+
+        // Filtros de tags
+        const tagFilters = document.querySelectorAll('.tag-filter-btn');
+        tagFilters.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tag = this.getAttribute('data-tag');
+                activeTag = tag || 'all';
+                
+                // Atualiza estado visual
+                tagFilters.forEach(b => {
+                    b.classList.remove('active', 'border-neutral-900', 'dark:border-neutral-100', 'text-neutral-900', 'dark:text-neutral-100');
+                    b.classList.add('border-neutral-200', 'dark:border-neutral-800', 'text-neutral-500', 'dark:text-neutral-400');
+                });
+                this.classList.add('active', 'border-neutral-900', 'dark:border-neutral-100', 'text-neutral-900', 'dark:text-neutral-100');
+                this.classList.remove('border-neutral-200', 'dark:border-neutral-800', 'text-neutral-500', 'dark:text-neutral-400');
+                
+                applyFilters();
+            });
+        });
+
+        function applyFilters() {
+            const allEvents = calendar.getEvents();
+            
+            allEvents.forEach(event => {
+                const extendedProps = event.extendedProps;
+                const eventCategory = extendedProps.category || '';
+                const eventTags = extendedProps.tags || [];
+                
+                let show = true;
+                
+                // Filtro de categoria
+                if (activeCategory !== 'all' && eventCategory !== activeCategory) {
+                    show = false;
+                }
+                
+                // Filtro de tag
+                if (activeTag !== 'all' && !eventTags.includes(activeTag)) {
+                    show = false;
+                }
+                
+                // Mostra ou esconde o evento
+                if (show) {
+                    event.setProp('display', 'auto');
+                } else {
+                    event.setProp('display', 'none');
+                }
+            });
+        }
+
+        // Torna o calendário disponível globalmente para debug
+        (window as any).calendar = calendar;
+    }
+</script>
+
+<style>
+    /* Estilos customizados para FullCalendar */
+    :global(.fc) {
+        font-family: inherit;
+    }
+
+    :global(.fc-toolbar-title) {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: rgb(23 23 23);
+    }
+
+    .dark :global(.fc-toolbar-title) {
+        color: rgb(245 245 245);
+    }
+
+    :global(.fc-button) {
+        background-color: rgb(23 23 23);
+        border-color: rgb(23 23 23);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .dark :global(.fc-button) {
+        background-color: rgb(245 245 245);
+        border-color: rgb(245 245 245);
+        color: rgb(23 23 23);
+    }
+
+    :global(.fc-button:hover) {
+        opacity: 0.9;
+    }
+
+    :global(.fc-button-active) {
+        background-color: rgb(64 64 64);
+        border-color: rgb(64 64 64);
+    }
+
+    .dark :global(.fc-button-active) {
+        background-color: rgb(64 64 64);
+        border-color: rgb(64 64 64);
+        color: white;
+    }
+
+    :global(.fc-daygrid-day) {
+        background-color: transparent;
+    }
+
+    :global(.fc-daygrid-day-frame) {
+        background-color: transparent;
+    }
+
+    :global(.fc-col-header-cell) {
+        background-color: transparent;
+        border-color: rgb(229 229 229);
+        padding: 0.5rem;
+    }
+
+    .dark :global(.fc-col-header-cell) {
+        border-color: rgb(38 38 38);
+    }
+
+    :global(.fc-col-header-cell-cushion) {
+        color: rgb(115 115 115);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    .dark :global(.fc-col-header-cell-cushion) {
+        color: rgb(163 163 163);
+    }
+
+    :global(.fc-daygrid-day-number) {
+        color: rgb(64 64 64);
+        padding: 0.5rem;
+    }
+
+    .dark :global(.fc-daygrid-day-number) {
+        color: rgb(163 163 163);
+    }
+
+    :global(.fc-day-today) {
+        background-color: rgb(250 250 250);
+    }
+
+    .dark :global(.fc-day-today) {
+        background-color: rgb(23 23 23);
+    }
+
+    :global(.fc-event) {
+        border-radius: 0.25rem;
+        padding: 0.125rem 0.25rem;
+        cursor: pointer;
+        border: none;
+    }
+
+    :global(.fc-event-title) {
+        font-weight: 500;
+        padding: 0.125rem 0.25rem;
+    }
+
+    :global(.fc-daygrid-event-dot) {
+        display: none;
+    }
+
+    /* Filtros ativos */
+    .filter-btn.active,
+    .tag-filter-btn.active {
+        background-color: rgb(23 23 23);
+        color: white;
+        border-color: rgb(23 23 23);
+    }
+
+    .dark .filter-btn.active,
+    .dark .tag-filter-btn.active {
+        background-color: rgb(245 245 245);
+        color: rgb(23 23 23);
+        border-color: rgb(245 245 245);
+    }
+</style>
+
