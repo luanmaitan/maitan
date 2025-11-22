@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("notas");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+function getReadingTime(content: string) {
+    const wordsPerMinute = 200;
+    const words = content.split(/\s+/g).length;
+    const minutes = Math.ceil(words / wordsPerMinute);
+    return `${minutes} min de leitura`;
+}
+---
+
+<Layout title={post.data.title}>
+    <article class="max-w-2xl mx-auto">
+        <header class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <div
+                    class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
+                >
+                    {
+                        post.data.pubDate
+                            .toLocaleDateString("pt-BR", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                            })
+                            .replace(".", "")
+                            .toUpperCase()
+                    }
+                </div>
+                <div
+                    class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider"
+                >
+                    {getReadingTime(post.body)}
+                </div>
+            </div>
+
+            <h1
+                class="text-3xl md:text-4xl font-serif font-medium text-neutral-900 dark:text-neutral-100 mb-4"
+            >
+                {post.data.title}
+            </h1>
+
+            <div class="flex gap-2">
+                {
+                    post.data.tags &&
+                        post.data.tags.map((tag) => (
+                            <a
+                                href={`/tags/${tag}`}
+                                class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+                            >
+                                {tag}
+                            </a>
+                        ))
+                }
+            </div>
+        </header>
+
+        <hr class="border-neutral-100 dark:border-neutral-800 mb-8" />
+
+        <div
+            class="prose prose-neutral dark:prose-invert font-serif max-w-none prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg"
+        >
+            <Content />
+        </div>
+    </article>
+</Layout>

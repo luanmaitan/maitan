@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollections, getRaindrops, type Collection, type Raindrop } from '../lib/raindrop';
+
+const collections = await getCollections();
+const allRaindrops = await getRaindrops(0); // 0 means all
+
+// Process raindrops to include collection info and clean data
+const links = allRaindrops.map((item) => {
+  const collection = collections.find(c => c._id === item.collectionId);
+  const date = new Date(item.created);
+  
+  return {
+    ...item,
+    collectionName: collection?.title || 'Uncategorized',
+    collectionColor: collection?.color || '#666666', // Default gray
+    date: date,
+    year: date.getFullYear(),
+    dateString: date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace(' de ', ' ').replace('.', '').toUpperCase(),
+  };
+}).sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// Extract unique tags
+const allTags = Array.from(new Set(links.flatMap(link => link.tags))).sort();
+
+// Group by year for the list
+let lastYear: number | null = null;
+function shouldShowYear(year: number) {
+    if (year !== lastYear) {
+        lastYear = year;
+        return true;
+    }
+    return false;
+}
+---
+
+<Layout title="Luan Maitan | Links">
+  <div class="flex flex-col lg:flex-row gap-12">
+    
+    <!-- Sidebar (Filters) -->
+    <aside class="lg:w-64 flex-shrink-0 space-y-8">
+      <header class="space-y-4">
+        <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Links</h1>
+        <p class="text-neutral-600 dark:text-neutral-400 font-serif leading-relaxed text-sm">
+          Curadoria de referências e ferramentas.
+        </p>
+      </header>
+
+      <!-- Collections -->
+      <div class="space-y-2">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-3">Pastas</h3>
+        <button class="filter-btn active w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 text-neutral-900 dark:text-neutral-200" data-filter="all">
+            <span class="w-2 h-2 rounded-full bg-neutral-400"></span>
+            Todos
+        </button>
+        {collections.map(collection => (
+            <button class="filter-btn w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 text-neutral-600 dark:text-neutral-400" data-filter={`collection-${collection._id}`}>
+                <span class="w-2 h-2 rounded-full" style={`background-color: ${collection.color || '#666666'}`}></span>
+                {collection.title}
+            </button>
+        ))}
+      </div>
+
+      <!-- Tags -->
+      <div class="space-y-2">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-3">Tags</h3>
+        <div class="flex flex-wrap gap-2">
+            {allTags.map(tag => (
+                <button class="filter-btn text-[10px] uppercase tracking-wider border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors text-neutral-500 dark:text-neutral-400" data-filter={`tag-${tag}`}>
+                    {tag}
+                </button>
+            ))}
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content (List) -->
+    <div class="flex-grow space-y-0 relative min-h-[50vh]">
+      {links.length === 0 ? (
+        <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+          <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
+            Nenhum link encontrado.
+          </p>
+        </div>
+      ) : (
+        links.map((link, index) => {
+            const showYear = index === 0 || link.year !== links[index - 1].year;
+            
+            return (
+            <div class="relative group link-row" data-collection={`collection-${link.collectionId}`} data-tags={link.tags.map(t => `tag-${t}`).join(' ')}>
+                <a href={link.link} target="_blank" class="link-item flex items-center py-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors -mx-4 px-4 rounded-lg" data-image={link.cover}>
+                
+                <!-- Year (Left Column) -->
+                <div class="w-16 flex-shrink-0 text-xs font-mono text-neutral-400 dark:text-neutral-500 font-bold">
+                    {showYear && link.year}
+                </div>
+
+                <!-- Date -->
+                <div class="w-16 flex-shrink-0 text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                    {link.dateString}
+                </div>
+
+                <!-- Title & Tags -->
+                <div class="flex-grow min-w-0 pr-4">
+                    <div class="flex items-baseline gap-3">
+                        <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 truncate">
+                        {link.title}
+                        </h3>
+                        
+                        <!-- Tags (Desktop) -->
+                        <div class="hidden sm:flex gap-2">
+                            {link.tags.map((tag) => (
+                                <span class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 border border-neutral-200 dark:border-neutral-800 px-1.5 py-0.5 rounded-full">{tag}</span>
+                            ))}
+                        </div>
+                    </div>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 truncate mt-1 max-w-2xl">
+                        {link.description}
+                    </p>
+                     <!-- Tags (Mobile) -->
+                    <div class="flex sm:hidden gap-2 mt-2 overflow-x-auto pb-1">
+                        {link.tags.map((tag) => (
+                            <span class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 border border-neutral-200 dark:border-neutral-800 px-1.5 py-0.5 rounded-full whitespace-nowrap">{tag}</span>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Collection Dot -->
+                <div class="text-neutral-300 dark:text-neutral-700 group-hover:text-neutral-500 dark:group-hover:text-neutral-400 transition-colors" title={link.collectionName}>
+                    <span class="w-2 h-2 rounded-full block" style={`background-color: ${link.collectionColor}`}></span>
+                </div>
+
+                </a>
+            </div>
+        )})
+      )}
+    </div>
+
+    <!-- Floating Image Container -->
+    <img id="link-image" src="" alt="" class="fixed pointer-events-none opacity-0 w-64 rounded-lg shadow-2xl z-50 transition-opacity duration-200 object-cover aspect-video hidden border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900" style="left: 0; top: 0;" />
+
+  </div>
+</Layout>
+
+<script>
+  // Hover Animation Logic
+  const links = document.querySelectorAll('.link-item');
+  const image = document.getElementById('link-image') as HTMLImageElement;
+  let hideTimeout: any;
+
+  links.forEach(link => {
+    link.addEventListener('mouseenter', (e) => {
+      const imgUrl = (link as HTMLElement).dataset.image;
+      if (imgUrl && image) {
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          hideTimeout = null;
+        }
+        image.src = imgUrl;
+        image.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            image.classList.remove('opacity-0');
+        });
+      }
+    });
+
+    link.addEventListener('mouseleave', () => {
+      if (image) {
+        image.classList.add('opacity-0');
+        hideTimeout = setTimeout(() => {
+            image.classList.add('hidden');
+        }, 200);
+      }
+    });
+
+    link.addEventListener('mousemove', (e) => {
+      if (image) {
+        const x = (e as MouseEvent).clientX;
+        const y = (e as MouseEvent).clientY;
+        const offsetX = 20;
+        const offsetY = 20;
+        image.style.transform = `translate(${x + offsetX}px, ${y + offsetY}px)`;
+      }
+    });
+  });
+
+  // Filtering Logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const linkRows = document.querySelectorAll('.link-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all
+        filterBtns.forEach(b => {
+            b.classList.remove('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'text-neutral-900', 'dark:text-neutral-200', 'font-medium');
+            b.classList.add('text-neutral-600', 'dark:text-neutral-400');
+        });
+        
+        // Add active class to clicked
+        btn.classList.add('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'text-neutral-900', 'dark:text-neutral-200', 'font-medium');
+        btn.classList.remove('text-neutral-600', 'dark:text-neutral-400');
+
+        const filter = (btn as HTMLElement).dataset.filter;
+
+        linkRows.forEach(row => {
+            const el = row as HTMLElement;
+            if (filter === 'all') {
+                el.style.display = 'block';
+            } else {
+                const collectionMatch = el.dataset.collection === filter;
+                const tagMatch = el.dataset.tags?.includes(filter || '');
+                
+                if (collectionMatch || tagMatch) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            }
+        });
+    });
+  });
+</script>

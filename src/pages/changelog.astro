@@ -35,6 +35,27 @@ const updates = [
     <hr class="border-neutral-100 dark:border-neutral-800" />
 
     <div class="relative border-l border-neutral-200 dark:border-neutral-800 ml-3 space-y-12 py-4">
+      <div class="relative pl-8">
+        <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+          <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">Expansão de Conteúdo</h3>
+          <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">22 NOV 2025</span>
+        </div>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+          Implementação das páginas de Filmes, Livros e Links, integrando dados dinâmicos de serviços externos.
+        </p>
+        <ul class="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 text-sm marker:text-neutral-300 dark:marker:text-neutral-700">
+          <li><strong>Filmes:</strong> Integração com RSS do Letterboxd e API do TMDB para capas e títulos em português.</li>
+          <li><strong>Livros:</strong> Sincronização com estante "Read" do Goodreads.</li>
+          <li><strong>Links:</strong> Integração completa com API do Raindrop, incluindo filtros por pastas e tags.</li>
+          <li><strong>UI:</strong> Animações de hover com capas flutuantes e refinamentos visuais gerais.</li>
+        </ul>
+        <div class="flex gap-2 mt-3">
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">Content</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">API</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">UI</span>
+        </div>
+      </div>
       {updates.map((update) => (
         <div class="relative pl-8">
           <!-- Bolinha da timeline -->

@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const notes = (await getCollection("notas")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+function getReadingTime(content: string) {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/g).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min de leitura`;
+}
+---
+
+<Layout title="Luan Maitan | Notas">
+  <section class="space-y-12">
+    <header class="space-y-4">
+      <h1
+        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
+      >
+        Notas
+      </h1>
+      <p
+        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
+      >
+        Um espaço para cultivar ideias em estágio inicial, notas de estudo e
+        conexões mentais.
+      </p>
+    </header>
+
+    <div class="space-y-12">
+      {
+        notes.map((note) => (
+          <div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4 md:gap-8 group">
+            <div class="text-xs font-mono text-neutral-400 dark:text-neutral-500 pt-1.5 uppercase tracking-wider">
+              {note.data.pubDate
+                .toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })
+                .replace(".", "")
+                .toUpperCase()}
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <a href={`/notas/${note.slug}`} class="block">
+                  {note.data.title}
+                </a>
+              </h3>
+              <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+                {note.data.description}
+              </p>
+              <div class="flex items-center gap-4 pt-1">
+                <div class="flex gap-2">
+                  {note.data.tags &&
+                    note.data.tags.map((tag) => (
+                      <a
+                        href={`/tags/${tag}`}
+                        class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        {tag}
+                      </a>
+                    ))}
+                </div>
+                <span class="text-[10px] text-neutral-300 dark:text-neutral-600 font-mono">
+                  {getReadingTime(note.body)}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

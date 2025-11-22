@@ -61,14 +61,29 @@
             class="absolute top-full left-0 w-full bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-lg py-4 px-6 flex flex-col gap-4 z-50"
         >
             <a
-                href="/jardim"
+                href="/notas"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Jardim</a
+                on:click={toggle}>Notas</a
             >
             <a
                 href="/projetos"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
                 on:click={toggle}>Projetos</a
+            >
+            <a
+                href="/filmes"
+                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                on:click={toggle}>Filmes</a
+            >
+            <a
+                href="/livros"
+                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                on:click={toggle}>Livros</a
+            >
+            <a
+                href="/links"
+                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                on:click={toggle}>Links</a
             >
             <hr class="border-neutral-200 dark:border-neutral-800" />
             <div class="flex flex-col gap-2">
