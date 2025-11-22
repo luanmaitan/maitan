@@ -13,6 +13,7 @@
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource/crimson-pro": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
+    "@vercel/speed-insights": "^1.2.0",
     "astro": "^5.16.0",
     "fast-xml-parser": "^5.3.2",
     "svelte": "^5.43.14",
