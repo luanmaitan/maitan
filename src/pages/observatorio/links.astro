@@ -35,7 +35,15 @@ function shouldShowYear(year: number) {
 }
 ---
 
-<Layout title="Luan Maitan | Links">
+<Layout title="Maitan Hub | Links">
+  <nav slot="sidebar" class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+    <a href="/observatorio" class="hover:text-black dark:hover:text-white transition-colors">início</a>
+    <a href="/observatorio/livros" class="hover:text-black dark:hover:text-white transition-colors">livros</a>
+    <a href="/observatorio/filmes" class="hover:text-black dark:hover:text-white transition-colors">filmes</a>
+    <a href="/observatorio/citacoes" class="hover:text-black dark:hover:text-white transition-colors">citações</a>
+    <a href="/observatorio/links" class="text-black dark:text-white font-medium">links</a>
+  </nav>
+
   <section class="space-y-8">
     <header class="space-y-4">
       <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Links</h1>

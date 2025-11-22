@@ -2,7 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Luan Maitan | Portfólio">
+<Layout title="Maitan Hub | Portfólio">
+    <nav
+        slot="sidebar"
+        class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
+    >
+        <a href="/portfolio" class="text-black dark:text-white font-medium"
+            >trabalhos</a
+        >
+        <span class="cursor-not-allowed opacity-50">sobre mim</span>
+        <span class="cursor-not-allowed opacity-50">contato</span>
+    </nav>
+
     <section class="space-y-8">
         <header class="space-y-4">
             <h1

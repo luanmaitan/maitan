@@ -2,38 +2,55 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Luan Maitan | Laboratório">
-    <section class="space-y-8">
+<Layout title="Maitan Hub | Laboratório">
+    Hub | Laboratório"> <nav
+        slot="sidebar"
+        class="flex flex-col space-y-3 text-sm
+text-neutral-500 dark:text-neutral-400"
+    >
+        <a href="/laboratorio" class="text-black dark:text-white font-medium"
+            >experimentos</a
+        >
+        <span class="cursor-not-allowed opacity-50">playground</span>
+    </nav>
+    <section class="space-y-12">
         <header class="space-y-4">
             <h1
-                class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
+                class="text-3xl font-serif
+font-medium text-neutral-900 dark:text-neutral-100"
             >
                 Laboratório
             </h1>
             <p
-                class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
+                class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl
+leading-relaxed"
             >
                 Experimentos digitais, ferramentas e protótipos.
             </p>
         </header>
-
         <hr class="border-neutral-100 dark:border-neutral-800" />
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Latim Napoleônico -->
             <a href="#" class="group block">
                 <div
-                    class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-lg mb-4 overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
+                    class="aspect-video w-full bg-neutral-100
+dark:bg-neutral-800 rounded-lg mb-4 overflow-hidden relative border
+border-neutral-200 dark:border-neutral-800"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif italic"
+                        class="absolute inset-0 flex
+items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif
+italic"
                     >
                         Latim Napoleônico
                     </div>
                 </div>
-                <div class="flex justify-between items-baseline mb-2">
+                <div class="flex justify-between
+items-baseline mb-2">
                     <h3
-                        class="text-xl font-serif font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors"
+                        class="text-xl font-serif font-medium text-neutral-900
+dark:text-neutral-100 group-hover:text-neutral-600
+dark:group-hover:text-neutral-300 transition-colors"
                     >
                         Latim Napoleônico
                     </h3>
@@ -47,21 +64,28 @@ import Layout from "../layouts/Layout.astro";
                     Ferramenta para estudo e análise de textos em latim.
                 </p>
             </a>
-
-            <!-- Timelines -->
+            <!-- Timelines
+-->
             <a href="#" class="group block">
                 <div
-                    class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-lg mb-4 overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
+                    class="aspect-video w-full
+bg-neutral-100 dark:bg-neutral-800 rounded-lg mb-4 overflow-hidden relative
+border border-neutral-200 dark:border-neutral-800"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif italic"
+                        class="absolute
+inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600
+font-serif italic"
                     >
                         Timelines
                     </div>
                 </div>
-                <div class="flex justify-between items-baseline mb-2">
+                <div class="flex justify-between
+items-baseline mb-2">
                     <h3
-                        class="text-xl font-serif font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors"
+                        class="text-xl font-serif font-medium text-neutral-900
+dark:text-neutral-100 group-hover:text-neutral-600
+dark:group-hover:text-neutral-300 transition-colors"
                     >
                         Timelines
                     </h3>

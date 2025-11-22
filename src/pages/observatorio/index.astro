@@ -31,38 +31,71 @@ const sections = [
 ];
 ---
 
-<Layout title="Observatório | Luan Maitan">
-    <div class="max-w-3xl mx-auto">
-        <header class="mb-12">
-            <h1 class="text-3xl font-serif italic mb-4">Observatório</h1>
-            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Um espaço dedicado ao registro e curadoria do que consumo e
-                encontro. Aqui mantenho meus logs de filmes, livros, links e
-                citações.
-            </p>
-        </header>
+<Layout title="Maitan Hub | Observatório">
+    <nav
+        slot="sidebar"
+        class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
+    >
+        <a href="/observatorio" class="text-black dark:text-white font-medium"
+            >início</a
+        >
+        <a
+            href="/observatorio/livros"
+            class="hover:text-black dark:hover:text-white transition-colors"
+            >livros</a
+        >
+        <a
+            href="/observatorio/filmes"
+            class="hover:text-black dark:hover:text-white transition-colors"
+            >filmes</a
+        >
+        <a
+            href="/observatorio/citacoes"
+            class="hover:text-black dark:hover:text-white transition-colors"
+            >citações</a
+        >
+        <a
+            href="/observatorio/links"
+            class="hover:text-black dark:hover:text-white transition-colors"
+            >links</a
+        >
+    </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {
-                sections.map((section) => (
-                    <a
-                        href={section.href}
-                        class="group block p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
-                    >
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
-                                {section.title}
-                            </h2>
-                            <span class="text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                                →
-                            </span>
-                        </div>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                            {section.description}
-                        </p>
-                    </a>
-                ))
-            }
+    <section class="space-y-12">
+        <div class="max-w-3xl mx-auto">
+            <header class="mb-12">
+                <h1 class="text-3xl font-serif italic mb-4">Observatório</h1>
+                <p
+                    class="text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                >
+                    Um espaço dedicado ao registro e curadoria do que consumo e
+                    encontro. Aqui mantenho meus logs de filmes, livros, links e
+                    citações.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {
+                    sections.map((section) => (
+                        <a
+                            href={section.href}
+                            class="group block p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
+                        >
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                                    {section.title}
+                                </h2>
+                                <span class="text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                                    →
+                                </span>
+                            </div>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                                {section.description}
+                            </p>
+                        </a>
+                    ))
+                }
+            </div>
         </div>
-    </div>
+    </section>
 </Layout>

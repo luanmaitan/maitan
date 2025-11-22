@@ -14,8 +14,21 @@ function getReadingTime(content: string) {
 }
 ---
 
-<Layout title="Luan Maitan | Escritório">
-  <section class="space-y-12">
+<Layout title="Maitan Hub | Escritório">
+  <nav
+    slot="sidebar"
+    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
+  >
+    <a href="/escritorio" class="text-black dark:text-white font-medium"
+      >índice</a
+    >
+    <a
+      href="/tags"
+      class="hover:text-black dark:hover:text-white transition-colors">tags</a
+    >
+  </nav>
+
+  <section class="space-y-8">
     <header class="space-y-4">
       <h1
         class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"

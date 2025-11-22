@@ -63,13 +63,13 @@
             <a
                 href="/escritorio"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Escritório</a
+                on:click={toggle}>escritório</a
             >
             <div class="flex flex-col gap-3">
                 <a
                     href="/observatorio"
                     class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                    on:click={toggle}>Observatório</a
+                    on:click={toggle}>observatório</a
                 >
                 {#if typeof window !== "undefined" && window.location.pathname.startsWith("/observatorio")}
                     <div
@@ -79,22 +79,22 @@
                         <a
                             href="/observatorio/livros"
                             class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
-                            on:click={toggle}>Livros</a
+                            on:click={toggle}>livros</a
                         >
                         <a
                             href="/observatorio/filmes"
                             class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
-                            on:click={toggle}>Filmes</a
+                            on:click={toggle}>filmes</a
                         >
                         <a
                             href="/observatorio/citacoes"
                             class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
-                            on:click={toggle}>Citações</a
+                            on:click={toggle}>citações</a
                         >
                         <a
                             href="/observatorio/links"
                             class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
-                            on:click={toggle}>Links</a
+                            on:click={toggle}>links</a
                         >
                     </div>
                 {/if}
@@ -102,29 +102,29 @@
             <a
                 href="/laboratorio"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Laboratório</a
+                on:click={toggle}>laboratório</a
             >
             <a
                 href="/portfolio"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Portfólio</a
+                on:click={toggle}>portfólio</a
             >
             <a
                 href="/projetos"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Projetos</a
+                on:click={toggle}>projetos</a
             >
             <hr class="border-neutral-200 dark:border-neutral-800" />
             <div class="flex flex-col gap-2">
                 <a
                     href="/sobre"
                     class="text-sm text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
-                    on:click={toggle}>Sobre</a
+                    on:click={toggle}>sobre</a
                 >
                 <a
                     href="/colophon"
                     class="text-sm text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
-                    on:click={toggle}>Colophon</a
+                    on:click={toggle}>colophon</a
                 >
             </div>
         </div>
