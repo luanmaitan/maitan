@@ -1,30 +1,48 @@
 ---
+// Force dynamic rendering to handle query params
+export const prerender = false;
+
 import Layout from '../../layouts/Layout.astro';
 import { getCollections, getRaindrops, type Collection, type Raindrop } from '../../lib/raindrop';
 
 // Get query params
+console.log('[Links] Full URL:', Astro.url.toString());
+console.log('[Links] Search params:', Astro.url.searchParams.toString());
+console.log('[Links] All search params:', Object.fromEntries(Astro.url.searchParams.entries()));
+
 const collectionIdParam = Astro.url.searchParams.get('collection');
 const tag = Astro.url.searchParams.get('tag');
 const type = Astro.url.searchParams.get('type');
 const important = Astro.url.searchParams.get('important') === 'true';
 const noTags = Astro.url.searchParams.get('no-tags') === 'true';
 
-// Default to "Pessoas" (63393704) if no params are present, but don't redirect
-const collectionId = parseInt(collectionIdParam || (!tag && !type && !important && !noTags ? '63393704' : '0'));
+console.log('[Links] Query params:', { collectionIdParam, tag, type, important, noTags });
 
-// Build search query for Raindrop API
-let searchQuery = '';
-if (tag) searchQuery += ` #${tag}`;
-if (type) searchQuery += ` type:${type}`;
-if (important) searchQuery += ` important:true`;
-if (noTags) searchQuery += ` -#*`;
+// Default to "Todos" (0) if no collection param is present
+const collectionId = parseInt(collectionIdParam || '0');
+console.log('[Links] Using collectionId:', collectionId);
+
+// Build search query for Raindrop API (only for supported filters)
+// Note: Raindrop API search syntax may vary, so we'll also filter client-side
+// Syntax: #tag type:article important:true
+const searchParts: string[] = [];
+if (tag) searchParts.push(`#${tag}`);
+if (type) searchParts.push(`type:${type}`);
+if (important) searchParts.push('important:true');
+const searchQuery = searchParts.join(' ');
 
 // Fetch data
 const collections = await getCollections() || [];
-const raindrops = await getRaindrops(collectionId, searchQuery.trim()) || [];
+console.log(`[Links] Found ${collections.length} collections`);
+
+// Always fetch from collection 0 (all collections) and filter client-side
+// This ensures filters work correctly regardless of collection
+let raindrops: Raindrop[] = [];
+raindrops = await getRaindrops(0, undefined) || [];
+console.log(`[Links] Fetched ${raindrops.length} raindrops from API`);
 
 // Process raindrops
-const links = raindrops
+let allLinks = raindrops
   .filter(item => item && item.title && item.link) // Filter out invalid items
   .map((item) => {
     const collection = collections.find(c => c._id === item.collectionId);
@@ -43,7 +61,51 @@ const links = raindrops
     };
   });
 
-// Extract unique tags from all fetched links
+// Apply client-side filters to ensure they work correctly
+let links = allLinks;
+console.log(`[Links] Before filtering: ${links.length} links`);
+
+// Filter by collection (if not "all")
+if (collectionId !== 0) {
+  const before = links.length;
+  links = links.filter(link => link.collectionId === collectionId);
+  console.log(`[Links] After collection filter (${collectionId}): ${before} -> ${links.length}`);
+}
+
+// Filter by tag
+if (tag) {
+  const before = links.length;
+  links = links.filter(link => link.tags && Array.isArray(link.tags) && link.tags.includes(tag));
+  console.log(`[Links] After tag filter (${tag}): ${before} -> ${links.length}`);
+}
+
+// Filter by type
+if (type) {
+  const before = links.length;
+  links = links.filter(link => link.type === type);
+  console.log(`[Links] After type filter (${type}): ${before} -> ${links.length}`);
+}
+
+// Filter by important
+if (important) {
+  const before = links.length;
+  links = links.filter(link => link.important === true);
+  console.log(`[Links] After important filter: ${before} -> ${links.length}`);
+}
+
+// Filter by no tags
+if (noTags) {
+  const before = links.length;
+  links = links.filter(link => !link.tags || !Array.isArray(link.tags) || link.tags.length === 0);
+  console.log(`[Links] After noTags filter: ${before} -> ${links.length}`);
+}
+
+console.log(`[Links] Final filtered links: ${links.length}`);
+
+// Sort by date (newest first)
+links.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// Extract unique tags from filtered links for display
 const currentTags = Array.from(new Set(links.flatMap(link => link.tags || []))).sort();
 
 // Group by year
@@ -83,7 +145,14 @@ function getFilterUrl(key: string, value: string | null) {
     } else {
         url.searchParams.set(key, value);
     }
-    return url.pathname + url.search;
+    // Preserve all other query params
+    const result = url.pathname + (url.search || '');
+    return result;
+}
+
+// Helper to add data-astro-reload to force full page reload
+function getFilterUrlWithReload(key: string, value: string | null) {
+    return getFilterUrl(key, value);
 }
 ---
 
@@ -107,57 +176,25 @@ function getFilterUrl(key: string, value: string | null) {
     <!-- Filters (Top) -->
     <div class="space-y-6 border-b border-neutral-100 dark:border-neutral-800 pb-8">
         
-        <!-- Quick Filters -->
-        <div class="flex flex-wrap gap-2 items-center">
-            <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Filtros:</span>
-            
-            <a href={getFilterUrl('type', null)} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${!type && !important && !noTags && !tag ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                Todos
-            </a>
-
-            <a href={getFilterUrl('important', important ? null : 'true')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${important ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                Favoritos
-            </a>
-
-            <a href={getFilterUrl('type', 'link')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${type === 'link' ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                Links
-            </a>
-
-            <a href={getFilterUrl('type', 'article')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${type === 'article' ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Artigos
-            </a>
-
-            <a href={getFilterUrl('type', 'video')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${type === 'video' ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                Vídeos
-            </a>
-
-             <a href={getFilterUrl('type', 'image')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${type === 'image' ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Imagens
-            </a>
-        </div>
-
         <!-- Collections -->
         <div class="flex flex-wrap gap-2 items-center">
             <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Pastas:</span>
-            <a href={getFilterUrl('collection', '0')} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${collectionId === 0 ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
+            <a href={getFilterUrl('collection', '0')} class={`filter-link px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${collectionId === 0 ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
                 <span class="w-2 h-2 rounded-full bg-neutral-400"></span>
                 Todos
             </a>
-            {collections.map(collection => (
-            <a href={getFilterUrl('collection', collection._id.toString())} class={`px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${collectionId === collection._id ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                {collection.cover?.[0] ? (
-                    <img src={collection.cover[0]} alt="" class="w-4 h-4 object-contain" />
-                ) : (
-                    <span class="w-2 h-2 rounded-full" style={`background-color: ${collection.color || '#666666'}`}></span>
-                )}
-                {collection.title}
-            </a>
-        ))}
+            {collections.map(collection => {
+                const isActive = collectionId === collection._id;
+                return (
+                <a href={getFilterUrl('collection', collection._id.toString())} class={`filter-link px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent ${isActive ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium' : 'text-neutral-600 dark:text-neutral-400'}`}>
+                    {collection.cover?.[0] ? (
+                        <img src={collection.cover[0]} alt="" class="w-4 h-4 object-contain" />
+                    ) : (
+                        <span class="w-2 h-2 rounded-full" style={`background-color: ${collection.color || '#666666'}`}></span>
+                    )}
+                    {collection.title}
+                </a>
+            )})}
         </div>
 
         <!-- Tags (Current Page Only) -->
@@ -165,7 +202,7 @@ function getFilterUrl(key: string, value: string | null) {
         <div class="flex flex-wrap gap-2 items-center">
             <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Tags:</span>
             {currentTags.map(t => (
-                <a href={getFilterUrl('tag', t)} class={`text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors ${tag === t ? 'border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100' : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400'}`}>
+                <a href={getFilterUrl('tag', t)} class={`filter-link text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors ${tag === t ? 'border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100' : 'border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400'}`}>
                     {t}
                 </a>
             ))}
@@ -248,6 +285,18 @@ function getFilterUrl(key: string, value: string | null) {
 </Layout>
 
 <script>
+  // Force full page reload on filter links
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterLinks = document.querySelectorAll('.filter-link');
+    filterLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = (link as HTMLAnchorElement).href;
+        window.location.href = href;
+      });
+    });
+  });
+
   // Hover Animation Logic
   document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.link-item');

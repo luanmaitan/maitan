@@ -30,7 +30,11 @@ export async function getCollections(): Promise<Collection[]> {
             }
         });
 
-        if (!response.ok) return [];
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Error fetching collections (${response.status}):`, errorText);
+            return [];
+        }
         const data = await response.json();
         return Array.isArray(data.items) ? data.items : [];
     } catch (error) {
@@ -47,13 +51,22 @@ export async function getRaindrops(collectionId: number = 0, search?: string): P
         const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
 
         while (true) {
-            const response = await fetch(`https://api.raindrop.io/rest/v1/raindrops/${collectionId}?perpage=${perPage}&page=${page}${searchParam}`, {
+            const url = `https://api.raindrop.io/rest/v1/raindrops/${collectionId}?perpage=${perPage}&page=${page}${searchParam}`;
+            const response = await fetch(url, {
                 headers: {
                     'Authorization': `Bearer ${TOKEN}`
                 }
             });
 
-            if (!response.ok) break;
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(`Error fetching raindrops (${response.status}):`, errorText);
+                // If it's the first page and we get an error, return empty array
+                if (page === 0) {
+                    return [];
+                }
+                break;
+            }
 
             const data = await response.json();
             const items = Array.isArray(data.items) ? data.items : [];

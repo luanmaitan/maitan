@@ -3,6 +3,12 @@ import Layout from '../../layouts/Layout.astro';
 
 const updates = [
   {
+    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    title: "Correção dos Filtros de Links",
+    description: "Correção completa dos filtros da página de Links. Implementação de SSR para renderização dinâmica, correção da leitura de parâmetros de query, remoção de filtros rápidos desnecessários e melhoria na integração com a API do Raindrop. Agora os filtros por pastas/collections e tags funcionam corretamente.",
+    tags: ["Fix", "Links", "Filters", "SSR"]
+  },
+  {
     date: "21 NOV 2025",
     title: "Refinamentos de UI e Conteúdo",
     description: "Ajustes visuais no modo escuro, redesenho do rodapé com ícones minimalistas, criação das páginas de Sobre e Políticas, e reorganização da navegação.",
