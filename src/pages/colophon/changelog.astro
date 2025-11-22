@@ -4,6 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 const updates = [
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    title: "Estrutura do Escritório e Páginas de Projetos",
+    description: "Criação da estrutura completa do Escritório com 6 categorias (ensaios, dramaturgia, poesia, autoficções, impressões, traduções) e páginas individuais para cada categoria. Criação de 3 posts provisórios de ensaios. Implementação de páginas individuais para cada projeto (Vigília, Labirinto, Floresta) com links para suas plataformas. Atualização do colophon com documentação completa de todas as APIs, serviços e bibliotecas utilizadas.",
+    tags: ["Feature", "Content", "Structure", "Documentation"]
+  },
+  {
+    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "Sistema de Calendário e Citações",
     description: "Implementação completa do sistema de calendário com FullCalendar, incluindo visualização mensal, filtros por categorias e tags, e integração na homepage. Criação do sistema de citações com leitura automática de arquivos Markdown, extração de autor e fonte, e atribuição automática de tags. Calendário ancorado no dia atual e widget de horário no footer agora leva à página inicial.",
     tags: ["Feature", "Calendar", "Citations", "Markdown"]
