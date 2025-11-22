@@ -32,26 +32,42 @@ export async function getCollections(): Promise<Collection[]> {
 
         if (!response.ok) return [];
         const data = await response.json();
-        return data.items;
+        return Array.isArray(data.items) ? data.items : [];
     } catch (error) {
         console.error('Error fetching collections:', error);
         return [];
     }
 }
 
-export async function getRaindrops(collectionId: number = 0): Promise<Raindrop[]> {
+export async function getRaindrops(collectionId: number = 0, search?: string): Promise<Raindrop[]> {
     try {
-        // Fetching page 0 with 50 items (max per page usually)
-        // For a full implementation we might need pagination, but starting with 50 is good.
-        const response = await fetch(`https://api.raindrop.io/rest/v1/raindrops/${collectionId}?perpage=50`, {
-            headers: {
-                'Authorization': `Bearer ${TOKEN}`
-            }
-        });
+        let allRaindrops: Raindrop[] = [];
+        let page = 0;
+        const perPage = 50;
+        const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
 
-        if (!response.ok) return [];
-        const data = await response.json();
-        return data.items;
+        while (true) {
+            const response = await fetch(`https://api.raindrop.io/rest/v1/raindrops/${collectionId}?perpage=${perPage}&page=${page}${searchParam}`, {
+                headers: {
+                    'Authorization': `Bearer ${TOKEN}`
+                }
+            });
+
+            if (!response.ok) break;
+
+            const data = await response.json();
+            const items = Array.isArray(data.items) ? data.items : [];
+
+            allRaindrops = [...allRaindrops, ...items];
+
+            if (items.length < perPage) {
+                break;
+            }
+
+            page++;
+        }
+
+        return allRaindrops;
     } catch (error) {
         console.error('Error fetching raindrops:', error);
         return [];
