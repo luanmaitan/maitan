@@ -10,6 +10,7 @@ const escritorio = defineCollection({
         pubDate: z.coerce.date(),
         updatedDate: z.coerce.date().optional(),
         tags: z.array(z.string()).optional(),
+        category: z.enum(['ensaios', 'dramaturgia', 'poesia', 'autoficções', 'impressões', 'traduções']).optional(),
     }),
 });
 

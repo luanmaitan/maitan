@@ -1,17 +1,38 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
 
-const notes = (await getCollection("escritorio")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-function getReadingTime(content: string) {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/g).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return `${minutes} min de leitura`;
-}
+const categories = [
+  {
+    title: "Ensaios",
+    description: "Textos provisórios e reflexões em desenvolvimento.",
+    href: "/escritorio/ensaios",
+  },
+  {
+    title: "Dramaturgia",
+    description: "Textos teatrais e roteiros em processo.",
+    href: "/escritorio/dramaturgia",
+  },
+  {
+    title: "Poesia",
+    description: "Versos e experimentações poéticas.",
+    href: "/escritorio/poesia",
+  },
+  {
+    title: "Autoficções",
+    description: "Narrativas que mesclam realidade e ficção.",
+    href: "/escritorio/autoficcoes",
+  },
+  {
+    title: "Impressões",
+    description: "Notas rápidas e observações do cotidiano.",
+    href: "/escritorio/impressoes",
+  },
+  {
+    title: "Traduções",
+    description: "Traduções e adaptações de textos.",
+    href: "/escritorio/traducoes",
+  },
+];
 ---
 
 <Layout title="Maitan Hub | Escritório">
@@ -23,70 +44,76 @@ function getReadingTime(content: string) {
       >índice</a
     >
     <a
+      href="/escritorio/ensaios"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >ensaios</a
+    >
+    <a
+      href="/escritorio/dramaturgia"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >dramaturgia</a
+    >
+    <a
+      href="/escritorio/poesia"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >poesia</a
+    >
+    <a
+      href="/escritorio/autoficcoes"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >autoficções</a
+    >
+    <a
+      href="/escritorio/impressoes"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >impressões</a
+    >
+    <a
+      href="/escritorio/traducoes"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >traduções</a
+    >
+    <a
       href="/tags"
-      class="hover:text-black dark:hover:text-white transition-colors">tags</a
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >tags</a
     >
   </nav>
 
-  <section class="space-y-8">
-    <header class="space-y-4">
-      <h1
-        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
-      >
-        Escritório
-      </h1>
-      <p
-        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
-      >
-        Um espaço para cultivar ideias em estágio inicial, notas de estudo e
-        conexões mentais.
-      </p>
-    </header>
+  <section class="space-y-12">
+    <div class="max-w-3xl mx-auto">
+      <header class="mb-12">
+        <h1 class="text-3xl font-serif italic mb-4">Escritório</h1>
+        <p
+          class="text-neutral-600 dark:text-neutral-400 leading-relaxed"
+        >
+          Um espaço para cultivar ideias em estágio inicial, notas de estudo e
+          conexões mentais. Textos provisórios que crescem e se transformam.
+        </p>
+      </header>
 
-    <div class="space-y-12">
-      {
-        notes.map((note) => (
-          <div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4 md:gap-8 group">
-            <div class="text-xs font-mono text-neutral-400 dark:text-neutral-500 pt-1.5 uppercase tracking-wider">
-              {note.data.pubDate
-                .toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })
-                .replace(".", "")
-                .toUpperCase()}
-            </div>
-
-            <div class="space-y-2">
-              <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                <a href={`/escritorio/${note.slug}`} class="block">
-                  {note.data.title}
-                </a>
-              </h3>
-              <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-                {note.data.description}
-              </p>
-              <div class="flex items-center gap-4 pt-1">
-                <div class="flex gap-2">
-                  {note.data.tags &&
-                    note.data.tags.map((tag) => (
-                      <a
-                        href={`/tags/${tag}`}
-                        class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-                      >
-                        {tag}
-                      </a>
-                    ))}
-                </div>
-                <span class="text-[10px] text-neutral-300 dark:text-neutral-600 font-mono">
-                  {getReadingTime(note.body)}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          categories.map((category) => (
+            <a
+              href={category.href}
+              class="group block p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                  {category.title}
+                </h2>
+                <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+                  →
                 </span>
               </div>
-            </div>
-          </div>
-        ))
-      }
+              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                {category.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 </Layout>
