@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const updates = [
+  {
+    date: "21 NOV 2024",
+    title: "Refinamentos de UI e Conteúdo",
+    description: "Ajustes visuais no modo escuro, redesenho do rodapé com ícones minimalistas, criação das páginas de Sobre e Políticas, e reorganização da navegação.",
+    tags: ["UI", "Content", "Dark Mode"]
+  },
+  {
+    date: "21 NOV 2024",
+    title: "Estrutura Inicial",
+    description: "Configuração do projeto com Astro, TailwindCSS e Svelte. Implementação do layout responsivo, sistema de temas e páginas fundamentais.",
+    tags: ["System", "Dev"]
+  },
+  {
+    date: "EM BREVE",
+    title: "Latim Napoleônico",
+    description: "Primeiras notas e verbetes do dicionário de questões vernáculas.",
+    tags: ["Conteúdo", "Latim"]
+  }
+];
+---
+
+<Layout title="Maitan Hub | Changelog">
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Changelog</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+        O registro vivo da evolução deste jardim digital. Aqui documento as mudanças estruturais, novos experimentos e atualizações significativas.
+      </p>
+    </header>
+
+    <hr class="border-neutral-100 dark:border-neutral-800" />
+
+    <div class="relative border-l border-neutral-200 dark:border-neutral-800 ml-3 space-y-12 py-4">
+      {updates.map((update) => (
+        <div class="relative pl-8">
+          <!-- Bolinha da timeline -->
+          <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
+          
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+            <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">{update.title}</h3>
+            <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">{update.date}</span>
+          </div>
+          
+          <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-3">{update.description}</p>
+          
+          {update.tags && (
+            <div class="flex gap-2">
+              {update.tags.map((tag) => (
+                <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

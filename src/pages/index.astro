@@ -1,0 +1,46 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Maitan Hub | Home">
+	<section class="py-12 space-y-6">
+		<span class="text-xs font-bold uppercase tracking-widest text-neutral-400">Now</span>
+		
+		<h1 class="text-4xl md:text-5xl font-serif font-medium leading-tight text-neutral-900 dark:text-neutral-100">
+			Cultivando ideias, <br/>
+			conectando narrativas e <br/>
+			explorando interfaces.
+		</h1>
+
+		<p class="text-lg text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+			Bem-vindo ao meu jardim digital. Este é um espaço de experimentação, 
+			onde organizo meu <span class="text-neutral-900 dark:text-neutral-200 underline decoration-neutral-300 dark:decoration-neutral-700 decoration-1 underline-offset-4">knowledge management</span> 
+			e compartilho projetos em andamento.
+		</p>
+	</section>
+
+	<hr class="border-neutral-100 dark:border-neutral-800 my-12" />
+
+	<section>
+		<h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Atualizações Recentes</h2>
+		
+		<div class="space-y-4">
+			<a href="#" class="group flex items-baseline justify-between hover:bg-neutral-100 dark:hover:bg-neutral-800 p-4 -mx-4 rounded-lg transition-colors">
+				<div>
+					<h3 class="font-medium text-neutral-900 dark:text-neutral-200 group-hover:translate-x-1 transition-transform">Estruturando o Hub</h3>
+					<p class="text-sm text-neutral-500 mt-1">Configuração inicial com Astro e Tailwind.</p>
+				</div>
+				<span class="text-xs text-neutral-400 font-mono">21 NOV</span>
+			</a>
+
+			<a href="#" class="group flex items-baseline justify-between hover:bg-neutral-100 p-4 -mx-4 rounded-lg transition-colors">
+				<div>
+					<h3 class="font-medium text-neutral-900 group-hover:translate-x-1 transition-transform">Latim Napoleônico</h3>
+					<p class="text-sm text-neutral-500 mt-1">Primeiras notas do dicionário.</p>
+				</div>
+				<span class="text-xs text-neutral-400 font-mono">EM BREVE</span>
+			</a>
+		</div>
+	</section>
+</Layout>

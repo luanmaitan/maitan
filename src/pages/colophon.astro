@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Maitan Hub | Colophon">
+  <section class="space-y-12">
+    <header class="space-y-4">
+      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Colophon</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+        Detalhes técnicos e decisões de design que constroem este espaço.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      
+      <div class="space-y-4">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Stack</h2>
+        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400">
+          <li class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+            Astro 5.0 (Static Site Generator)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+            TailwindCSS (Styling)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
+            Svelte (Interactivity)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
+            Vercel (Hosting)
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Tipografia</h2>
+        <div class="space-y-6">
+          <div>
+            <p class="text-3xl font-serif text-neutral-900 dark:text-neutral-100 mb-1">Crimson Pro</p>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">Usada para corpo de texto e títulos, trazendo a elegância da leitura clássica para a tela.</p>
+          </div>
+          <div>
+            <p class="text-xl font-sans font-medium text-neutral-900 dark:text-neutral-100 mb-1">Inter</p>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">Usada para UI, menus e metadados, garantindo legibilidade e modernidade.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Inspirações</h2>
+        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+          <li><a href="https://www.iamrob.in/" target="_blank" class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">Robin Noguier (iamrob.in)</a></li>
+          <li><a href="https://stephango.com/" target="_blank" class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">Steph Ango</a></li>
+          <li><a href="https://www.pranamshetty.dev/" target="_blank" class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">Pranam Shetty</a></li>
+          <li><a href="https://core.framer.media/" target="_blank" class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">Framer Core</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Licença</h2>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+          Conteúdo sob licença <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">CC BY-NC-SA 4.0</a>, exceto onde indicado o contrário.
+          O código fonte deste site está disponível no <a href="https://github.com/luanmaitan/maitan" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">GitHub</a>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</Layout>

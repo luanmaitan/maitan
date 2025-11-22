@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Luan Maitan | Jardim Digital">
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Jardim Digital</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+        Um espaço para cultivar ideias em estágio inicial, notas de estudo e conexões mentais.
+        <span class="block mt-2 text-sm text-neutral-400 dark:text-neutral-500 italic">Em construção...</span>
+      </p>
+    </header>
+
+    <hr class="border-neutral-100 dark:border-neutral-800" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Placeholder Cards -->
+      {[1, 2, 3].map((i) => (
+        <div class="p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors group cursor-pointer">
+          <span class="text-xs font-mono text-neutral-400 mb-2 block">NOTA 00{i}</span>
+          <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">Nota de Exemplo {i}</h3>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            Este é um placeholder para futuras notas do Obsidian. O conteúdo real será sincronizado automaticamente.
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

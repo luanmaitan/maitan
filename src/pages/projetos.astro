@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Luan Maitan | Projetos">
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Projetos</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+        Casos de estudo, experimentos e trabalhos selecionados.
+        <span class="block mt-2 text-sm text-neutral-400 dark:text-neutral-500 italic">Em construção...</span>
+      </p>
+    </header>
+
+    <hr class="border-neutral-100 dark:border-neutral-800" />
+
+    <div class="space-y-12">
+      <!-- Placeholder Project -->
+      <div class="group">
+        <div class="aspect-video w-full bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4 overflow-hidden relative">
+          <div class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 font-mono text-sm">
+            IMAGEM DO PROJETO
+          </div>
+        </div>
+        <div class="flex justify-between items-baseline mb-2">
+          <h3 class="text-2xl font-serif font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Maitan Hub</h3>
+          <span class="text-xs font-mono text-neutral-400">2024</span>
+        </div>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+          O desenvolvimento deste próprio ecossistema digital, utilizando Astro, TailwindCSS e Svelte para criar uma experiência de navegação fluida e minimalista.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
