@@ -1,12 +1,14 @@
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind'; // <--- Importe isso
+import tailwind from '@astrojs/tailwind';
 import svelte from '@astrojs/svelte';
+import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
   output: 'server', // Enable SSR for dynamic pages
+  adapter: vercel(),
   integrations: [
-    tailwind(), // <--- Adicione isso na lista (com a vírgula)
+    tailwind(),
     svelte()
   ]
 });
