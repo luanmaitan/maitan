@@ -4,6 +4,7 @@ export interface Collection {
     _id: number;
     title: string;
     color?: string;
+    cover?: string[];
     count: number;
 }
 
@@ -14,6 +15,8 @@ export interface Raindrop {
     description: string;
     cover: string;
     tags: string[];
+    type: 'link' | 'article' | 'image' | 'video' | 'document' | 'audio';
+    important: boolean;
     created: string;
     collectionId: number;
     domain: string;
