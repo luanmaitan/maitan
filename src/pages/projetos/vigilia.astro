@@ -1,0 +1,111 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Maitan Hub | Vigília">
+  <nav
+    slot="sidebar"
+    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
+  >
+    <a
+      href="/projetos"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >← voltar</a
+    >
+    <a href="/projetos" class="text-black dark:text-white font-medium">todos</a>
+    <a href="/projetos/vigilia" class="text-black dark:text-white font-medium"
+      >vigília</a
+    >
+    <a
+      href="/projetos/labirinto"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >labirinto</a
+    >
+    <a
+      href="/projetos/floresta"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >floresta</a
+    >
+  </nav>
+
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1
+        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
+      >
+        Vigília
+      </h1>
+      <p
+        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
+      >
+        Canal de conteúdo e reflexões.
+      </p>
+    </header>
+
+    <hr class="border-neutral-100 dark:border-neutral-800" />
+
+    <div class="space-y-6">
+      <div
+        class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
+      >
+        <div
+          class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif italic"
+        >
+          Vigília
+        </div>
+      </div>
+
+      <div class="prose prose-neutral dark:prose-invert max-w-none">
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          *Página em construção*
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 pt-4">
+        <a
+          href="https://www.youtube.com/@vigilia6885"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+            />
+          </svg>
+          <span>YouTube</span>
+        </a>
+        <a
+          href="https://www.instagram.com/vigilia.co/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+

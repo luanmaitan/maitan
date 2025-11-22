@@ -1,0 +1,117 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Maitan Hub | Floresta">
+  <nav
+    slot="sidebar"
+    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
+  >
+    <a
+      href="/projetos"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >← voltar</a
+    >
+    <a href="/projetos" class="text-black dark:text-white font-medium">todos</a>
+    <a
+      href="/projetos/vigilia"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >vigília</a
+    >
+    <a
+      href="/projetos/labirinto"
+      class="hover:text-black dark:hover:text-white transition-colors"
+      >labirinto</a
+    >
+    <a href="/projetos/floresta" class="text-black dark:text-white font-medium"
+      >floresta</a
+    >
+  </nav>
+
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1
+        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
+      >
+        Floresta
+      </h1>
+      <p
+        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
+      >
+        Projeto ecológico e ambiental.
+      </p>
+    </header>
+
+    <hr class="border-neutral-100 dark:border-neutral-800" />
+
+    <div class="space-y-6">
+      <div
+        class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
+      >
+        <div
+          class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif italic"
+        >
+          Floresta
+        </div>
+      </div>
+
+      <div class="prose prose-neutral dark:prose-invert max-w-none">
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          *Página em construção*
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 pt-4">
+        <a
+          href="https://floresta.eco"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path
+              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            ></path>
+          </svg>
+          <span>Site</span>
+        </a>
+        <a
+          href="https://www.instagram.com/floresta.eco/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
