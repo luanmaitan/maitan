@@ -104,29 +104,63 @@ const { title } = Astro.props;
 						class="flex flex-col space-y-3 text-sm font-medium text-neutral-600 dark:text-neutral-300 mt-8"
 					>
 						<a
-							href="/notas"
+							href="/escritorio"
 							class="hover:text-black dark:hover:text-white transition-colors"
-							>Notas</a
+							>Escritório</a
+						>
+						<div class="flex flex-col gap-2">
+							<a
+								href="/observatorio"
+								class="hover:text-black dark:hover:text-white transition-colors"
+								>Observatório</a
+							>
+							{
+								Astro.url.pathname.startsWith(
+									"/observatorio",
+								) && (
+									<div class="flex flex-col gap-2 pl-3 border-l border-neutral-200 dark:border-neutral-800 ml-1">
+										<a
+											href="/observatorio/livros"
+											class="text-neutral-500 hover:text-black dark:hover:text-white transition-colors text-xs"
+										>
+											Livros
+										</a>
+										<a
+											href="/observatorio/filmes"
+											class="text-neutral-500 hover:text-black dark:hover:text-white transition-colors text-xs"
+										>
+											Filmes
+										</a>
+										<a
+											href="/observatorio/citacoes"
+											class="text-neutral-500 hover:text-black dark:hover:text-white transition-colors text-xs"
+										>
+											Citações
+										</a>
+										<a
+											href="/observatorio/links"
+											class="text-neutral-500 hover:text-black dark:hover:text-white transition-colors text-xs"
+										>
+											Links
+										</a>
+									</div>
+								)
+							}
+						</div>
+						<a
+							href="/laboratorio"
+							class="hover:text-black dark:hover:text-white transition-colors"
+							>Laboratório</a
+						>
+						<a
+							href="/portfolio"
+							class="hover:text-black dark:hover:text-white transition-colors"
+							>Portfólio</a
 						>
 						<a
 							href="/projetos"
 							class="hover:text-black dark:hover:text-white transition-colors"
 							>Projetos</a
-						>
-						<a
-							href="/filmes"
-							class="hover:text-black dark:hover:text-white transition-colors"
-							>Filmes</a
-						>
-						<a
-							href="/livros"
-							class="hover:text-black dark:hover:text-white transition-colors"
-							>Livros</a
-						>
-						<a
-							href="/links"
-							class="hover:text-black dark:hover:text-white transition-colors"
-							>Links</a
 						>
 					</nav>
 				</div>
@@ -139,11 +173,6 @@ const { title } = Astro.props;
 							href="/sobre"
 							class="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
 							>Sobre</a
-						>
-						<a
-							href="/changelog"
-							class="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-							>Changelog</a
 						>
 						<a
 							href="/colophon"

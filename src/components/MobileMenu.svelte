@@ -61,29 +61,58 @@
             class="absolute top-full left-0 w-full bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-lg py-4 px-6 flex flex-col gap-4 z-50"
         >
             <a
-                href="/notas"
+                href="/escritorio"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Notas</a
+                on:click={toggle}>Escritório</a
+            >
+            <div class="flex flex-col gap-3">
+                <a
+                    href="/observatorio"
+                    class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                    on:click={toggle}>Observatório</a
+                >
+                {#if typeof window !== "undefined" && window.location.pathname.startsWith("/observatorio")}
+                    <div
+                        class="flex flex-col gap-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 ml-1"
+                        transition:slide
+                    >
+                        <a
+                            href="/observatorio/livros"
+                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
+                            on:click={toggle}>Livros</a
+                        >
+                        <a
+                            href="/observatorio/filmes"
+                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
+                            on:click={toggle}>Filmes</a
+                        >
+                        <a
+                            href="/observatorio/citacoes"
+                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
+                            on:click={toggle}>Citações</a
+                        >
+                        <a
+                            href="/observatorio/links"
+                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white"
+                            on:click={toggle}>Links</a
+                        >
+                    </div>
+                {/if}
+            </div>
+            <a
+                href="/laboratorio"
+                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                on:click={toggle}>Laboratório</a
+            >
+            <a
+                href="/portfolio"
+                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                on:click={toggle}>Portfólio</a
             >
             <a
                 href="/projetos"
                 class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
                 on:click={toggle}>Projetos</a
-            >
-            <a
-                href="/filmes"
-                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Filmes</a
-            >
-            <a
-                href="/livros"
-                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Livros</a
-            >
-            <a
-                href="/links"
-                class="text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-                on:click={toggle}>Links</a
             >
             <hr class="border-neutral-200 dark:border-neutral-800" />
             <div class="flex flex-col gap-2">
@@ -91,11 +120,6 @@
                     href="/sobre"
                     class="text-sm text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
                     on:click={toggle}>Sobre</a
-                >
-                <a
-                    href="/changelog"
-                    class="text-sm text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
-                    on:click={toggle}>Changelog</a
                 >
                 <a
                     href="/colophon"

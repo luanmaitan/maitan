@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const notes = (await getCollection("notas")).sort(
+const notes = (await getCollection("escritorio")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
@@ -14,13 +14,13 @@ function getReadingTime(content: string) {
 }
 ---
 
-<Layout title="Luan Maitan | Notas">
+<Layout title="Luan Maitan | Escritório">
   <section class="space-y-12">
     <header class="space-y-4">
       <h1
         class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
       >
-        Notas
+        Escritório
       </h1>
       <p
         class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
@@ -47,7 +47,7 @@ function getReadingTime(content: string) {
 
             <div class="space-y-2">
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                <a href={`/notas/${note.slug}`} class="block">
+                <a href={`/escritorio/${note.slug}`} class="block">
                   {note.data.title}
                 </a>
               </h3>

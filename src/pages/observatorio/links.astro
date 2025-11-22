@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollections, getRaindrops, type Collection, type Raindrop } from '../lib/raindrop';
+import Layout from '../../layouts/Layout.astro';
+import { getCollections, getRaindrops, type Collection, type Raindrop } from '../../lib/raindrop';
 
 const collections = await getCollections();
 const allRaindrops = await getRaindrops(0); // 0 means all

@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { XMLParser } from 'fast-xml-parser';
 
 const RSS_URL = 'https://www.goodreads.com/review/list_rss/9832371?key=NiGdczsTdllwXApQtXWgtYcYJQm2zi-PUMmv8iz7FwI-OpbO&shelf=read';
@@ -52,7 +52,7 @@ async function getBooks() {
 const books = (await getBooks()).sort((a: any, b: any) => b.date - a.date);
 
 // Helper to check if year should be shown (first occurrence of the year)
-let lastYear = null;
+let lastYear: number | null = null;
 function shouldShowYear(year: number) {
     if (year !== lastYear) {
         lastYear = year;

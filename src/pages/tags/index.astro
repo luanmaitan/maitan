@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const allNotes = await getCollection("notas");
+const allNotes = await getCollection("escritorio");
 const tags = [...new Set(allNotes.map((note) => note.data.tags).flat())].sort();
 ---
 

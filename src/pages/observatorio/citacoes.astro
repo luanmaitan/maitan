@@ -1,0 +1,124 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// Placeholder data - eventually replace with Instapaper API or local JSON
+const quotes = [
+    {
+        text: "We read to know we are not alone.",
+        author: "C.S. Lewis",
+        source: "Shadowlands",
+    },
+    {
+        text: "I have always imagined that Paradise will be a kind of library.",
+        author: "Jorge Luis Borges",
+        source: "Poem of the Gifts",
+    },
+    {
+        text: "If you don't like to read, you haven't found the right book.",
+        author: "J.K. Rowling",
+        source: "",
+    },
+    {
+        text: "There is no friend as loyal as a book.",
+        author: "Ernest Hemingway",
+        source: "",
+    },
+    {
+        text: "So many books, so little time.",
+        author: "Frank Zappa",
+        source: "",
+    },
+];
+---
+
+<Layout title="Citações | Observatório">
+    <section class="max-w-3xl mx-auto">
+        <header class="mb-12 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-serif italic mb-4">Citações</h1>
+                <p
+                    class="text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                >
+                    Fragmentos, pensamentos e trechos coletados.
+                </p>
+            </div>
+            <button
+                id="random-btn"
+                class="px-4 py-2 text-sm font-medium bg-neutral-900 dark:bg-white text-white dark:text-black rounded-full hover:opacity-90 transition-opacity flex items-center gap-2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path
+                        d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                    ></path><path d="M3 3v5h5"></path><path
+                        d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"
+                    ></path><path d="M16 16h5v5"></path></svg
+                >
+                Aleatório
+            </button>
+        </header>
+
+        <div id="quotes-grid" class="grid grid-cols-1 gap-6">
+            {
+                quotes.map((quote) => (
+                    <div class="quote-card p-8 bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors">
+                        <blockquote class="font-serif text-xl leading-relaxed text-neutral-800 dark:text-neutral-200 mb-4">
+                            "{quote.text}"
+                        </blockquote>
+                        <footer class="text-sm text-neutral-500 dark:text-neutral-400 font-mono">
+                            — {quote.author}
+                            {quote.source && (
+                                <span class="opacity-60">
+                                    , em {quote.source}
+                                </span>
+                            )}
+                        </footer>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const quotes = document.querySelectorAll(".quote-card");
+    const btn = document.getElementById("random-btn");
+    const grid = document.getElementById("quotes-grid");
+
+    btn?.addEventListener("click", () => {
+        // Simple shuffle animation or just scroll to a random one?
+        // Let's just pick one and highlight it or show only one?
+        // User asked for "random para rodar as citações de forma aleatória".
+        // Let's shuffle the DOM order.
+
+        if (!grid) return;
+
+        const array = Array.from(quotes);
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+
+        // Clear and re-append
+        // Add a small fade animation
+        grid.style.opacity = "0";
+        setTimeout(() => {
+            array.forEach((card) => grid.appendChild(card));
+            grid.style.opacity = "1";
+        }, 200);
+    });
+</script>
+
+<style>
+    #quotes-grid {
+        transition: opacity 0.2s ease-in-out;
+    }
+</style>
