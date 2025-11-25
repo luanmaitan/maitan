@@ -1,0 +1,303 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const sections = [
+  { id: "typography", title: "Tipografia" },
+  { id: "colors", title: "Cores" },
+  { id: "buttons", title: "Botões" },
+  { id: "cards", title: "Cards" },
+  { id: "tags", title: "Tags" },
+  { id: "inputs", title: "Formulários" },
+];
+---
+
+<Layout title="Maitan Hub | Design System">
+  <nav
+    slot="sidebar"
+    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400 sticky top-32"
+  >
+    <a
+      href="/colophon"
+      class="hover:text-black dark:hover:text-white transition-colors mb-4 flex items-center gap-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="rotate-180"
+        ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+      >
+      voltar
+    </a>
+    
+    <span class="text-xs font-bold uppercase tracking-widest text-neutral-900 dark:text-neutral-100 mb-2">Índice</span>
+    
+    {
+      sections.map((section) => (
+        <a
+          href={`#${section.id}`}
+          class="hover:text-black dark:hover:text-white transition-colors"
+        >
+          {section.title}
+        </a>
+      ))
+    }
+  </nav>
+
+  <section class="space-y-16 max-w-4xl">
+    <header class="space-y-4 border-b border-neutral-200 dark:border-neutral-800 pb-12">
+      <h1 class="text-4xl font-serif font-medium text-neutral-900 dark:text-neutral-100">
+        Design System
+      </h1>
+      <p class="text-xl text-neutral-600 dark:text-neutral-400 font-serif max-w-2xl leading-relaxed">
+        Guia de referência visual baseado no Carbon Design System. Estética minimalista, técnica e funcional.
+      </p>
+    </header>
+
+    <!-- Typography -->
+    <section id="typography" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Tipografia
+      </h2>
+      
+      <div class="grid gap-12">
+        <div class="space-y-6">
+          <span class="text-xs font-mono text-neutral-400 uppercase">IBM Plex Serif (Headings & Body)</span>
+          <div class="space-y-4">
+            <h1 class="text-5xl font-serif">Heading 1</h1>
+            <h2 class="text-4xl font-serif">Heading 2</h2>
+            <h3 class="text-3xl font-serif">Heading 3</h3>
+            <h4 class="text-2xl font-serif">Heading 4</h4>
+            <h5 class="text-xl font-serif">Heading 5</h5>
+            <h6 class="text-lg font-serif">Heading 6</h6>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <span class="text-xs font-mono text-neutral-400 uppercase">IBM Plex Sans (UI)</span>
+          <div class="space-y-4">
+            <p class="text-base font-sans">
+              Body Text (Sans) — Usado para elementos de interface, menus e descrições curtas. A legibilidade é prioridade.
+            </p>
+            <p class="text-sm font-sans text-neutral-500">
+              Small Text — Usado para metadados e informações secundárias.
+            </p>
+            <p class="text-xs font-sans font-bold uppercase tracking-widest text-neutral-400">
+              Overline / Label
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <span class="text-xs font-mono text-neutral-400 uppercase">IBM Plex Mono (Code & Data)</span>
+          <div class="space-y-2">
+            <p class="font-mono text-sm">const designSystem = "Carbon";</p>
+            <p class="font-mono text-xs text-neutral-500">ID: #829102 • 25 NOV 2025</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section id="colors" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Cores (Neutral Scale)
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-50 border border-neutral-200"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>50</span>
+            <span class="text-neutral-400">#f4f4f4</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-100 border border-neutral-200"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>100</span>
+            <span class="text-neutral-400">#e0e0e0</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-200"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>200</span>
+            <span class="text-neutral-400">#c6c6c6</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-300"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>300</span>
+            <span class="text-neutral-400">#a8a8a8</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-400"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>400</span>
+            <span class="text-neutral-400">#8d8d8d</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-500"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>500</span>
+            <span class="text-neutral-400">#6f6f6f</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-600"></div>
+          <div class="flex justify-between text-xs font-mono text-white">
+            <span>600</span>
+            <span class="opacity-70">#525252</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-700"></div>
+          <div class="flex justify-between text-xs font-mono text-white">
+            <span>700</span>
+            <span class="opacity-70">#393939</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-800"></div>
+          <div class="flex justify-between text-xs font-mono text-white">
+            <span>800</span>
+            <span class="opacity-70">#262626</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-900"></div>
+          <div class="flex justify-between text-xs font-mono text-white">
+            <span>900</span>
+            <span class="opacity-70">#161616</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-neutral-950"></div>
+          <div class="flex justify-between text-xs font-mono text-white">
+            <span>950</span>
+            <span class="opacity-70">#000000</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="h-24 bg-blue-600"></div>
+          <div class="flex justify-between text-xs font-mono">
+            <span>Primary</span>
+            <span class="text-neutral-400">#0f62fe</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section id="buttons" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Botões & Links
+      </h2>
+      
+      <div class="flex flex-wrap gap-4 items-center">
+        <button class="px-4 py-3 bg-neutral-900 dark:bg-white text-white dark:text-black font-medium text-sm hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors rounded-none">
+          Primary Button
+        </button>
+        
+        <button class="px-4 py-3 border border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-medium text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors rounded-none">
+          Secondary Button
+        </button>
+        
+        <button class="px-4 py-3 text-neutral-600 dark:text-neutral-400 font-medium text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors rounded-none">
+          Ghost Button
+        </button>
+      </div>
+
+      <div class="flex gap-8">
+        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline underline-offset-2">Inline Link</a>
+        <a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">Navigation Link</a>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section id="cards" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Cards
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group">
+          <h3 class="text-lg font-medium mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Card Title</h3>
+          <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+            Conteúdo do card com bordas retas e hover state sutil na borda.
+          </p>
+        </div>
+
+        <div class="p-6 bg-neutral-100 dark:bg-neutral-800/50 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
+          <h3 class="text-lg font-medium mb-2">Secondary Card</h3>
+          <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+            Variação com background preenchido para destacar seções.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tags -->
+    <section id="tags" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Tags & Pills
+      </h2>
+      
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
+          Default Tag
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+          Active Tag
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-700 text-neutral-500">
+          Outline Tag
+        </span>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <span class="text-[10px] uppercase tracking-wider border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-sm text-neutral-500">
+          System Label
+        </span>
+        <span class="text-[10px] uppercase tracking-wider bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black px-2 py-1 rounded-sm">
+          Featured
+        </span>
+      </div>
+    </section>
+
+    <!-- Inputs -->
+    <section id="inputs" class="space-y-8 scroll-mt-32">
+      <h2 class="text-2xl font-medium text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+        Formulários
+      </h2>
+      
+      <div class="max-w-sm space-y-4">
+        <div class="space-y-1">
+          <label class="text-xs font-bold uppercase tracking-widest text-neutral-500">Input Label</label>
+          <input type="text" placeholder="Placeholder text" class="w-full p-3 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 focus:border-blue-600 dark:focus:border-blue-500 outline-none transition-colors rounded-none text-sm" />
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-bold uppercase tracking-widest text-neutral-500">Select</label>
+          <select class="w-full p-3 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 focus:border-blue-600 dark:focus:border-blue-500 outline-none transition-colors rounded-none text-sm appearance-none">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+  </section>
+</Layout>
+

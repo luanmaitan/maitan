@@ -4,6 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 const updates = [
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    title: "Guia do Design System",
+    description: "Criação da página oficial do Design System, listando todos os tokens visuais, tipografia, cores e componentes do projeto. O guia serve como referência viva da implementação do Carbon Design System no Maitan Hub. Adicionado link direto no Colophon.",
+    tags: ["Design System", "Docs", "New Page"]
+  },
+  {
+    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "Carbon Design System",
     description: "Adoção completa do Carbon Design System. Implementação da tipografia IBM Plex (Sans, Serif e Mono), paleta de cores Carbon Gray 100 (Dark) e White (Light), e estética sharp (bordas retas) em todos os elementos da interface. Refatoração dos estilos globais e tokens de design via TailwindCSS.",
     tags: ["Design System", "UI", "Carbon", "Refactor"]
