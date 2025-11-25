@@ -1,7 +1,9 @@
 ---
 // src/layouts/Layout.astro
 // Importando as fontes que instalamos
-import "@fontsource/crimson-pro";
+import "@fontsource/ibm-plex-sans";
+import "@fontsource/ibm-plex-serif";
+import "@fontsource/ibm-plex-mono";
 import MobileMenu from "../components/MobileMenu.svelte";
 import ThemeToggle from "../components/ThemeToggle.svelte";
 import FooterInfo from "../components/FooterInfo.svelte";
@@ -51,11 +53,11 @@ const { title } = Astro.props;
 		</script>
 	</head>
 	<body
-		class="font-sans selection:bg-neutral-200 selection:text-black bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-100 transition-colors duration-300 flex flex-col min-h-screen"
+		class="font-sans selection:bg-primary selection:text-white bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-100 transition-colors duration-300 flex flex-col min-h-screen"
 	>
 		<!-- Header -->
 		<header
-			class="fixed top-0 left-0 w-full bg-neutral-50/90 dark:bg-neutral-900/90 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 z-50 px-6 py-4 flex justify-between items-center"
+			class="fixed top-0 left-0 w-full bg-neutral-50/95 dark:bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-200 dark:border-neutral-800 z-50 px-6 py-4 flex justify-between items-center"
 		>
 			<a href="/" class="flex items-center gap-3 group">
 				<img
@@ -260,12 +262,34 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-	/* Definindo a fonte Serif apenas para textos longos/corpo */
+	/* Carbon Design System Typography */
+	
+	/* Serif for editorial content */
 	.prose {
-		font-family: "Crimson Pro", serif;
+		font-family: "IBM Plex Serif", serif;
 	}
-	/* Definindo a fonte Sans para UI (Sidebar, menus) */
+	
+	/* Sans for UI */
 	body {
-		font-family: "Inter", sans-serif;
+		font-family: "IBM Plex Sans", sans-serif;
+	}
+
+	/* Mono for code */
+	code, pre {
+		font-family: "IBM Plex Mono", monospace;
+	}
+
+	/* Carbon Focus Styles */
+	:focus-visible {
+		outline: 2px solid #0f62fe;
+		outline-offset: 2px;
+	}
+
+	/* Carbon Link Styles (underline) */
+	a {
+		text-decoration-thickness: 1px;
+	}
+	a:hover {
+		text-decoration-thickness: 2px;
 	}
 </style>

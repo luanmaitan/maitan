@@ -10,3 +10,4 @@ tags: ['Filosofia', 'Consciência', 'Provisório']
 
 Este é um ensaio provisório sobre os estados liminares da consciência, explorando os espaços entre a vigília e o sonho.
 
+

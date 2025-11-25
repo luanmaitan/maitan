@@ -10,3 +10,4 @@ tags: ['Religião', 'Ritual', 'Provisório']
 
 Este é um ensaio provisório sobre o papel dos sentidos, especialmente o olfato, na experiência religiosa e ritualística.
 
+

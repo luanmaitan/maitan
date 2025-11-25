@@ -4,6 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 const updates = [
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    title: "Carbon Design System",
+    description: "Adoção completa do Carbon Design System. Implementação da tipografia IBM Plex (Sans, Serif e Mono), paleta de cores Carbon Gray 100 (Dark) e White (Light), e estética sharp (bordas retas) em todos os elementos da interface. Refatoração dos estilos globais e tokens de design via TailwindCSS.",
+    tags: ["Design System", "UI", "Carbon", "Refactor"]
+  },
+  {
+    date: "25 NOV 2025",
     title: "Estrutura do Escritório e Páginas de Projetos",
     description: "Criação da estrutura completa do Escritório com 6 categorias (ensaios, dramaturgia, poesia, autoficções, impressões, traduções) e páginas individuais para cada categoria. Criação de 3 posts provisórios de ensaios. Implementação de páginas individuais para cada projeto (Vigília, Labirinto, Floresta) com links para suas plataformas. Atualização do colophon com documentação completa de todas as APIs, serviços e bibliotecas utilizadas.",
     tags: ["Feature", "Content", "Structure", "Documentation"]
@@ -77,8 +83,8 @@ const updates = [
           <li><strong>Novas Seções:</strong> Criação das páginas de Laboratório (experimentos web) e Portfólio.</li>
         </ul>
         <div class="flex gap-2 mt-3">
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">Structure</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">Navigation</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Structure</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Navigation</span>
         </div>
       </div>
 
@@ -98,9 +104,9 @@ const updates = [
           <li><strong>UI:</strong> Animações de hover com capas flutuantes e refinamentos visuais gerais.</li>
         </ul>
         <div class="flex gap-2 mt-3">
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">Content</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">API</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">UI</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Content</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">API</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">UI</span>
         </div>
       </div>
       {updates.map((update) => (
@@ -118,7 +124,7 @@ const updates = [
           {update.tags && (
             <div class="flex gap-2">
               {update.tags.map((tag) => (
-                <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">{tag}</span>
+                <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">{tag}</span>
               ))}
             </div>
           )}

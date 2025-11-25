@@ -10,3 +10,4 @@ tags: ['Filosofia', 'Aventura', 'Provisório']
 
 Este é um ensaio provisório inspirado na famosa resposta de George Mallory sobre por que escalar o Everest: "Porque está lá".
 
+
