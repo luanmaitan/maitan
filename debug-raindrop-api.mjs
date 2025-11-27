@@ -1,4 +1,4 @@
-const TOKEN = '44a3a6dd-4fa7-4fa9-aaf2-8b9da84f9c6d';
+const TOKEN = process.env.RAINDROP_TOKEN;
 
 async function testRaindropAPI() {
     try {
