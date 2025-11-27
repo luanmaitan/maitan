@@ -10,18 +10,18 @@ const projects = [
 
 const socialLinks = [
   { name: "instagram", href: "https://instagram.com/luanmaitan", icon: "/icons/instagram.svg" },
-  { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
-  { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
+  { name: "x/twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" },
   { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
-  { name: "x/twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" }, // Renamed and using x.svg
   { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
-  { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "" }, // No icon
-  { name: "soundcloud", href: "https://soundcloud.com/luanmaitan", icon: "/icons/soundcloud.svg" }, // Using soundcloud.svg
-  { name: "youtube", href: "https://youtube.com/luanmaitan", icon: "/icons/youtube.svg" }, // Using youtube.svg
-  { name: "discord", href: "https://discord.com", icon: "" }, // No icon
-  { name: "github", href: "https://github.com/luanmaitan", icon: "/icons/github.svg" }, // Using github.svg
-  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "" }, // No icon
+  { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
+  { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
+  { name: "youtube", href: "https://youtube.com/luanmaitan", icon: "/icons/youtube.svg" },
+  { name: "soundcloud", href: "https://soundcloud.com/luanmaitan", icon: "/icons/soundcloud.svg" },
   { name: "spotify", href: "https://open.spotify.com/user/luanmaitan", icon: "/icons/spotify.svg" },
+  { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "" }, // No icon
+  { name: "github", href: "https://github.com/luanmaitan", icon: "/icons/github.svg" },
+  { name: "discord", href: "https://discord.com", icon: "" }, // No icon
+  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "" }, // No icon
 ];
 ---
 
@@ -33,7 +33,7 @@ const socialLinks = [
     </h1>
   </div>
 
-  <div class="space-y-16"> <!-- Increased vertical spacing between sections -->
+  <div class="space-y-16"> <!-- Vertical spacing between sections -->
     
     <!-- Section 1: Tipografia Digital / Intro -->
     <div id="intro">
@@ -60,9 +60,10 @@ const socialLinks = [
           nesse momento, me dedico aos seguintes projetos:
         </p>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Projects grid modified to 4 columns on larger screens (one line as requested) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           {projects.map((project) => (
-            <a href={project.href} class="group flex items-center gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors">
+            <a href={project.href} class="group flex flex-col items-center text-center gap-3 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors">
               <div class="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
                  <div class="w-full h-full bg-neutral-300 dark:bg-neutral-700"></div>
               </div>
@@ -95,11 +96,7 @@ const socialLinks = [
               {link.icon ? (
                 <img src={link.icon} alt="" class="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity dark:invert" />
               ) : (
-                // Placeholder circle if no icon, or just nothing? User asked for icon. 
-                // I'll use a simple circle placeholder if no icon provided to maintain alignment if desired, 
-                // but user said "incluir ícone", so for text-only ones maybe just no icon is better or a generic dot.
-                // I will leave it empty if no icon string is present, effectively text-only.
-                <span class="w-4 h-4 block bg-neutral-300 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></span>
+                <span class="w-4 h-4 block bg-neutral-300 dark:bg-neutral-600 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></span>
               )}
               {link.name}
             </a>
