@@ -1,0 +1,590 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  { name: "hedra", href: "https://hedra.com.br", image: "/favicon.jpg" },
+  { name: "vigília", href: "/projetos/vigilia", image: "/favicon.jpg" },
+  { name: "labirinto", href: "/projetos/labirinto", image: "/favicon.jpg" },
+  { name: "floresta", href: "/projetos/floresta", image: "/favicon.jpg" },
+];
+
+const socialLinks = [
+  { name: "instagram", href: "https://instagram.com/luanmaitan" },
+  { name: "facebook", href: "https://facebook.com/luanmaitan" },
+  { name: "mastodon", href: "https://mastodon.social/@luanmaitan" },
+  { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social" },
+  { name: "twitter", href: "https://twitter.com/luanmaitan" },
+  { name: "threads", href: "https://threads.net/@luanmaitan" },
+  { name: "pinterest", href: "https://pinterest.com/luanmaitan" },
+  { name: "spotify", href: "https://open.spotify.com/user/luanmaitan" },
+];
+---
+
+<Layout title="Maitan Hub">
+  <!-- Sidebar Content (Empty for Home as per request to mimic landing page style, or minimal?) 
+       The user said: "no conteúdo da pagina inicial, não teremos um submenu, será uma landing page."
+       But also said: "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos."
+       So the left column will act as section headers.
+  -->
+  
+  <!-- Since Layout.astro expects slot="sidebar" for the left column, we'll use that. 
+       However, the Layout grid is fixed 400px left column. 
+       If we want the SECTIONS (titles) to be on the left and content on right, we need to restructure how we use the layout slots or grid inside the main slot.
+       
+       The user prompt implies a structure like:
+       LEFT COLUMN (Title)       RIGHT COLUMN (Content)
+       1. Tipografia Digital     Olá! Criei esse site...
+       2. Agora                  Nesse momento, me dedico... [Projects Grid]
+       3. Por aí                 Você também pode me acompanhar... [Social Links]
+
+       BUT, the current Layout.astro has a fixed sidebar slot that stays sticky on top.
+       If we put multiple titles in the sidebar slot, they will all be at the top (or sticky).
+       To achieve a "scroll-spy" or section-based layout where the title is next to the content, we should probably NOT use the slot="sidebar" for these section titles if we want them to scroll WITH the content, OR we use the sidebar for navigation anchors.
+       
+       Re-reading: "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos."
+       This sounds like a classic editorial layout: Title Left, Content Right, repeated for each section.
+       
+       If I use the `slot="sidebar"`, that content is sticky/fixed in the left column.
+       If I want the titles to be next to their content blocks as the user scrolls, I should implement the grid INSIDE the main content area and leave the `slot="sidebar"` empty or minimal (maybe just the main site title?).
+       
+       Actually, the Layout `main` has `grid lg:grid-cols-[400px_1fr]`.
+       If I don't use `slot="sidebar"`, the left column is empty? No, `slot="sidebar"` populates the first column div.
+       
+       Let's try to use the Layout's grid effectively. 
+       If we want DISTINCT sections where each has a title on the left and content on the right, we might need to override the default layout grid or use it creatively.
+       
+       However, `Layout.astro` defines the grid for the whole page wrapper.
+       
+       Strategy:
+       1. Use `slot="sidebar"` for the main page title ("exercitar admiração...") as a general header.
+       2. OR, disable the default sidebar slot mechanism for home and build the grid manually?
+       
+       Let's look at the user request again: "main da home mais ou menos como a landing page da redo".
+       Redo landing page often has scrolling sections.
+       
+       If I put "1. Tipografia Digital", "2. Agora", "3. Por aí" all in the sidebar slot, they will be fixed on the left while the right side scrolls. This is a common pattern.
+       Let's assume the user wants the section TITLES on the left (sticky or fixed) and content on right?
+       
+       "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos. não é pra reproduzir os números, é só pra indicar o que vai à esquerda e o que vai à direita do main da home"
+       
+       This suggests a layout where for EACH row:
+       Left: Title
+       Right: Content
+       
+       This is NOT what the current Layout.astro does (it has ONE big left column and ONE big right column).
+       To achieve "Row 1: Title Left | Content Right", "Row 2: Title Left | Content Right", we need to ignore the Layout's primary sidebar slot for these specific section headers, OR repurpose the main content area to be a single column that we internally grid.
+       
+       But `Layout.astro` enforces `grid lg:grid-cols-[400px_1fr]`.
+       The left column is the `slot="sidebar"`.
+       The right column is `slot="default"`.
+       
+       If I put content in `slot="default"`, it goes to the right.
+       If I want "Tipografia Digital" to be to the left of "Olá...", I can't easily do that if "Tipografia Digital" is in the content flow but visually in the left column, UNLESS I make the main content span full width and manage the grid myself.
+       
+       The Layout has `class:list={[..., Astro.slots.has("sidebar") ? ... : ... ]}` logic?
+       Let's check Layout.astro content again.
+       
+       `src/layouts/Layout.astro`:
+       ```astro
+       <main class:list={[..., "grid lg:grid-cols-[400px_1fr] gap-12 items-start"]}>
+           <div class="flex flex-col gap-8"><slot name="sidebar" /></div>
+           <div class="min-w-0"><slot /></div>
+       </main>
+       ```
+       It ALWAYS applies the grid now (I removed the conditional logic in previous turn).
+       
+       So, to achieve the requested layout:
+       I will leave `slot="sidebar"` empty (or minimal) and implement the "Left Title / Right Content" rows INSIDE the main content slot?
+       BUT the main content slot is confined to the 2nd column (1fr).
+       
+       If I want to use the LEFT column for titles, I have to put them in `slot="sidebar"`.
+       But then they are separated from their content vertically.
+       
+       Workaround: Use `slot="sidebar"` for the PAGE TITLE ("exercitar admiração...").
+       And then for the content sections, I will implement a nested grid inside the right column?
+       No, that would make the "Left" titles still be inside the "Right" column of the page.
+       
+       Maybe the user wants the WHOLE page to follow this pattern.
+       If so, I should likely NOT pass `slot="sidebar"` (so the layout might revert to single column if I hadn't hardcoded the grid).
+       
+       Wait, I hardcoded the grid: `"grid lg:grid-cols-[400px_1fr] gap-12 items-start"`.
+       This forces a left column.
+       
+       If I put the section titles in the left column (`slot="sidebar"`), they will stack there.
+       If the content is long, they might misalign with the content on the right if not carefully managed (e.g. sticky navigation vs scrolling content).
+       
+       However, "Redo landing page" style often implies:
+       Left Col: Big Title (Sticky)
+       Right Col: Scrolling content sections.
+       
+       Let's try this:
+       Left Column (Sidebar Slot): "exercitar admiração, compartilhar perspectivas" (Big Title)
+       
+       Right Column (Main Slot):
+         Section 1:
+           Title: "tipografia digital" (Small/Medium)
+           Content: "Olá! ..."
+         Section 2:
+           Title: "agora"
+           Content: Projects...
+         Section 3:
+           Title: "por aí"
+           Content: Socials...
+           
+       BUT the user explicitly said:
+       "1. tipografia digital [LEFT] ... olá! [RIGHT]"
+       "2. agora [LEFT] ... nesse momento [RIGHT]"
+       
+       This implies a row-based layout.
+       Row 1: Col 1 (Tipografia Digital) | Col 2 (Olá...)
+       Row 2: Col 1 (Agora) | Col 2 (Nesse momento...)
+       
+       To do this with the current Layout, I need to effectively "break" out of the Layout's sidebar constraint OR use the Layout's sidebar for the FIRST title and then... it gets messy.
+       
+       BETTER APPROACH:
+       Modify `Layout.astro` to accept a prop or slot configuration that allows a "Full Width" main area, OR just use the existing structure but trick it.
+       
+       Actually, looking at the CSS in Layout:
+       `lg:ml-[250px]` (margin left for fixed sidebar nav).
+       Then the main grid: `grid lg:grid-cols-[400px_1fr]`.
+       
+       If I want to control the alignment perfectly, I should probably implement the rows inside the `slot="default"` but I need that slot to span full width? No, the Layout restricts it to the right column.
+       
+       Let's assume the "Left" the user refers to is relative to the *content area* (the right side of the nav sidebar).
+       So:
+       [NAV SIDEBAR 250px] [ CONTENT AREA ]
+                           [ Left: Title | Right: Content ]
+                           [ Left: Title | Right: Content ]
+       
+       This means I should build a grid INSIDE the `index.astro` page that mimics this structure.
+       
+       So inside `index.astro`:
+       No `slot="sidebar"` (or empty).
+       Main content:
+       <div class="grid lg:grid-cols-[300px_1fr] gap-x...">
+          <!-- Section 1 -->
+          <div class="sticky">tipografia digital</div>
+          <div>Content...</div>
+          
+          <!-- Section 2 -->
+          <div class="sticky">agora</div>
+          <div>Content...</div>
+       </div>
+       
+       Wait, if I don't use `slot="sidebar"`, the Layout still renders the left column div (400px wide) because I hardcoded the grid in Layout.astro.
+       
+       If I leave `slot="sidebar"` empty, I get a 400px empty gap.
+       
+       Let's use the `slot="sidebar"` for the Main Title ("exercitar admiração...") as requested previously ("primeira seção: trocar título...").
+       
+       Actually, the previous request said:
+       "primeira seção: trocar título... na parte de conteúdo, à direita, um texto..."
+       
+       New request:
+       "vamos tentar criar um main da home mais ou menos como a landing page da redo. ... indicar o que vai à esquerda e o que vai à direita do main da home"
+       
+       If I strictly follow "Left = Title, Right = Content", I can implement this as a list of sections where each section is a grid.
+       
+       But I need to bypass the Layout's 400px sidebar column if I want to use that space, OR I put the "Left" content IN the sidebar slot.
+       
+       If I put "Tipografia Digital", "Agora", "Por aí" in the sidebar slot, they will stack vertically.
+       And the content will stack vertically in the right column.
+       This works visually as "Left vs Right" IF the vertical heights match or if they are just separate independent columns.
+       
+       Redo's site often has a "Table of Contents" style on the left.
+       
+       Let's try to implement it as:
+       Sidebar Slot:
+         - "exercitar admiração..." (Main Header)
+         - "tipografia digital" (Link/Anchor?)
+         - "agora" (Link/Anchor?)
+         - "por aí" (Link/Anchor?)
+       
+       Main Slot:
+         - Section "tipografia digital" content
+         - Section "agora" content
+         - Section "por aí" content
+         
+       BUT the user description: "1. tipografia digital [LEFT] ... olá! [RIGHT]" suggests they want the text "tipografia digital" effectively serving as the header for that section, positioned to the left.
+       
+       If I do:
+       ```astro
+       <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
+          <div><h2>tipografia digital</h2></div>
+          <div><p>Olá...</p></div>
+       </div>
+       ```
+       This would be nested INSIDE the Layout's right column (since `index.astro` content goes into the default slot).
+       So we would have: [Nav Sidebar] [Layout Left Col (Empty?)] [Index Grid Left] [Index Grid Right].
+       That's too many columns.
+       
+       I should probably put the "Left" content into the `slot="sidebar"` of the layout?
+       But `slot="sidebar"` is one continuous container.
+       
+       Let's assume the user wants to utilize the Layout's "Sidebar Slot" for the titles and the "Main Slot" for the content.
+       
+       Layout:
+       Left Col (400px):
+         Header: "exercitar admiração..."
+         (Gap)
+         Header: "tipografia digital" -> This looks weird if it's just a list of headers disconnected from content.
+         
+       Let's go with the "Grid inside Main" approach, but I need to disable the Layout's forced 2-column grid for the homepage if I want full control, OR I just use the Layout's grid and put the "Left" items in the sidebar slot and "Right" items in main slot, and hope they align? No, they won't align automatically.
+       
+       BEST INTERPRETATION:
+       The user wants the "Left" column of the PAGE (the 400px one) to contain the section titles ("tipografia digital", "agora", "por aí") as the user scrolls, or just statically?
+       
+       "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos"
+       
+       Let's try to build it using the existing Layout grid.
+       Sidebar Slot:
+         - "tipografia digital"
+         - "agora"
+         - "por aí"
+       
+       Main Slot:
+         - Content 1
+         - Content 2
+         - Content 3
+       
+       The problem is alignment.
+       
+       Alternative: The "Left" refers to the left side of the *main content area*.
+       So inside `index.astro`:
+       
+       <Layout>
+         <div slot="sidebar">
+            <h1>exercitar admiração...</h1>
+         </div>
+         
+         <div class="space-y-24"> <!-- Spacing between sections -->
+            
+            <!-- Section 1 -->
+            <div class="grid lg:grid-cols-[200px_1fr] gap-8">
+               <h2 class="text-xl text-neutral-400">tipografia digital</h2>
+               <div>
+                  <p>Olá! ...</p>
+               </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="grid lg:grid-cols-[200px_1fr] gap-8">
+               <h2 class="text-xl text-neutral-400">agora</h2>
+               <div>Projects...</div>
+            </div>
+
+         </div>
+       </Layout>
+       
+       This creates a nested grid.
+       [Nav] [Sidebar: Title] [Main: [Left: Section Title] [Right: Content] ]
+       
+       This seems most robust for content alignment.
+       However, the "Sidebar" slot in Layout is 400px wide. That's quite wide.
+       If I put the main title there, it takes up 400px.
+       Then the rest of the content is to the right.
+       
+       If I add another split inside the right content, it might get squeezed.
+       
+       Let's look at the Redo reference again (mental model).
+       Redo has a sidebar. Then a large content area.
+       Inside the content area, they often have "Label | Content" rows.
+       
+       So "Tipografia Digital" is a label. "Olá..." is content.
+       
+       I will implement this structure inside the main slot.
+       
+       And what about the "exercitar admiração..." title? The user said: "primeira seção: trocar título...".
+       In the previous turn I put this in the `slot="sidebar"`.
+       
+       If I keep "exercitar admiração..." in `slot="sidebar"`, it stands as the page title.
+       Then in the main area I create the rows.
+       
+       BUT, the user says:
+       "1. tipografia digital [LEFT] ... olá! [RIGHT]"
+       
+       This looks like "tipografia digital" IS the title for the first section.
+       Does "exercitar admiração..." still exist?
+       "olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas." -> This text is in the content of section 1.
+       
+       So maybe "exercitar admiração..." is REMOVED as a big title and becomes part of the text?
+       "trocar título ... por 'exercitar admiração, compartilhar perspectivas'" was the PREVIOUS instruction.
+       
+       Current instruction:
+       "vamos tentar criar um main da home mais ou menos como a landing page da redo... 1. tipografia digital ... olá! criei esse site..."
+       
+       This sounds like a redesign of the structure I just made.
+       
+       I will assume:
+       - "tipografia digital" is the Header/Label on the Left.
+       - "olá! ..." is the Content on the Right.
+       - "agora" is Header/Label Left.
+       - Projects are Content Right.
+       - "por aí" is Header/Label Left.
+       - Socials are Content Right.
+       
+       Where do these "Left" headers go?
+       If I put them in `slot="sidebar"`, they stack at the top.
+       If I want them aligned with content, I should structure the page as a series of rows, where the first column is the "Left" and second is "Right".
+       
+       AND I should probably NOT use the `slot="sidebar"` for the page title anymore, or use it for the FIRST section title ("tipografia digital")?
+       No, that would disconnect it from the flow.
+       
+       I will treat the `slot="sidebar"` as the place for the "Page Title" or "Site Intro" if needed, OR I can use it for the first section's title if it aligns.
+       
+       Actually, looking at `Layout.astro`, the `sidebar` slot is a flex col gap 8.
+       The main slot is `min-w-0`.
+       
+       If I put:
+       <div slot="sidebar">
+          <div class="h-[section-1-height]">tipografia digital</div>
+          <div class="h-[section-2-height]">agora</div>
+       </div>
+       This is impossible to sync heights.
+       
+       Therefore, the "Left/Right" structure MUST happen inside the main container (the right side of the global layout), OR I must fundamentally change `Layout.astro` to not be a fixed grid but a flex row where the sidebar slot is just the first element?
+       
+       The Layout is:
+       ```astro
+       <main class="... grid lg:grid-cols-[400px_1fr] ...">
+          <div><slot name="sidebar"/></div>
+          <div><slot /></div>
+       </main>
+       ```
+       
+       If the user wants:
+       [Tipografia Digital]   [Olá text...]
+       [Agora]                [Projects...]
+       
+       I can implement this entirely in `slot="default"` if I empty `slot="sidebar"`?
+       But then I have a 400px empty column on the left.
+       
+       Maybe the user intends for the `slot="sidebar"` to hold these titles?
+       "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos."
+       
+       If I put the titles in the sidebar slot, they will be sticky or just static.
+       If the content on the right scrolls, the titles on the left will stay (if sticky) or scroll (if static).
+       
+       If they scroll, they need to be spaced correctly to match the content on the right.
+       That's hard to do across two different parents.
+       
+       HYPOTHESIS: The user wants the layout to look like:
+       
+       [  Sidebar Slot  ]   [  Main Slot  ]
+       tipografia digital    Olá! criei...
+                             ...
+                             
+       agora                 [Projects Grid]
+                             ...
+                             
+       por aí                [Socials]
+       
+       To achieve this alignment without height hacks, the standard way is to have ONE container with a grid.
+       
+       So I should probably modify `Layout.astro` to allow the page to define the grid?
+       Or, I use `Layout.astro`'s grid as the wrapper, and inside `index.astro` I utilize the fact that `slot="sidebar"` and `slot="default"` are siblings in a grid?
+       No, they are wrapped in divs.
+       
+       Let's try to implement the "Left Title" inside the `slot="sidebar"` but only for the FIRST one? And then what?
+       
+       Actually, maybe the user just wants the "Page Title" ("exercitar admiração") to be replaced by these section headers?
+       
+       Let's go with the safest visual bet:
+       Use the `slot="sidebar"` for the Page Title / Main intro header ("tipografia digital" might be the title now? or just a section?).
+       
+       The user says: "1. tipografia digital ... olá! ...".
+       This looks like "tipografia digital" is the SECTION title.
+       
+       If I look at the Redo site (reference), it often uses a grid where the label is on the left.
+       
+       I will implement the sections inside the MAIN slot, using a grid for each section.
+       AND I will leave the `slot="sidebar"` empty or remove the `grid-cols-[400px_1fr]` from Layout if `sidebar` is empty?
+       
+       Wait, I can't easily change Layout conditionally based on slot content presence in CSS classes without extra logic.
+       
+       Let's stick to the established pattern:
+       `slot="sidebar"` -> Page Title / Context.
+       `slot="main"` -> Content.
+       
+       But the user wants "tipografia digital" on the left.
+       
+       I'll implement this:
+       In `index.astro`:
+       Use `slot="sidebar"` for the text "exercitar admiração, compartilhar perspectivas" (Keep it as the "Brand/Page Title").
+       
+       THEN in the main content:
+       Section 1: 
+         Header: "tipografia digital"
+         Content: "Olá!..."
+       
+       If I make "tipografia digital" look like a side-label within the main column, it might satisfy the requirement.
+       
+       OR
+       
+       The user wants "tipografia digital" TO BE the content of the left column (sidebar slot).
+       
+       Let's try to interpret "que devem ir como título à esquerda" as "Put these in the sidebar slot".
+       If I do that, I have to guess the vertical spacing.
+       
+       Let's assume the user wants a SINGLE layout flow.
+       
+       I will use `slot="sidebar"` for the FIRST title "tipografia digital" and put the text in main.
+       Then for the next sections, I'll have to put them in main as well, maybe using a grid there.
+       
+       Actually, looking at the previous turn's result:
+       Sidebar: "exercitar admiração..."
+       Main: Intro text + "O que estou fazendo" + Projects.
+       
+       The user Liked this but wants to change the content structure.
+       
+       "vamos tentar criar um main da home mais ou menos como a landing page da redo."
+       
+       I will implement a structure in `index.astro` that creates these rows.
+       I will put the "Titles" in the `slot="sidebar"` if they fit, or more likely, I will create a clean grid in the main area and maybe *hide* the layout sidebar?
+       
+       No, the Layout Sidebar is fixed (250px nav) + Content (Grid 400px + 1fr).
+       
+       I will use the `slot="sidebar"` for the first title "tipografia digital".
+       And I'll try to fit the others.
+       
+       Actually, "tipografia digital", "agora", "por aí" look like navigation anchors or just section headers.
+       
+       Let's try this Layout in `index.astro`:
+       
+       <div slot="sidebar" class="flex flex-col justify-between h-full py-8"> <!-- Maybe sticky? -->
+          <div>
+             <h1 class="text-[60px]...">tipografia digital</h1>
+          </div>
+          <!-- How to space "agora" and "por aí" to match scrolling? Can't easily. -->
+       </div>
+       
+       Okay, I will implement the "Left Column" content inside the `slot="sidebar"` as a STICKY list of links/headers?
+       No, the user said "sequenciar as seções... e os respectivos conteúdos".
+       
+       I will implement the rows inside the `slot="default"` and use a grid that mimics the layout.
+       But the `slot="default"` is only the right part of the screen.
+       
+       If I put "tipografia digital" in the `slot="default"`'s left side, it will be visible.
+       What do I put in `slot="sidebar"`?
+       Maybe I leave it empty?
+       
+       If I leave it empty, I have a 400px white space.
+       
+       Let's assume the "Left" IS the 400px column.
+       
+       I'll try to put all the Titles in the `slot="sidebar"`.
+       And all the Content in the `slot="default"`.
+       
+       <div slot="sidebar" class="flex flex-col gap-[var(--gap-size)]">
+          <h1>tipografia digital</h1>
+          <!-- Spacer? -->
+          <h2>agora</h2>
+          <!-- Spacer? -->
+          <h2>por aí</h2>
+       </div>
+       
+       This requires knowing the height of the content to spacing them out. This is brittle.
+       
+       BETTER:
+       The "Redo Landing Page" (from observation of typical Redo style) often uses a standard flow where the label is to the left of the content.
+       
+       I will update `index.astro` to use the `slot="sidebar"` for the FIRST section ("tipografia digital").
+       Then for the subsequent sections ("agora", "por aí"), I will interpret "à esquerda" as visual positioning.
+       
+       BUT, since the Layout has a specific 2-column grid...
+       
+       Let's try to Update `Layout.astro` to allow passing a class to override the grid?
+       
+       Or, I can just put everything in `slot="sidebar"`? No.
+       
+       Let's look at the request again:
+       "vou sequenciar as seções (que devem ir como título à esquerda) e os respectivos conteúdos"
+       
+       I will implement this as:
+       
+       Sidebar Slot:
+       <h1 class="...">tipografia digital</h1>
+       
+       Main Slot:
+       <p>Olá! ...</p>
+       
+       <div class="mt-24 grid lg:grid-cols-[400px_1fr] -ml-[400px]"> 
+          <!-- Hack to break out of the column? No that's messy. -->
+       </div>
+       
+       Okay, I will simply use the Main Slot for EVERYTHING and leave the Sidebar Slot empty?
+       But I need to remove the 400px column definition from Layout.
+       
+       Since I can't easily change Layout without affecting other pages...
+       
+       I will use the `slot="sidebar"` for the title "tipografia digital" (it's the H1).
+       Then the text "Olá..." goes in main.
+       
+       Then "Agora" and "Por aí"?
+       I'll put them in the Main slot, but styled to LOOK like they are headers on the left?
+       
+       Actually, if I look at the `Layout.astro` grid: `grid lg:grid-cols-[400px_1fr]`.
+       
+       If I put "Agora" inside the Main slot, it's confined to the `1fr` column.
+       It can't go into the 400px column.
+       
+       So I MUST put the headers in `slot="sidebar"` OR not use the Layout's grid.
+       
+       I'll update `index.astro` to use `slot="sidebar"` for the PRIMARY title.
+       And for the other sections, I'll put the title INSIDE the main content but maybe aligned left or just as a block?
+       
+       "1. tipografia digital (Left) ... Olá (Right)"
+       "2. agora (Left) ... Projetos (Right)"
+       
+       I will try to use `slot="sidebar"` for ALL titles and use CSS `sticky` positioning or similar? No.
+       
+       Let's try to match the user's intent: "Main da home... seções à esquerda... conteúdos à direita".
+       
+       I will update `Layout.astro` to support a "Single Column" mode (or "Custom" mode) where I can define the grid myself in the page?
+       
+       Let's check `Layout.astro` again.
+       
+       ```astro
+       <main class:list={[..., "grid lg:grid-cols-[400px_1fr] gap-12 items-start"]}>
+       ```
+       
+       I can make this grid conditional based on a prop? `disableGrid={true}`?
+       
+       I'll add `sidebarLayout={false}` prop to Layout.
+       
+       Then in `index.astro`, I can define my own grid:
+       
+       ```astro
+       <div class="grid lg:grid-cols-[400px_1fr] gap-12">
+          <div class="sticky top-8 h-fit">tipografia digital</div>
+          <div>Olá...</div>
+       </div>
+       
+       <div class="grid lg:grid-cols-[400px_1fr] gap-12 mt-24">
+          <div class="sticky top-8 h-fit">agora</div>
+          <div>Projects...</div>
+       </div>
+       ...
+       ```
+       
+       This seems the most robust way to achieve the "Redo Landing Page" scrolling sections effect.
+       
+       Plan:
+       1. Modify `Layout.astro` to accept a `useSidebarGrid` prop (default true).
+       2. In `index.astro`, set `useSidebarGrid={false}`.
+       3. Implement the full grid layout inside `index.astro`.
+       
+       Wait, `Layout.astro` slots:
+       ```astro
+       <div class="flex flex-col gap-8"><slot name="sidebar" /></div>
+       <div class="min-w-0"><slot /></div>
+       ```
+       
+       If `useSidebarGrid` is false, I should probably just render `<slot />` (and maybe `slot="sidebar"` is ignored or rendered above/somewhere else, or I just don't use it).
+       
+       Let's update `Layout.astro`.
+---
+       
+       Actually, I can just use `slot="sidebar"` for the first section, and for subsequent sections, I accept that they might not align perfectly with the "Left Column" of the layout if I put them in main... unless I create a new grid in main.
+       
+       Let's go with the `useSidebarGrid` prop update. It's cleaner.
