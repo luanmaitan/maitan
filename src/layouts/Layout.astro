@@ -217,45 +217,41 @@ const currentPath = Astro.url.pathname;
 
 		<!-- Main Content -->
 		<main
-			class:list={[
-				"flex-1 w-full mx-auto p-8 lg:p-16 lg:ml-[250px]", 
-				"pt-24 md:pt-32 lg:pt-0",
-				Astro.slots.has("sidebar")
-					? "max-w-7xl grid lg:grid-cols-[200px_1fr] gap-12"
-					: "max-w-5xl",
-			]}
+            class:list={[
+                "flex-1 w-full mx-auto p-8 lg:p-16 lg:ml-[250px]",
+                "pt-24 md:pt-32 lg:pt-16",
+                // NEW: Two-column grid for desktop (Left: Title/Submenu, Right: Content)
+                "grid lg:grid-cols-[400px_1fr] gap-12 items-start" 
+            ]}
 		>
-			{
-				Astro.slots.has("sidebar") && (
-					<aside class="hidden lg:block sticky top-16 h-fit space-y-8">
-						<slot name="sidebar" />
-					</aside>
-				)
-			}
+            <!-- Left Column: Title & Submenu (passed via slot="sidebar") -->
+            <!-- Visible on Desktop, stacked on Mobile -->
+            <div class="flex flex-col gap-8">
+                <slot name="sidebar" />
+            </div>
+
+            <!-- Right Column: Main Content -->
 			<div class="min-w-0">
 				<slot />
 			</div>
 		</main>
 
-		<!-- Footer (Mobile & Tablet) -->
-        <!-- Updated Logic:
-             - md (Tablet): Show Clock left, Links right (Colophon, Policies)
-             - sm (Mobile): Show Clock only (Links are in menu)
-        -->
+		<!-- Footer (Mobile Only) -->
 		<footer
 			class="lg:hidden w-full border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-8 mt-auto"
 		>
 			<div
-				class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+				class="max-w-7xl mx-auto flex flex-col gap-6"
 			>
 				<div class="flex flex-col gap-2 text-black dark:text-white text-[15px]">
                      <FooterInfo client:load />
 				</div>
 				
-                <!-- Links visible only on Tablet (md) and up, hidden on Mobile (default/sm) -->
-				<div class="hidden md:flex gap-4 text-[15px] tracking-[-0.3px]">
-                    <a href="/colophon" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">colophon</a>
-					<a href="/policy" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">políticas</a>
+				<div class="border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pt-6 flex justify-between items-center text-[15px] tracking-[-0.3px]">
+					<div class="flex gap-4 w-full justify-between">
+                        <a href="/colophon" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">colophon</a>
+						<a href="/policy" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">políticas</a>
+					</div>
 				</div>
 			</div>
 		</footer>

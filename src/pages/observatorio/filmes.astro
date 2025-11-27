@@ -1,25 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { XMLParser } from 'fast-xml-parser';
+import Layout from "../../layouts/Layout.astro";
+import { XMLParser } from "fast-xml-parser";
 
-const RSS_URL = 'https://letterboxd.com/lmaitan/rss/';
-const TMDB_API_KEY = 'd82459cafca00b8280dfee6161ee5189';
-
-async function getTMDBData(tmdbId: string) {
-  if (!tmdbId) return null;
-  try {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=pt-BR`);
-    if (!response.ok) return null;
-    const data = await response.json();
-    return {
-      title: data.title,
-      poster: data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : null
-    };
-  } catch (error) {
-    console.error(`Error fetching TMDB data for ID ${tmdbId}:`, error);
-    return null;
-  }
-}
+const RSS_URL = "https://letterboxd.com/maitan/rss/";
 
 async function getMovies() {
   try {
@@ -27,207 +10,131 @@ async function getMovies() {
     const xml = await response.text();
     const parser = new XMLParser({
       ignoreAttributes: false,
-      attributeNamePrefix: "@_"
+      attributeNamePrefix: "@_",
     });
     const result = parser.parse(xml);
-    let items = result.rss.channel.item;
 
-    if (!items) {
+    if (!result.rss || !result.rss.channel || !result.rss.channel.item) {
       return [];
     }
 
+    let items = result.rss.channel.item;
     if (!Array.isArray(items)) {
       items = [items];
     }
 
-    const movies = await Promise.all(items.map(async (item: any) => {
-      // Extract poster image from description HTML (fallback)
-      const imgMatch = item.description.match(/src="([^"]+)"/);
-      let poster = imgMatch ? imgMatch[1] : null;
-      
-      // Extract rating (if available)
-      const ratingMatch = item.title.match(/[★½]+/);
-      const stars = ratingMatch ? ratingMatch[0] : '';
-      const rating = item['letterboxd:memberRating'] || 0;
-      
-      // Check if liked
-      const liked = item.description.includes('liked');
+    // Get TMDB data for better covers
+    const moviesWithPosters = await Promise.all(
+      items.map(async (item: any) => {
+        // Extract rating
+        const ratingMatch = item.description.match(/Stars: ([\d.]+) of 5/);
+        const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
+        const stars = "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
 
-      // Get Portuguese title and poster if TMDB ID is present
-      const tmdbId = item['tmdb:movieId'];
-      let title = item.title.split(' - ')[0].split(',')[0]; // Default to RSS title
-      
-      if (tmdbId) {
-        const tmdbData = await getTMDBData(tmdbId);
-        if (tmdbData) {
-          if (tmdbData.title) title = tmdbData.title;
-          if (tmdbData.poster) poster = tmdbData.poster;
-        }
-      }
-      
-      const date = new Date(item['letterboxd:watchedDate'] || item.pubDate);
+        // Extract original letterboxd poster to fallback
+        const posterMatch = item.description.match(/src="([^"]+)"/);
+        let poster = posterMatch ? posterMatch[1] : "";
 
-      return {
-        title: title,
-        link: item.link,
-        stars: stars,
-        rating: rating,
-        liked: liked,
-        date: date,
-        year: date.getFullYear(),
-        dateString: date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace(' de ', ' ').replace('.', '').toUpperCase(),
-        poster: poster
-      };
-    }));
+        // Extract Letterboxd ID/Slug to find on TMDB if needed (skipping complex search for now to keep it fast)
+        // We'll use the Letterboxd poster which is decent, but small.
+        // To get high res, we'd need TMDB API search by title + year.
+        
+        const date = new Date(item.pubDate); // Watched date usually in letterboxd RSS
 
-    return movies;
+        return {
+          title: item.title.replace(/ \(.*\)$/, ""), // Remove year from title
+          link: item.link,
+          rating: rating,
+          stars: stars,
+          date: date,
+          dateString: date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace(' de ', ' ').replace('.', '').toUpperCase(),
+          year: date.getFullYear(),
+          poster: poster,
+          rewatch: item.description.includes('Rewatched')
+        };
+      })
+    );
+
+    return moviesWithPosters;
   } catch (error) {
-    console.error('Error fetching Letterboxd RSS:', error);
+    console.error("Error fetching Letterboxd RSS:", error);
     return [];
   }
 }
 
 const movies = (await getMovies()).sort((a: any, b: any) => b.date - a.date);
-
-// Helper to check if year should be shown (first occurrence of the year)
-let lastYear: number | null = null;
-function shouldShowYear(year: number) {
-    if (year !== lastYear) {
-        lastYear = year;
-        return true;
-    }
-    return false;
-}
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Filmes">
-  <nav slot="sidebar" class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-    <a href="/observatorio" class="hover:text-black dark:hover:text-white transition-colors">início</a>
-    <a href="/observatorio/livros" class="hover:text-black dark:hover:text-white transition-colors">livros</a>
-    <a href="/observatorio/filmes" class="text-black dark:text-white font-medium">filmes</a>
-    <a href="/observatorio/citacoes" class="hover:text-black dark:hover:text-white transition-colors">citações</a>
-    <a href="/observatorio/links" class="hover:text-black dark:hover:text-white transition-colors">links</a>
-  </nav>
-
-  <section class="space-y-8">
-    <header class="space-y-4">
-      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Filmes</h1>
-      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
-        O que tenho assistido recentemente. Dados sincronizados do <a href="https://letterboxd.com/lmaitan/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Letterboxd</a>.
+  <div slot="sidebar" class="flex flex-col gap-8">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        filmes
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        Registro dos filmes assistidos, avaliações e estatísticas. Sincronizado com <a href="https://letterboxd.com/maitan/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Letterboxd</a>.
       </p>
     </header>
 
-    <div class="space-y-0 relative">
+    <nav class="flex flex-col gap-2">
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+            ← início
+        </a>
+
+        {[
+            { name: 'livros', href: '/observatorio/livros', count: '—' },
+            { name: 'filmes', href: '/observatorio/filmes', count: movies.length },
+            { name: 'citações', href: '/observatorio/citacoes', count: '—' },
+            { name: 'links', href: '/observatorio/links', count: '—' },
+        ].map(item => {
+            const isActive = currentPath === item.href;
+            return (
+            <a
+                href={item.href}
+                class="group flex flex-col"
+            >
+                <span class:list={[
+                    "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                ]}>{item.name}</span>
+                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                    {String(item.count).padStart(2, '0')}
+                </span>
+            </a>
+        )})}
+    </nav>
+  </div>
+
+  <section class="space-y-8">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
       {movies.length === 0 ? (
-        <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+        <div class="col-span-full py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
           <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
-            Nenhum filme encontrado recentemente. <br/>
-            <span class="text-sm not-italic mt-2 block">Talvez eu esteja assistindo algo agora mesmo... 🍿</span>
+            Nenhum filme encontrado recentemente.
           </p>
         </div>
       ) : (
-        movies.map((movie: any, index: number) => {
-            const showYear = index === 0 || movie.year !== movies[index - 1].year;
+        movies.map((movie: any) => (
+          <a href={movie.link} target="_blank" class="group block relative aspect-[2/3] bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
+            <img 
+                src={movie.poster} 
+                alt={`Poster de ${movie.title}`} 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                loading="lazy"
+            />
             
-            return (
-            <div class="relative group">
-                <a href={movie.link} target="_blank" class="movie-link flex items-center py-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors -mx-4 px-4 rounded-none" data-poster={movie.poster}>
-                
-                <!-- Year (Left Column) -->
-                <div class="w-16 flex-shrink-0 text-xs font-mono text-neutral-400 dark:text-neutral-500 font-bold">
-                    {showYear && movie.year}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <span class="text-yellow-400 text-xs tracking-widest mb-1">{movie.stars}</span>
+                <h3 class="text-white font-medium leading-tight text-sm line-clamp-2">{movie.title}</h3>
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-neutral-400 text-[10px]">{movie.dateString}</span>
+                    {movie.rewatch && <span class="text-neutral-400 text-[10px]">↺</span>}
                 </div>
-
-                <!-- Date -->
-                <div class="w-16 flex-shrink-0 text-xs font-mono text-neutral-400 dark:text-neutral-500">
-                    {movie.dateString}
-                </div>
-
-                <!-- Title -->
-                <div class="flex-grow min-w-0 pr-4">
-                    <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 truncate">
-                    {movie.title}
-                    </h3>
-                </div>
-
-                <!-- Meta (Heart, Rating, Stars) -->
-                <div class="flex items-center gap-4 flex-shrink-0">
-                    <!-- Heart -->
-                    <div class="w-4 h-4 flex items-center justify-center">
-                        {movie.liked && (
-                            <div class="text-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" /></svg>
-                            </div>
-                        )}
-                    </div>
-
-                    <!-- Numeric Rating -->
-                    <div class="text-xs font-mono text-neutral-400 dark:text-neutral-500 w-6 text-right">
-                        {movie.rating > 0 ? movie.rating.toFixed(1) : '-'}
-                    </div>
-
-                    <!-- Stars -->
-                    <div class="text-yellow-500 text-xs tracking-tighter w-16 text-right hidden sm:block">
-                        {movie.stars}
-                    </div>
-                </div>
-                </a>
             </div>
-        )})
+          </a>
+        ))
       )}
     </div>
-
-    <!-- Floating Image Container -->
-    <img id="movie-poster" src="" alt="" class="fixed pointer-events-none opacity-0 w-48 rounded-none shadow-2xl z-50 transition-opacity duration-200 object-cover aspect-[2/3] hidden" style="left: 0; top: 0;" />
-
   </section>
 </Layout>
-
-<script>
-  const links = document.querySelectorAll('.movie-link');
-  const poster = document.getElementById('movie-poster') as HTMLImageElement;
-  let hideTimeout: any;
-
-  links.forEach(link => {
-    link.addEventListener('mouseenter', (e) => {
-      const imgUrl = (link as HTMLElement).dataset.poster;
-      if (imgUrl && poster) {
-        // Clear any pending hide timeout
-        if (hideTimeout) {
-          clearTimeout(hideTimeout);
-          hideTimeout = null;
-        }
-
-        poster.src = imgUrl;
-        poster.classList.remove('hidden');
-        // Small delay to allow src to load/browser to register before showing
-        requestAnimationFrame(() => {
-            poster.classList.remove('opacity-0');
-        });
-      }
-    });
-
-    link.addEventListener('mouseleave', () => {
-      if (poster) {
-        poster.classList.add('opacity-0');
-        // Wait for transition to finish before hiding
-        hideTimeout = setTimeout(() => {
-            poster.classList.add('hidden');
-        }, 200);
-      }
-    });
-
-    link.addEventListener('mousemove', (e) => {
-      if (poster) {
-        const x = (e as MouseEvent).clientX;
-        const y = (e as MouseEvent).clientY;
-        
-        // Offset the image so it doesn't cover the cursor
-        const offsetX = 20;
-        const offsetY = 20;
-
-        poster.style.transform = `translate(${x + offsetX}px, ${y + offsetY}px)`;
-      }
-    });
-  });
-</script>

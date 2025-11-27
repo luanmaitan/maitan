@@ -3,20 +3,29 @@ import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout title="Maitan Hub | Colophon">
-  <section class="space-y-12">
-    <header class="space-y-4">
-      <h1 class="text-h1">
+  <div slot="sidebar" class="flex flex-col gap-8">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4">
         Colophon
       </h1>
-      <p
-        class="text-body text-neutral-600 dark:text-neutral-400 max-w-xl"
-      >
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
         Detalhes técnicos e decisões de design que constroem este espaço.
       </p>
     </header>
+    
+    <nav class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+      <a href="#stack" class="hover:text-black dark:hover:text-white transition-colors">Stack</a>
+      <a href="#design-system" class="hover:text-black dark:hover:text-white transition-colors">Design System</a>
+      <a href="#tipografia" class="hover:text-black dark:hover:text-white transition-colors">Tipografia</a>
+      <a href="#cores" class="hover:text-black dark:hover:text-white transition-colors">Cores</a>
+      <a href="#inspiracoes" class="hover:text-black dark:hover:text-white transition-colors">Inspirações</a>
+      <a href="#licenca" class="hover:text-black dark:hover:text-white transition-colors">Licença</a>
+    </nav>
+  </div>
 
+  <section class="space-y-12">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div class="space-y-4">
+      <div class="space-y-4" id="stack">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
@@ -47,7 +56,7 @@ import Layout from "../../layouts/Layout.astro";
         </ul>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4" id="design-system">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
@@ -78,7 +87,7 @@ import Layout from "../../layouts/Layout.astro";
         </a>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4" id="tipografia">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
@@ -118,7 +127,7 @@ import Layout from "../../layouts/Layout.astro";
         </div>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4" id="cores">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
@@ -152,7 +161,7 @@ import Layout from "../../layouts/Layout.astro";
         </div>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4" id="inspiracoes">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
@@ -186,7 +195,7 @@ import Layout from "../../layouts/Layout.astro";
         </ul>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4" id="licenca">
         <h2
           class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >

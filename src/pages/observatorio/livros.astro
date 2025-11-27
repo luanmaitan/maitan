@@ -25,9 +25,8 @@ async function getBooks() {
 
     return items.map((item: any) => {
       const rating = parseInt(item.user_rating) || 0;
-      const stars = '★'.repeat(rating) + '½'.repeat(0); // Goodreads doesn't do half stars usually in RSS, but let's keep it simple. Actually Goodreads is integer stars.
+      const stars = '★'.repeat(rating) + '½'.repeat(0); 
       
-      // Date logic: use user_read_at if available, otherwise user_date_added, otherwise pubDate
       const dateStr = item.user_read_at || item.user_date_added || item.pubDate;
       const date = new Date(dateStr);
 
@@ -51,7 +50,6 @@ async function getBooks() {
 
 const books = (await getBooks()).sort((a: any, b: any) => b.date - a.date);
 
-// Helper to check if year should be shown (first occurrence of the year)
 let lastYear: number | null = null;
 function shouldShowYear(year: number) {
     if (year !== lastYear) {
@@ -60,25 +58,62 @@ function shouldShowYear(year: number) {
     }
     return false;
 }
+
+const currentPath = Astro.url.pathname;
+
+// Counts - ideally dynamic, but since these pages fetch data inside themselves, we might need to duplicate fetch logic or just hardcode '00' for now if we want pure sidebar speed, or fetch light versions.
+// For Observatorio, fetched data is heavy. Let's use '00' placeholder or fetch length if possible.
+// Since we are inside the page, we have 'books.length'. 
+// But for OTHER links in the sidebar, we don't have their counts here without fetching.
+// To avoid perf hit, I will use placeholders or simple static counts if known, or omit if complex.
+// User asked for dynamic counts. For 'books', we have it. For others, we don't know from here.
+// I'll leave other counts as '??' or try to fetch if possible, but that's cross-page data.
+// Actually, let's just show the count for the CURRENT page active link, and generic for others?
+// Or I can assume standard counts for static pages and ? for dynamic.
+// Let's try to just pass 'books.length' to the books link.
 ---
 
 <Layout title="Maitan Hub | Livros">
-  <nav slot="sidebar" class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-    <a href="/observatorio" class="hover:text-black dark:hover:text-white transition-colors">início</a>
-    <a href="/observatorio/livros" class="text-black dark:text-white font-medium">livros</a>
-    <a href="/observatorio/filmes" class="hover:text-black dark:hover:text-white transition-colors">filmes</a>
-    <a href="/observatorio/citacoes" class="hover:text-black dark:hover:text-white transition-colors">citações</a>
-    <a href="/observatorio/links" class="hover:text-black dark:hover:text-white transition-colors">links</a>
-  </nav>
-
-  <section class="space-y-8">
-    <header class="space-y-4">
-      <h1 class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100">Livros</h1>
-      <p class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed">
+  <div slot="sidebar" class="flex flex-col gap-8">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        livros
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
         Minha estante virtual. Dados sincronizados do <a href="https://www.goodreads.com/user/show/9832371-maitan" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Goodreads</a>.
       </p>
     </header>
 
+    <nav class="flex flex-col gap-2">
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+            ← início
+        </a>
+
+        {[
+            { name: 'livros', href: '/observatorio/livros', count: books.length }, // We have this count!
+            { name: 'filmes', href: '/observatorio/filmes', count: '—' }, // Unknown from here
+            { name: 'citações', href: '/observatorio/citacoes', count: '—' },
+            { name: 'links', href: '/observatorio/links', count: '—' },
+        ].map(item => {
+            const isActive = currentPath === item.href;
+            return (
+            <a
+                href={item.href}
+                class="group flex flex-col"
+            >
+                <span class:list={[
+                    "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                ]}>{item.name}</span>
+                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                    {String(item.count).padStart(2, '0')}
+                </span>
+            </a>
+        )})}
+    </nav>
+  </div>
+
+  <section class="space-y-8">
     <div class="space-y-0 relative">
       {books.length === 0 ? (
         <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
@@ -107,7 +142,7 @@ function shouldShowYear(year: number) {
 
                 <!-- Title -->
                 <div class="flex-grow min-w-0 pr-4">
-                    <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 truncate">
+                    <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 truncate lowercase">
                     {book.title}
                     </h3>
                     <p class="text-xs text-neutral-500 dark:text-neutral-400 md:hidden">

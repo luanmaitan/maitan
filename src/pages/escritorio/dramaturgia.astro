@@ -13,62 +13,62 @@ function getReadingTime(content: string) {
   const minutes = Math.ceil(words / wordsPerMinute);
   return `${minutes} min de leitura`;
 }
+
+const counts = {
+    'ensaios': allNotes.filter(n => n.data.category === 'ensaios').length,
+    'dramaturgia': allNotes.filter(n => n.data.category === 'dramaturgia').length,
+    'poesia': allNotes.filter(n => n.data.category === 'poesia').length,
+    'autoficcoes': allNotes.filter(n => n.data.category === 'autoficcoes').length,
+    'impressoes': allNotes.filter(n => n.data.category === 'impressoes').length,
+    'traducoes': allNotes.filter(n => n.data.category === 'traducoes').length,
+};
+
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Dramaturgia">
-  <nav
-    slot="sidebar"
-    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
-  >
-    <a
-      href="/escritorio"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >← voltar</a
-    >
-    <a
-      href="/escritorio/ensaios"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >ensaios</a
-    >
-    <a href="/escritorio/dramaturgia" class="text-black dark:text-white font-medium"
-      >dramaturgia</a
-    >
-    <a
-      href="/escritorio/poesia"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >poesia</a
-    >
-    <a
-      href="/escritorio/autoficcoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >autoficções</a
-    >
-    <a
-      href="/escritorio/impressoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >impressões</a
-    >
-    <a
-      href="/escritorio/traducoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >traduções</a
-    >
-  </nav>
-
-  <section class="space-y-8">
-    <header class="space-y-4">
-      <h1
-        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
-      >
-        Dramaturgia
+  <div slot="sidebar" class="flex flex-col gap-8">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        dramaturgia
       </h1>
-      <p
-        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
-      >
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
         Textos teatrais e roteiros em processo.
       </p>
     </header>
 
+    <nav class="flex flex-col gap-2">
+      <a href="/escritorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+        ← índice
+      </a>
+      
+      {[
+        { name: 'ensaios', href: '/escritorio/ensaios', count: counts.ensaios },
+        { name: 'dramaturgia', href: '/escritorio/dramaturgia', count: counts.dramaturgia },
+        { name: 'poesia', href: '/escritorio/poesia', count: counts.poesia },
+        { name: 'autoficções', href: '/escritorio/autoficcoes', count: counts.autoficcoes },
+        { name: 'impressões', href: '/escritorio/impressoes', count: counts.impressoes },
+        { name: 'traduções', href: '/escritorio/traducoes', count: counts.traducoes },
+      ].map((item) => {
+        const isActive = currentPath === item.href;
+        return (
+        <a
+            href={item.href}
+            class="group flex flex-col"
+        >
+            <span class:list={[
+                "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+            ]}>{item.name}</span>
+            <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                {String(item.count).padStart(2, '0')}
+            </span>
+        </a>
+      )})}
+    </nav>
+  </div>
+
+  <section class="space-y-12">
     <div class="space-y-12">
       {
         notes.length > 0 ? (
@@ -87,7 +87,7 @@ function getReadingTime(content: string) {
 
               <div class="space-y-2">
                 <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  <a href={`/escritorio/${note.slug}`} class="block">
+                  <a href={`/escritorio/${note.slug}`} class="block lowercase">
                     {note.data.title}
                   </a>
                 </h3>
@@ -115,12 +115,10 @@ function getReadingTime(content: string) {
           ))
         ) : (
           <p class="text-neutral-500 dark:text-neutral-400 italic">
-            Nenhum texto de dramaturgia publicado ainda.
+            Nenhum texto publicado ainda.
           </p>
         )
       }
     </div>
   </section>
 </Layout>
-
-

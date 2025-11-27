@@ -36,84 +36,72 @@ const categories = [
 ---
 
 <Layout title="Maitan Hub | Escritório">
-  <nav
-    slot="sidebar"
-    class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
-  >
-    <a href="/escritorio" class="text-black dark:text-white font-medium"
-      >índice</a
-    >
-    <a
-      href="/escritorio/ensaios"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >ensaios</a
-    >
-    <a
-      href="/escritorio/dramaturgia"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >dramaturgia</a
-    >
-    <a
-      href="/escritorio/poesia"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >poesia</a
-    >
-    <a
-      href="/escritorio/autoficcoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >autoficções</a
-    >
-    <a
-      href="/escritorio/impressoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >impressões</a
-    >
-    <a
-      href="/escritorio/traducoes"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >traduções</a
-    >
-    <a
-      href="/tags"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >tags</a
-    >
-  </nav>
+  <div slot="sidebar" class="flex flex-col gap-8">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4">
+        Escritório
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        Um espaço para cultivar ideias em estágio inicial, notas de estudo e
+        conexões mentais. Textos provisórios que crescem e se transformam.
+      </p>
+    </header>
+
+    <nav class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+      <a href="/escritorio" class="text-black dark:text-white font-medium">índice</a>
+      <a
+        href="/escritorio/ensaios"
+        class="hover:text-black dark:hover:text-white transition-colors">ensaios</a
+      >
+      <a
+        href="/escritorio/dramaturgia"
+        class="hover:text-black dark:hover:text-white transition-colors">dramaturgia</a
+      >
+      <a
+        href="/escritorio/poesia"
+        class="hover:text-black dark:hover:text-white transition-colors">poesia</a
+      >
+      <a
+        href="/escritorio/autoficcoes"
+        class="hover:text-black dark:hover:text-white transition-colors">autoficções</a
+      >
+      <a
+        href="/escritorio/impressoes"
+        class="hover:text-black dark:hover:text-white transition-colors">impressões</a
+      >
+      <a
+        href="/escritorio/traducoes"
+        class="hover:text-black dark:hover:text-white transition-colors">traduções</a
+      >
+      <a
+        href="/tags"
+        class="hover:text-black dark:hover:text-white transition-colors">tags</a
+      >
+    </nav>
+  </div>
 
   <section class="space-y-12">
-    <div class="max-w-3xl mx-auto">
-      <header class="mb-12">
-        <h1 class="text-3xl font-serif italic mb-4">Escritório</h1>
-        <p
-          class="text-neutral-600 dark:text-neutral-400 leading-relaxed"
-        >
-          Um espaço para cultivar ideias em estágio inicial, notas de estudo e
-          conexões mentais. Textos provisórios que crescem e se transformam.
-        </p>
-      </header>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {
-          categories.map((category) => (
-            <a
-              href={category.href}
-              class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
-            >
-              <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
-                  {category.title}
-                </h2>
-                <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
-                  →
-                </span>
-              </div>
-              <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                {category.description}
-              </p>
-            </a>
-          ))
-        }
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        categories.map((category) => (
+          <a
+            href={category.href}
+            class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                {category.title}
+              </h2>
+              <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+                →
+              </span>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              {category.description}
+            </p>
+          </a>
+        ))
+      }
     </div>
   </section>
 </Layout>
