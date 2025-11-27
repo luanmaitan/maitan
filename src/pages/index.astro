@@ -60,10 +60,10 @@ const socialLinks = [
           nesse momento, me dedico aos seguintes projetos:
         </p>
         
-        <!-- Projects grid modified: single line (up to 4 cols), row layout (icon left, text right), left aligned container -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-6 justify-start">
+        <!-- Projects grid: single line (flex-nowrap) on desktop to ensure they stay on one line -->
+        <div class="flex flex-col md:flex-row md:flex-nowrap gap-6 md:gap-12 overflow-x-auto pb-4 md:pb-0 justify-start">
           {projects.map((project) => (
-            <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors max-w-xs">
+            <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors shrink-0">
               <div class="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
                  <div class="w-full h-full bg-neutral-300 dark:bg-neutral-700"></div>
               </div>
