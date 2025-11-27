@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 
 const projects = [
-  { name: "hedra", href: "https://hedra.com.br", image: "/favicon.jpg" },
-  { name: "vigília", href: "/projetos/vigilia", image: "/favicon.jpg" },
-  { name: "labirinto", href: "/projetos/labirinto", image: "/favicon.jpg" },
-  { name: "floresta", href: "/projetos/floresta", image: "/favicon.jpg" },
+  { name: "hedra", href: "https://hedra.com.br", image: "/projects/hedra.jpg" },
+  { name: "vigília", href: "/projetos/vigilia", image: "/projects/vigilia.png" },
+  { name: "labirinto", href: "/projetos/labirinto", image: "/projects/labirinto.png" },
+  { name: "floresta", href: "/projetos/floresta", image: "/projects/floresta.png" },
 ];
 
 const socialLinks = [
@@ -71,7 +71,7 @@ const socialLinks = [
           {projects.map((project) => (
             <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors shrink-0">
               <div class="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
-                 <div class="w-full h-full bg-neutral-300 dark:bg-neutral-700"></div>
+                 <img src={project.image} alt={project.name} class="w-full h-full object-cover" />
               </div>
               <span class="text-[18px] font-medium text-black dark:text-white lowercase tracking-[-0.3px]">
                 {project.name}
