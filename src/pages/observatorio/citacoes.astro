@@ -48,39 +48,17 @@ const currentPath = Astro.url.pathname;
                     Filtros
                 </span>
                 <div class="flex flex-wrap gap-2">
+                    <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase">
+                        todos
+                    </a>
                     {tags.map(([tag, count]) => (
-                        <a href={`#${tag}`} class="text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                        <a href={`#${tag}`} data-tag={tag} class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
                             #{tag} <span class="text-neutral-300 dark:text-neutral-600">({count})</span>
                         </a>
                     ))}
                 </div>
             </div>
         )}
-
-        <!-- Sibling Navigation -->
-        <nav class="flex flex-col gap-2">
-            {[
-                { name: 'livros', href: '/observatorio/livros', count: '—' },
-                { name: 'filmes', href: '/observatorio/filmes', count: '—' },
-                { name: 'citações', href: '/observatorio/citacoes', count: quotes.length || '—' },
-                { name: 'links', href: '/observatorio/links', count: '—' },
-            ].map(item => {
-                const isActive = currentPath === item.href;
-                return (
-                <a
-                    href={item.href}
-                    class="group flex flex-col"
-                >
-                    <span class:list={[
-                        "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
-                        isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                    ]}>{item.name}</span>
-                    <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
-                        {String(item.count).padStart(2, '0')}
-                    </span>
-                </a>
-            )})}
-        </nav>
     </div>
   </div>
 
@@ -94,7 +72,10 @@ const currentPath = Astro.url.pathname;
     ) : (
         <div class="grid grid-cols-1 gap-12">
             {quotes.map((quote: any) => (
-                <blockquote class="relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group">
+                <blockquote 
+                    class="quote-item relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group"
+                    data-tags={quote.tags ? quote.tags.join(',') : ''}
+                >
                     <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 font-serif leading-relaxed italic mb-4">
                         "{quote.text}"
                     </p>
@@ -121,3 +102,50 @@ const currentPath = Astro.url.pathname;
     )}
   </section>
 </Layout>
+
+<script>
+  // Filter Logic
+  const filterTags = document.querySelectorAll('.filter-tag');
+  const quoteItems = document.querySelectorAll('.quote-item');
+
+  function filterQuotes(selectedTag) {
+    quoteItems.forEach(item => {
+      const itemTags = (item as HTMLElement).dataset.tags?.split(',') || [];
+      if (selectedTag === 'all' || itemTags.includes(selectedTag)) {
+        (item as HTMLElement).style.display = 'block';
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+
+    // Update active state
+    filterTags.forEach(tag => {
+      const tagValue = (tag as HTMLElement).dataset.tag;
+      if (tagValue === selectedTag) {
+        tag.classList.remove('text-neutral-500', 'dark:text-neutral-400');
+        tag.classList.add('text-black', 'dark:text-white', 'font-medium');
+      } else {
+        tag.classList.add('text-neutral-500', 'dark:text-neutral-400');
+        tag.classList.remove('text-black', 'dark:text-white', 'font-medium');
+      }
+    });
+  }
+
+  filterTags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.preventDefault();
+      const selectedTag = (e.currentTarget as HTMLElement).dataset.tag;
+      if (selectedTag) {
+        filterQuotes(selectedTag);
+        // Update URL hash without scrolling
+        history.replaceState(null, '', selectedTag === 'all' ? ' ' : `#${selectedTag}`);
+      }
+    });
+  });
+
+  // Check initial hash
+  const initialHash = window.location.hash.slice(1);
+  if (initialHash) {
+    filterQuotes(decodeURIComponent(initialHash));
+  }
+</script>
