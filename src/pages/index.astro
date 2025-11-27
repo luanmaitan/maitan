@@ -14,6 +14,10 @@ const socialLinks = [
   { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
   { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
   { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
+  { name: "linkedin", href: "https://linkedin.com/in/luanmaitan", icon: "" }, // No icon yet
+  { name: "substack", href: "https://luanmaitan.substack.com", icon: "/icons/substack.svg" },
+  { name: "literal", href: "https://literal.club/luanmaitan", icon: "/icons/literal.svg" },
+  { name: "goodreads", href: "https://goodreads.com/luanmaitan", icon: "" }, // No icon yet
   { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
   { name: "youtube", href: "https://youtube.com/luanmaitan", icon: "/icons/youtube.svg" },
   { name: "soundcloud", href: "https://soundcloud.com/luanmaitan", icon: "/icons/soundcloud.svg" },
@@ -21,11 +25,12 @@ const socialLinks = [
   { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "/icons/pinterest.svg" },
   { name: "github", href: "https://github.com/luanmaitan", icon: "/icons/github.svg" },
   { name: "discord", href: "https://discord.com", icon: "/icons/discord.svg" },
-  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "/icons/gmail.svg" }, // Using gmail icon for email as approximation or generic mail if available, but 'gmail.svg' exists.
+  { name: "rss", href: "/rss.xml", icon: "/icons/rss.svg" },
+  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "/icons/gmail.svg" },
 ];
 ---
 
-<Layout title="Maitan Hub">
+<Layout title="Maitan Hub" sidebarLayout={false}>
   <!-- Sidebar Content: Main Title and Intro Description -->
   <div slot="sidebar" class="flex flex-col gap-8 pt-2">
     <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
