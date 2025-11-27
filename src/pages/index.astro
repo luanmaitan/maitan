@@ -9,40 +9,41 @@ const projects = [
 ];
 
 const socialLinks = [
-  { name: "instagram", href: "https://instagram.com/luanmaitan" },
-  { name: "facebook", href: "https://facebook.com/luanmaitan" },
-  { name: "mastodon", href: "https://mastodon.social/@luanmaitan" },
-  { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social" },
-  { name: "twitter", href: "https://twitter.com/luanmaitan" },
-  { name: "threads", href: "https://threads.net/@luanmaitan" },
-  { name: "pinterest", href: "https://pinterest.com/luanmaitan" },
-  { name: "spotify", href: "https://open.spotify.com/user/luanmaitan" },
+  { name: "instagram", href: "https://instagram.com/luanmaitan", icon: "/icons/instagram.svg" },
+  { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
+  { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
+  { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
+  { name: "twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" }, // Using x.svg for twitter/X
+  { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
+  // { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "/icons/pinterest.svg" }, // No pinterest svg in list, skipping or using generic
+  { name: "spotify", href: "https://open.spotify.com/user/luanmaitan", icon: "/icons/spotify.svg" },
 ];
 ---
 
 <Layout title="Maitan Hub">
-  <!-- Page Header -->
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <header>
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
-        exercitar admiração, compartilhar perspectivas
-      </h1>
-    </header>
+  <!-- Sidebar Content: Section Titles -->
+  <div slot="sidebar" class="flex flex-col gap-2 pt-2"> <!-- Adjusted padding to align with right content visually -->
+    <a href="#tipografia" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+      tipografia digital
+    </a>
+    <a href="#agora" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white lowercase transition-colors">
+      agora
+    </a>
+    <a href="#por-ai" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white lowercase transition-colors">
+      por aí
+    </a>
   </div>
 
-  <div class="space-y-24"> <!-- Vertical spacing between sections -->
+  <div class="space-y-32"> <!-- Increased vertical spacing between sections -->
     
     <!-- Section 1: Tipografia Digital / Intro -->
-    <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-12 items-start">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
-        tipografia digital
-      </h2>
+    <div id="tipografia" class="scroll-mt-32">
       <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif max-w-xl">
         <p class="mb-4">
           olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
         </p>
         <p class="mb-4">
-          se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a> e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>.
+          se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
         </p>
         <p>
           todos os dias eu cuido de plantas.
@@ -51,10 +52,7 @@ const socialLinks = [
     </div>
 
     <!-- Section 2: Agora / Projects -->
-    <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-12 items-start">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
-        agora
-      </h2>
+    <div id="agora" class="scroll-mt-32">
       <div class="w-full">
         <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif mb-8 max-w-xl">
           nesse momento, me dedico aos seguintes projetos:
@@ -76,22 +74,22 @@ const socialLinks = [
     </div>
 
     <!-- Section 3: Por aí / Socials -->
-    <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-12 items-start">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
-        por aí
-      </h2>
+    <div id="por-ai" class="scroll-mt-32">
       <div class="w-full">
         <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif mb-8 max-w-xl">
           você também pode me acompanhar pelas redes:
         </p>
         
-        <div class="flex flex-wrap gap-x-6 gap-y-2">
+        <div class="flex flex-wrap gap-x-8 gap-y-4">
           {socialLinks.map((link) => (
             <a 
               href={link.href} 
               target="_blank"
-              class="text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white lowercase transition-colors"
+              class="flex items-center gap-2 text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white lowercase transition-colors group"
             >
+              {link.icon && (
+                <img src={link.icon} alt="" class="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity dark:invert" />
+              )}
               {link.name}
             </a>
           ))}
