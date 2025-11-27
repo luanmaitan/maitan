@@ -4,6 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 const updates = [
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    title: "Refinamento de Sidebar e Footer",
+    description: "Ajuste fino no layout do sidebar desktop: reposicionamento do toggle de tema para o cabeçalho, reorganização dos links secundários (Colophon, Políticas, CC) com divisória própria, e fixação do widget de clima/relógio no rodapé com tipografia escura.",
+    tags: ["UI", "Layout", "Sidebar", "Footer"]
+  },
+  {
+    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "Design System Redo & Refatoração",
     description: "Adoção completa do estilo visual do Redo Design System. Implementação de layout de coluna dupla em todas as subpáginas (Escritório, Observatório, Colophon), títulos em caixa baixa com tipografia display (60px) e contagem dinâmica nos submenus laterais. Navegação e estrutura unificadas.",
     tags: ["Design System", "UI", "Redo", "Refactor", "Layout"]
