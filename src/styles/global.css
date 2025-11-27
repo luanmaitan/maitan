@@ -3,20 +3,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ajustes finos de tipografia */
-html {
-  scroll-behavior: smooth;
-}
+@layer base {
+  /* Redo Typography Mapping */
+  html {
+    @apply scroll-smooth;
+  }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    @apply font-sans text-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-.dark body {
-  color: #c6c6c6; /* Carbon Gray 30 (neutral-200) */
-}
+  h1 {
+    @apply font-sans text-h1 text-neutral-900 dark:text-white;
+  }
 
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-  color: #f4f4f4; /* Carbon Gray 10 (neutral-50) */
+  h2 {
+    @apply font-sans text-h2 text-neutral-900 dark:text-white;
+  }
+
+  h3 {
+    @apply font-sans text-h3 text-neutral-900 dark:text-white;
+  }
+
+  /* Specific Prose/Editorial overrides if needed */
+  .prose p {
+    @apply text-body;
+  }
+
+  /* Labels and Captions */
+  label, .label {
+    @apply text-label text-neutral-600 dark:text-neutral-400;
+  }
+
+  small, .display {
+    @apply text-display text-neutral-500 dark:text-neutral-500;
+  }
 }

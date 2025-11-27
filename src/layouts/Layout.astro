@@ -1,25 +1,52 @@
 ---
 // src/layouts/Layout.astro
 // Importando as fontes que instalamos
-import "@fontsource/ibm-plex-sans";
-import "@fontsource/ibm-plex-serif";
+import "@fontsource/rethink-sans";
+import "@fontsource/hedvig-letters-serif";
 import "@fontsource/ibm-plex-mono";
 import MobileMenu from "../components/MobileMenu.svelte";
 import ThemeToggle from "../components/ThemeToggle.svelte";
 import FooterInfo from "../components/FooterInfo.svelte";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import { navigation } from "../lib/navigation";
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+// Dynamic counts for subpages
+const escritorioFiles = import.meta.glob('../pages/escritorio/*.astro');
+const observatorioFiles = import.meta.glob('../pages/observatorio/*.astro');
+
+const getCount = (globResult: Record<string, any>, excludeIndex = false) => {
+    return Object.keys(globResult).filter(path => {
+        if (path.includes('[...slug]')) return false;
+        if (excludeIndex && path.includes('index.astro')) return false;
+        return true;
+    }).length;
+}
+
+const sectionCounts: Record<string, number> = {
+    '/escritorio': getCount(escritorioFiles),
+    '/observatorio': getCount(observatorioFiles, true),
+    '/laboratorio': 1,
+    '/portfolio': 1,
+};
+
+const navigationWithCounts = navigation.map(item => ({
+    ...item,
+    count: sectionCounts[item.href] || 0
+}));
+
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
 <html
 	lang="pt-br"
-	class="bg-neutral-50 text-neutral-900 antialiased scroll-smooth"
+	class="bg-white text-black antialiased scroll-smooth"
 >
 	<head>
 		<meta charset="UTF-8" />
@@ -29,12 +56,8 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<script is:inline>
-			// Script para evitar flash de tema errado
 			const theme = (() => {
-				if (
-					typeof localStorage !== "undefined" &&
-					localStorage.getItem("theme")
-				) {
+				if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
 					return localStorage.getItem("theme");
 				}
 				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -48,91 +71,163 @@ const { title } = Astro.props;
 			} else {
 				document.documentElement.classList.remove("dark");
 			}
-
 			window.localStorage.setItem("theme", theme);
 		</script>
 	</head>
 	<body
-		class="font-sans selection:bg-primary selection:text-white bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-100 transition-colors duration-300 flex flex-col min-h-screen"
+		class="font-sans bg-white dark:bg-neutral-900 text-black dark:text-white transition-colors duration-300 flex flex-col min-h-screen lg:flex-row"
 	>
-		<!-- Header -->
-		<header
-			class="fixed top-0 left-0 w-full bg-neutral-50/95 dark:bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-200 dark:border-neutral-800 z-50 px-6 py-4 flex justify-between items-center"
+		<!-- Desktop Sidebar -->
+		<aside
+			class="hidden lg:flex fixed top-0 left-0 h-screen w-[250px] flex-col border-r border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-white dark:bg-neutral-900 z-50 transition-colors duration-300"
 		>
-			<a href="/" class="flex items-center gap-3 group">
-				<img
-					src="/luan_perfil.jpg"
-					alt="Luan Maitan"
-					class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:scale-105 transition-transform"
-				/>
-				<div class="flex flex-col">
-					<span
-						class="font-bold text-neutral-900 dark:text-white tracking-tight leading-none"
-						>Luan Maitan</span
-					>
-					<span
-						class="text-[10px] text-neutral-500 dark:text-neutral-400 leading-none mt-1"
-						>Jardim Digital & Laboratório Criativo</span
-					>
-				</div>
-			</a>
+            <!-- 1. Logo Section -->
+			<div class="relative shrink-0 w-full">
+                <div class="flex flex-col justify-center pl-[32px] pr-[20px] py-[30px]">
+                    <a
+                        href="/"
+                        class="flex items-center gap-2 text-[18px] font-bold text-black dark:text-white leading-none lowercase"
+                    >
+                        <!-- Logo text is explicitly lowercase as requested -->
+                        <p>luan maitan</p>
+                    </a>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
+			</div>
 
-			<!-- Desktop Nav -->
-			<nav
-				class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-600 dark:text-neutral-300"
+            <!-- 2. Contents Section -->
+			<div class="relative shrink-0 w-full flex-1 overflow-y-auto">
+				<nav class="flex flex-col gap-[10px] items-start pt-[30px] pb-[30px] pl-[32px] pr-[20px]">
+					{
+						navigationWithCounts.map((item) => {
+                            const isActive = currentPath.startsWith(item.href);
+                            return (
+							<a
+								href={item.href}
+								class="w-full flex flex-col cursor-pointer group"
+                                aria-label={`Go to ${item.name}`}
+							>
+                                {/* Link Text */}
+                                <div class="flex flex-col justify-center relative shrink-0">
+                                    <p class:list={[
+                                        "text-[15px] font-medium leading-[1.2] tracking-[-0.3px] whitespace-pre transition-colors lowercase",
+                                        isActive ? "text-black dark:text-white" : "text-black dark:text-neutral-200 hover:opacity-70"
+                                    ]}>
+                                        {item.name}
+                                    </p>
+                                </div>
+                                
+                                {/* Link Number - BELOW on Desktop */}
+                                <div class="flex flex-col justify-center relative shrink-0 mt-1">
+                                    <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre">
+                                        {String(item.count).padStart(2, '0')}
+                                    </p>
+                                </div>
+							</a>
+						)})
+					}
+				</nav>
+                <div class="absolute bottom-0 left-0 right-0 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
+			</div>
+
+            <!-- 3. Footer Section -->
+			<div class="relative shrink-0 w-full">
+				<div class="flex flex-col gap-[20px] items-start pl-[32px] pr-[20px] py-[30px]">
+                    
+                    <!-- Clock & Weather (Black Text) -->
+                    <div class="text-black dark:text-white text-[15px] tracking-[-0.3px] leading-[1.2] font-medium">
+                        <FooterInfo client:load />
+                    </div>
+
+                    <div class="flex flex-col gap-[4px] items-start w-full">
+                        <div class="flex items-center justify-between w-full">
+                             <a
+                                href="/colophon"
+                                class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
+                            >
+                                colophon
+                            </a>
+                            <ThemeToggle client:load />
+                        </div>
+                        
+                        <div class="flex gap-4 mt-2">
+                             <a
+                                href="/policy"
+                                class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
+                            >
+                                políticas
+                            </a>
+                             <a
+                                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                                target="_blank"
+                                class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
+                            >
+                                cc by-nc-sa
+                            </a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</aside>
+
+		<!-- Tablet/Mobile Header (Visible on < lg) -->
+		<header
+			class="lg:hidden fixed top-0 left-0 w-full bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-50 transition-colors duration-300 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800"
+		>
+			<!-- Row 1: Logo + Controls -->
+			<div
+				class="px-6 py-4 flex justify-between items-center"
 			>
 				<a
-					href="/escritorio"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>escritório</a
+					href="/"
+					class="text-[18px] font-bold text-black dark:text-white leading-none lowercase"
 				>
-				<a
-					href="/observatorio"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>observatório</a
-				>
-				<a
-					href="/laboratorio"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>laboratório</a
-				>
-				<a
-					href="/portfolio"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>portfólio</a
-				>
-				<a
-					href="/projetos"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>projetos</a
-				>
-				<a
-					href="/sobre"
-					class="hover:text-black dark:hover:text-white transition-colors"
-					>sobre</a
-				>
-			</nav>
-
-			<div class="flex items-center gap-4">
-				<ThemeToggle client:load />
-				<div class="md:hidden">
-					<MobileMenu client:load />
+					luan maitan
+				</a>
+				<div class="flex items-center gap-4">
+					<ThemeToggle client:load />
+					<div class="md:hidden">
+						<MobileMenu client:load />
+					</div>
 				</div>
+			</div>
+
+			<!-- Row 2: Navigation (Tablet Only: md -> lg) -->
+			<div
+				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto"
+			>
+				{
+					navigationWithCounts.map((item) => (
+						<div class="flex items-center gap-2">
+                            <a
+                                href={item.href}
+                                class="text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
+                            >
+                                {item.name}
+                            </a>
+                            <!-- Number beside link on tablet -->
+                            <span class="text-[10px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px]">
+                                {String(item.count).padStart(2, '0')}
+                            </span>
+                        </div>
+					))
+				}
 			</div>
 		</header>
 
 		<!-- Main Content -->
 		<main
 			class:list={[
-				"flex-1 w-full mx-auto p-8 pt-28 md:p-12 md:pt-32",
+				"flex-1 w-full mx-auto p-8 lg:p-16 lg:ml-[250px]", 
+				"pt-24 md:pt-32 lg:pt-0",
 				Astro.slots.has("sidebar")
-					? "max-w-7xl grid md:grid-cols-[200px_1fr] gap-12"
+					? "max-w-7xl grid lg:grid-cols-[200px_1fr] gap-12"
 					: "max-w-5xl",
 			]}
 		>
 			{
 				Astro.slots.has("sidebar") && (
-					<aside class="hidden md:block sticky top-32 h-fit space-y-8">
+					<aside class="hidden lg:block sticky top-16 h-fit space-y-8">
 						<slot name="sidebar" />
 					</aside>
 				)
@@ -142,119 +237,25 @@ const { title } = Astro.props;
 			</div>
 		</main>
 
-		<!-- Footer -->
+		<!-- Footer (Mobile & Tablet) -->
+        <!-- Updated Logic:
+             - md (Tablet): Show Clock left, Links right (Colophon, Policies)
+             - sm (Mobile): Show Clock only (Links are in menu)
+        -->
 		<footer
-			class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-6 py-4 mt-auto"
+			class="lg:hidden w-full border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-8 mt-auto"
 		>
 			<div
-				class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-400 dark:text-neutral-500"
+				class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
 			>
-				<!-- Left: Clock & Weather -->
-				<div class="flex items-center gap-4">
-					<FooterInfo client:load />
+				<div class="flex flex-col gap-2 text-black dark:text-white text-[15px]">
+                     <FooterInfo client:load />
 				</div>
-
-				<!-- Right: Legal & Links -->
-				<div class="flex items-center gap-4">
-					<!-- CC BY-NC-SA Icons -->
-					<a
-						href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-						target="_blank"
-						class="flex gap-1 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-						title="Creative Commons BY-NC-SA 4.0"
-					>
-						<!-- CC Circle -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><circle cx="12" cy="12" r="10"></circle><path
-								d="M10 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1"
-							></path><path
-								d="M17 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1"
-							></path></svg
-						>
-						<!-- BY (Person) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-							></path><circle cx="12" cy="7" r="4"></circle></svg
-						>
-						<!-- NC (Dollar Crossed) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><circle cx="12" cy="12" r="10"></circle><path
-								d="M16 8l-8 8"></path><path
-								d="M16.7 13A3 3 0 0 0 13 16.7"></path><path
-								d="M7.3 11A3 3 0 0 0 11 7.3"></path></svg
-						>
-						<!-- SA (Loop/Refresh) -->
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path
-								d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-							></path><path d="M3 3v5h5"></path></svg
-						>
-					</a>
-
-					<span class="text-neutral-300 dark:text-neutral-700">·</span
-					>
-
-					<!-- Policy -->
-					<a
-						href="/policy"
-						class="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-						title="Políticas"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path
-								d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-							></path></svg
-						>
-					</a>
-
-					<span class="text-neutral-300 dark:text-neutral-700">·</span
-					>
-
-					<a
-						href="/colophon"
-						class="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-						>colophon</a
-					>
+				
+                <!-- Links visible only on Tablet (md) and up, hidden on Mobile (default/sm) -->
+				<div class="hidden md:flex gap-4 text-[15px] tracking-[-0.3px]">
+                    <a href="/colophon" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">colophon</a>
+					<a href="/policy" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">políticas</a>
 				</div>
 			</div>
 		</footer>
@@ -262,16 +263,18 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-	/* Carbon Design System Typography */
+	/* Redo Design System Typography */
 	
 	/* Serif for editorial content */
 	.prose {
-		font-family: "IBM Plex Serif", serif;
+		font-family: "Hedvig Letters Serif", serif;
 	}
 	
 	/* Sans for UI */
 	body {
-		font-family: "IBM Plex Sans", sans-serif;
+		font-family: "Rethink Sans", sans-serif;
+		font-size: 16px;
+		line-height: 1.5;
 	}
 
 	/* Mono for code */
@@ -279,13 +282,13 @@ const { title } = Astro.props;
 		font-family: "IBM Plex Mono", monospace;
 	}
 
-	/* Carbon Focus Styles */
+	/* Focus Styles */
 	:focus-visible {
-		outline: 2px solid #0f62fe;
+		outline: 2px solid #FA9819; /* Redo Orange */
 		outline-offset: 2px;
 	}
 
-	/* Carbon Link Styles (underline) */
+	/* Link Styles (underline) */
 	a {
 		text-decoration-thickness: 1px;
 	}

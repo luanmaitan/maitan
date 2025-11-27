@@ -5,30 +5,71 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['"IBM Plex Sans"', 'sans-serif'],
-                serif: ['"IBM Plex Serif"', 'serif'],
+                sans: ['"Rethink Sans"', 'sans-serif'],
+                serif: ['"Hedvig Letters Serif"', 'serif'],
                 mono: ['"IBM Plex Mono"', 'monospace'],
             },
+            // Exact Redo Typography System
+            fontSize: {
+                // Headings
+                'h1': ['60px', { lineHeight: '1.1', letterSpacing: '-0.6px', fontWeight: '500' }],
+                'h2': ['30px', { lineHeight: '1.2', letterSpacing: '-0.6px', fontWeight: '500' }],
+                'h3': ['22px', { lineHeight: '1.2', letterSpacing: '-0.22px', fontWeight: '600' }],
+                
+                // Body & UI
+                'body': ['15px', { lineHeight: '1.2', letterSpacing: '-0.15px', fontWeight: '500' }],
+                'body-bold': ['15px', { lineHeight: '1.2', letterSpacing: '-0.15px', fontWeight: '700' }],
+                'label': ['13px', { lineHeight: '1.2', letterSpacing: '-0.13px', fontWeight: '500' }],
+                'display': ['10px', { lineHeight: '1.2', letterSpacing: '-0.2px', fontWeight: '500' }],
+                
+                // Keeping some standard sizes for flexibility if needed, but mapped to system
+                'xs': ['10px', { lineHeight: '1.2', letterSpacing: '-0.2px' }],
+                'sm': ['13px', { lineHeight: '1.2', letterSpacing: '-0.13px' }],
+                'base': ['15px', { lineHeight: '1.2', letterSpacing: '-0.15px' }],
+                'lg': ['22px', { lineHeight: '1.2', letterSpacing: '-0.22px' }],
+                'xl': ['30px', { lineHeight: '1.2', letterSpacing: '-0.6px' }],
+                '2xl': ['30px', { lineHeight: '1.2', letterSpacing: '-0.6px' }], // Redo doesn't have many sizes, mapping closely
+                '3xl': ['60px', { lineHeight: '1.1', letterSpacing: '-0.6px' }],
+            },
             colors: {
-                // Carbon Design System Gray Palette (v11) mapped to neutral
-                neutral: {
-                    50: '#f4f4f4',  // Gray 10
-                    100: '#e0e0e0', // Gray 20
-                    200: '#c6c6c6', // Gray 30
-                    300: '#a8a8a8', // Gray 40
-                    400: '#8d8d8d', // Gray 50
-                    500: '#6f6f6f', // Gray 60
-                    600: '#525252', // Gray 70
-                    700: '#393939', // Gray 80
-                    800: '#262626', // Gray 90
-                    900: '#161616', // Gray 100
-                    950: '#000000', // Black
+                // Redo Palette
+                redo: {
+                    orange: '#FA9819',
+                    'blue-tint': '#B6C9CF',
+                    white: '#FFFFFF',
+                    'baby-blue': '#C6EBF7',
+                    navy: '#1E3D59',
+                    caption: '#48749E',
+                    'sky-blue': '#DEEEFE',
+                    'off-blue': '#E8EBEF',
+                    'deep-orange': '#CD4900',
+                    black: '#000000',
+                    'dark-grey': '#A3A3A3',
+                    grey: '#E5E5E5',
                 },
-                // Carbon Blue 60 as primary accent
+                // Mapping to semantic names
                 primary: {
-                    DEFAULT: '#0f62fe',
-                    hover: '#0353e9',
-                }
+                    DEFAULT: '#FA9819',
+                    hover: '#CD4900',
+                    foreground: '#000000',
+                },
+                secondary: {
+                    DEFAULT: '#1E3D59',
+                    foreground: '#FFFFFF',
+                },
+                neutral: {
+                    50: '#FFFFFF',
+                    100: '#F5F7F9',
+                    200: '#E8EBEF',
+                    300: '#E5E5E5',
+                    400: '#B6C9CF',
+                    500: '#A3A3A3',
+                    600: '#48749E',
+                    700: '#1E3D59',
+                    800: '#152C40',
+                    900: '#000000',
+                    950: '#000000',
+                },
             },
         },
     },

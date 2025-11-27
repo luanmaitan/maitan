@@ -4,15 +4,15 @@ import Layout from '../../layouts/Layout.astro';
 const updates = [
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
-    title: "Guia do Design System",
-    description: "Criação da página oficial do Design System, listando todos os tokens visuais, tipografia, cores e componentes do projeto. O guia serve como referência viva da implementação do Carbon Design System no Maitan Hub. Adicionado link direto no Colophon.",
-    tags: ["Design System", "Docs", "New Page"]
+    title: "Design System Redo",
+    description: "Adoção completa do estilo visual do Redo Design System. Implementação da tipografia Rethink Sans e Hedvig Letters Serif, paleta de cores específica e layout de sidebar fixo com tipografia precisa.",
+    tags: ["Design System", "UI", "Redo", "Refactor"]
   },
   {
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
-    title: "Carbon Design System",
-    description: "Adoção completa do Carbon Design System. Implementação da tipografia IBM Plex (Sans, Serif e Mono), paleta de cores Carbon Gray 100 (Dark) e White (Light), e estética sharp (bordas retas) em todos os elementos da interface. Refatoração dos estilos globais e tokens de design via TailwindCSS.",
-    tags: ["Design System", "UI", "Carbon", "Refactor"]
+    title: "Reestruturação de Navegação",
+    description: "Nova arquitetura de navegação com sidebar fixa em desktop (250px), header de duas linhas em tablet e menu expansível em mobile. Contagem dinâmica de itens no menu principal.",
+    tags: ["Navigation", "UX", "Structure"]
   },
   {
     date: "25 NOV 2025",
@@ -21,16 +21,10 @@ const updates = [
     tags: ["Feature", "Content", "Structure", "Documentation"]
   },
   {
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: "25 NOV 2025",
     title: "Sistema de Calendário e Citações",
     description: "Implementação completa do sistema de calendário com FullCalendar, incluindo visualização mensal, filtros por categorias e tags, e integração na homepage. Criação do sistema de citações com leitura automática de arquivos Markdown, extração de autor e fonte, e atribuição automática de tags. Calendário ancorado no dia atual e widget de horário no footer agora leva à página inicial.",
     tags: ["Feature", "Calendar", "Citations", "Markdown"]
-  },
-  {
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
-    title: "Correção dos Filtros de Links",
-    description: "Correção completa dos filtros da página de Links. Implementação de SSR para renderização dinâmica, correção da leitura de parâmetros de query, remoção de filtros rápidos desnecessários e melhoria na integração com a API do Raindrop. Agora os filtros por pastas/collections e tags funcionam corretamente.",
-    tags: ["Fix", "Links", "Filters", "SSR"]
   },
   {
     date: "21 NOV 2025",
@@ -59,62 +53,6 @@ const updates = [
     <hr class="border-neutral-100 dark:border-neutral-800" />
 
     <div class="relative border-l border-neutral-200 dark:border-neutral-800 ml-3 space-y-12 py-4">
-      <div class="relative pl-8">
-        <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-          <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">Redesign Global & Widgets</h3>
-          <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">22 NOV 2025</span>
-        </div>
-        <ul class="list-disc list-inside text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
-          <li>Novo layout com Header fixo e Footer completo.</li>
-          <li>Implementação de relógio em tempo real e widget de clima no rodapé.</li>
-          <li>Criação de sidebars contextuais para cada seção (Observatório, Escritório, etc.).</li>
-          <li>Remoção da sidebar global para melhor aproveitamento de espaço.</li>
-        </ul>
-      </div>
-
-      <div class="relative pl-8">
-        <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-          <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">Reestruturação e Novos Espaços</h3>
-          <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">22 NOV 2025</span>
-        </div>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
-          Reorganização completa da arquitetura de informação do site para melhor acomodar diferentes tipos de conteúdo.
-        </p>
-        <ul class="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 text-sm marker:text-neutral-300 dark:marker:text-neutral-700">
-          <li><strong>Observatório:</strong> Nova seção agrupando Filmes, Livros, Links e a nova página de Citações.</li>
-          <li><strong>Escritório:</strong> Renomeação da seção de Notas para refletir melhor seu propósito de jardim digital.</li>
-          <li><strong>Colophon:</strong> Reestruturação da seção técnica, agora abrigando o Changelog.</li>
-          <li><strong>Novas Seções:</strong> Criação das páginas de Laboratório (experimentos web) e Portfólio.</li>
-        </ul>
-        <div class="flex gap-2 mt-3">
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Structure</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Navigation</span>
-        </div>
-      </div>
-
-      <div class="relative pl-8">
-        <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-          <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">Expansão de Conteúdo</h3>
-          <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">22 NOV 2025</span>
-        </div>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
-          Implementação das páginas de Filmes, Livros e Links, integrando dados dinâmicos de serviços externos.
-        </p>
-        <ul class="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 text-sm marker:text-neutral-300 dark:marker:text-neutral-700">
-          <li><strong>Filmes:</strong> Integração com RSS do Letterboxd e API do TMDB para capas e títulos em português.</li>
-          <li><strong>Livros:</strong> Sincronização com estante "Read" do Goodreads.</li>
-          <li><strong>Links:</strong> Integração completa com API do Raindrop, incluindo filtros por pastas e tags.</li>
-          <li><strong>UI:</strong> Animações de hover com capas flutuantes e refinamentos visuais gerais.</li>
-        </ul>
-        <div class="flex gap-2 mt-3">
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">Content</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">API</span>
-          <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">UI</span>
-        </div>
-      </div>
       {updates.map((update) => (
         <div class="relative pl-8">
           <!-- Bolinha da timeline -->

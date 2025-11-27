@@ -5,13 +5,11 @@ import Layout from "../../layouts/Layout.astro";
 <Layout title="Maitan Hub | Colophon">
   <section class="space-y-12">
     <header class="space-y-4">
-      <h1
-        class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
-      >
+      <h1 class="text-h1">
         Colophon
       </h1>
       <p
-        class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
+        class="text-body text-neutral-600 dark:text-neutral-400 max-w-xl"
       >
         Detalhes técnicos e decisões de design que constroem este espaço.
       </p>
@@ -20,25 +18,25 @@ import Layout from "../../layouts/Layout.astro";
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div class="space-y-4">
         <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
           Stack
         </h2>
-        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400">
+        <ul class="space-y-2 text-body text-neutral-600 dark:text-neutral-400">
           <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100"></span>
-            Carbon Design System (UI Kit)
+            <span class="w-1.5 h-1.5 rounded-full bg-redo-orange"></span>
+            Redo Design System (Aesthetic)
           </li>
           <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100"></span>
             Astro 5.0 (Static Site Generator)
           </li>
           <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-redo-navy"></span>
             TailwindCSS (Styling)
           </li>
           <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-redo-caption"></span>
             Svelte (Interactivity)
           </li>
           <li class="flex items-center gap-2">
@@ -49,19 +47,21 @@ import Layout from "../../layouts/Layout.astro";
         </ul>
       </div>
 
+      <div class="space-y-4">
         <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
           Design System
         </h2>
-        <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-2">
-          Este site segue rigorosamente o Carbon Design System da IBM.
+        <p class="text-body text-neutral-600 dark:text-neutral-400 mb-2">
+          Este site utiliza a estética visual do Redo Design System, focado em precisão e clareza.
         </p>
         <a
-          href="/design-system"
-          class="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group"
+          href="https://remix-star-expand.figma.site/"
+          target="_blank"
+          class="inline-flex items-center gap-2 text-body font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors group"
         >
-          Ver Guia Completo
+          Ver Referência Visual
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -80,29 +80,29 @@ import Layout from "../../layouts/Layout.astro";
 
       <div class="space-y-4">
         <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
           Tipografia
         </h2>
         <div class="space-y-6">
           <div>
             <p
-              class="text-3xl font-serif text-neutral-900 dark:text-neutral-100 mb-1"
+              class="text-3xl font-sans font-medium text-neutral-900 dark:text-neutral-100 mb-1"
             >
-              IBM Plex Serif
+              Rethink Sans
             </p>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">
-              Usada para corpo de texto e títulos, combinando a tradição da serifa com a modernidade técnica.
+            <p class="text-display text-neutral-500 dark:text-neutral-400">
+              Primary Sans-Serif. Clean, modern sans-serif typeface that ensures legibility and precision.
             </p>
           </div>
           <div>
             <p
-              class="text-xl font-sans font-medium text-neutral-900 dark:text-neutral-100 mb-1"
+              class="text-3xl font-serif text-neutral-900 dark:text-neutral-100 mb-1"
             >
-              IBM Plex Sans
+              Hedvig Letters Serif
             </p>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">
-              Usada para interfaces, menus e navegação, oferecendo clareza e neutralidade.
+            <p class="text-display text-neutral-500 dark:text-neutral-400">
+              Secondary Serif. Refined, authoritative serif font adding tradition and credibility.
             </p>
           </div>
           <div>
@@ -111,8 +111,8 @@ import Layout from "../../layouts/Layout.astro";
             >
               IBM Plex Mono
             </p>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">
-              Usada para código, dados técnicos e metadados, reforçando a estética de laboratório.
+            <p class="text-display text-neutral-500 dark:text-neutral-400">
+              Usada para código e dados técnicos.
             </p>
           </div>
         </div>
@@ -120,11 +120,45 @@ import Layout from "../../layouts/Layout.astro";
 
       <div class="space-y-4">
         <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
-          Inspirações
+          Cores
         </h2>
-        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+        <div class="grid grid-cols-2 gap-2 text-display text-neutral-600 dark:text-neutral-400">
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded bg-redo-orange"></div>
+            <span>Orange #FA9819</span>
+          </div>
+          <div class="flex items-center gap-2">
+             <div class="w-4 h-4 rounded bg-redo-navy"></div>
+             <span>Navy #1E3D59</span>
+          </div>
+          <div class="flex items-center gap-2">
+             <div class="w-4 h-4 rounded bg-redo-blue-tint"></div>
+             <span>Blue Tint #B6C9CF</span>
+          </div>
+           <div class="flex items-center gap-2">
+             <div class="w-4 h-4 rounded bg-redo-baby-blue"></div>
+             <span>Baby Blue #C6EBF7</span>
+          </div>
+          <div class="flex items-center gap-2">
+             <div class="w-4 h-4 rounded bg-redo-caption"></div>
+             <span>Caption #48749E</span>
+          </div>
+           <div class="flex items-center gap-2">
+             <div class="w-4 h-4 rounded bg-redo-off-blue border border-neutral-200"></div>
+             <span>Off-Blue #E8EBEF</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h2
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+        >
+          Inspirações & Serviços
+        </h2>
+        <ul class="space-y-2 text-body text-neutral-600 dark:text-neutral-400">
           <li>
             <a
               href="https://www.iamrob.in/"
@@ -134,124 +168,19 @@ import Layout from "../../layouts/Layout.astro";
             >
           </li>
           <li>
-            <a
-              href="https://stephango.com/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Steph Ango</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.pranamshetty.dev/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Pranam Shetty</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://core.framer.media/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Framer Core</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div class="space-y-4">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Serviços e Dados
-        </h2>
-        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-          <li>
-            <a
+             <a
               href="https://raindrop.io/"
               target="_blank"
               class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
               >Raindrop.io (Links)</a
             >
           </li>
-          <li>
+           <li>
             <a
               href="https://letterboxd.com/"
               target="_blank"
               class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Letterboxd RSS (Filmes)</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.goodreads.com/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Goodreads (Livros)</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://open-meteo.com/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Open-Meteo (Clima)</a
-            >
-          </li>
-          <li class="flex items-center gap-2 pt-2">
-            <a
-              href="https://www.themoviedb.org/"
-              target="_blank"
-              title="This product uses the TMDB API but is not endorsed or certified by TMDB."
-            >
-              <img
-                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-                alt="TMDB Logo"
-                class="h-3"
-              />
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="space-y-4">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Bibliotecas e Ferramentas
-        </h2>
-        <ul class="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-          <li>
-            <a
-              href="https://fullcalendar.io/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >FullCalendar (Calendário)</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://github.com/NaturalIntelligence/fast-xml-parser"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >fast-xml-parser (RSS)</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://vercel.com/docs/speed-insights"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >Vercel Speed Insights</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.jsdelivr.com/"
-              target="_blank"
-              class="hover:underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-              >jsDelivr CDN</a
+              >Letterboxd (Filmes)</a
             >
           </li>
         </ul>
@@ -259,37 +188,19 @@ import Layout from "../../layouts/Layout.astro";
 
       <div class="space-y-4">
         <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Histórico
-        </h2>
-        <p
-          class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed"
-        >
-          Acompanhe a evolução do projeto no <a
-            href="/colophon/changelog"
-            class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
-            >Changelog</a
-          >.
-        </p>
-      </div>
-
-      <div class="space-y-4">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
         >
           Licença
         </h2>
         <p
-          class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed"
+          class="text-body text-neutral-600 dark:text-neutral-400"
         >
           Conteúdo sob licença <a
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
             target="_blank"
             class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
             >CC BY-NC-SA 4.0</a
-          >, exceto onde indicado o contrário. O código fonte deste site está
-          disponível no <a
+          >. Código no <a
             href="https://github.com/luanmaitan/maitan"
             target="_blank"
             class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
