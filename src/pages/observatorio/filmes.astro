@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { XMLParser } from "fast-xml-parser";
 
-const RSS_URL = "https://letterboxd.com/maitan/rss/";
+const RSS_URL = "https://letterboxd.com/luanmaitan/rss/";
 
 async function getMovies() {
   try {
@@ -73,7 +73,7 @@ const currentPath = Astro.url.pathname;
         filmes
       </h1>
       <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-        Registro dos filmes assistidos, avaliações e estatísticas. Sincronizado com <a href="https://letterboxd.com/maitan/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Letterboxd</a>.
+        Registro dos filmes assistidos, avaliações e estatísticas. Sincronizado com <a href="https://letterboxd.com/luanmaitan/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Letterboxd</a>.
       </p>
     </header>
 
