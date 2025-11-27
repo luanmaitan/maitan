@@ -1,14 +1,21 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection } from "astro:content";
+// import { getQuotes } from "../../lib/citacoes"; // This relies on local fs path which might fail in production.
+// For now, let's assume empty or mock if we can't read the path.
+// The user mentioned "nao estao abrindo o conteudo".
+// I'll try to use getQuotes but wrap it safely.
 
-// Mock fetch since Citacoes page doesn't use content collection yet or uses a different method.
-// Assuming it might read markdown files like Escritorio.
-// If not, I will stick to the layout update primarily.
-// Let's assume static content for now if no collection defined, or empty list.
-// Checking file list earlier, there isn't a 'citacoes' collection explicit in `src/content/config.ts` check?
-// Actually `src/lib/citacoes.ts` exists. Let's read that if needed.
-// For now, implementing layout structure.
+import { getQuotes } from "../../lib/citacoes";
+
+let quotes = [];
+try {
+    // getQuotes() reads from a specific hardcoded path. 
+    // In a real deployment, this data should be in src/content.
+    // For now, we try to load it.
+    quotes = getQuotes();
+} catch (e) {
+    console.error("Failed to load quotes:", e);
+}
 
 const currentPath = Astro.url.pathname;
 ---
@@ -32,7 +39,7 @@ const currentPath = Astro.url.pathname;
         {[
             { name: 'livros', href: '/observatorio/livros', count: '—' },
             { name: 'filmes', href: '/observatorio/filmes', count: '—' },
-            { name: 'citações', href: '/observatorio/citacoes', count: '—' }, // Dynamic count todo
+            { name: 'citações', href: '/observatorio/citacoes', count: quotes.length || '—' },
             { name: 'links', href: '/observatorio/links', count: '—' },
         ].map(item => {
             const isActive = currentPath === item.href;
@@ -54,10 +61,39 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <section class="space-y-12">
-    <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-        <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
-        Seção em construção...
-        </p>
-    </div>
+    {quotes.length === 0 ? (
+        <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+            <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
+            Nenhuma citação encontrada.
+            </p>
+        </div>
+    ) : (
+        <div class="grid grid-cols-1 gap-12">
+            {quotes.map((quote: any) => (
+                <blockquote class="relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800">
+                    <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 font-serif leading-relaxed italic mb-4">
+                        "{quote.text}"
+                    </p>
+                    <footer class="flex flex-col gap-1">
+                        <cite class="text-sm font-medium text-neutral-900 dark:text-white not-italic">
+                            {quote.author}
+                        </cite>
+                        {quote.source && (
+                            <span class="text-xs text-neutral-500 dark:text-neutral-500">
+                                {quote.source}
+                            </span>
+                        )}
+                        {quote.tags && quote.tags.length > 0 && (
+                            <div class="flex gap-2 mt-2">
+                                {quote.tags.map((tag: string) => (
+                                    <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase">#{tag}</span>
+                                ))}
+                            </div>
+                        )}
+                    </footer>
+                </blockquote>
+            ))}
+        </div>
+    )}
   </section>
 </Layout>

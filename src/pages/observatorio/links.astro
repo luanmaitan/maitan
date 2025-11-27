@@ -1,8 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getRaindrops } from "../../lib/raindrop";
 
-// Mock Raindrop fetch or similar logic would go here.
-// Implementing layout structure.
+let links = [];
+try {
+  links = await getRaindrops(0); // 0 = All items
+} catch (error) {
+  console.error("Error fetching links:", error);
+}
 
 const currentPath = Astro.url.pathname;
 ---
@@ -27,7 +32,7 @@ const currentPath = Astro.url.pathname;
             { name: 'livros', href: '/observatorio/livros', count: '—' },
             { name: 'filmes', href: '/observatorio/filmes', count: '—' },
             { name: 'citações', href: '/observatorio/citacoes', count: '—' },
-            { name: 'links', href: '/observatorio/links', count: '—' }, // Dynamic count todo
+            { name: 'links', href: '/observatorio/links', count: links.length },
         ].map(item => {
             const isActive = currentPath === item.href;
             return (
@@ -48,10 +53,42 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <section class="space-y-12">
-     <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-        <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
-        Carregando links...
-        </p>
-    </div>
+    {links.length === 0 ? (
+        <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+            <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
+            Nenhum link encontrado.
+            </p>
+        </div>
+    ) : (
+        <div class="grid grid-cols-1 gap-8">
+            {links.map((link: any) => (
+                <article class="group relative flex flex-col gap-2">
+                    <div class="flex items-baseline justify-between gap-4">
+                        <a href={link.link} target="_blank" class="text-lg font-medium text-neutral-900 dark:text-white hover:text-redo-orange dark:hover:text-redo-orange transition-colors lowercase leading-tight">
+                            {link.title}
+                        </a>
+                        <span class="text-xs font-mono text-neutral-400 dark:text-neutral-600 shrink-0">
+                            {new Date(link.created).toLocaleDateString('pt-BR', { year: '2-digit', month: 'short', day: '2-digit' })}
+                        </span>
+                    </div>
+                    
+                    {link.excerpt && (
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-2 font-serif">
+                            {link.excerpt}
+                        </p>
+                    )}
+                    
+                    <div class="flex gap-2 items-center">
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-600 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded-sm">
+                            {link.domain}
+                        </span>
+                        {link.tags && link.tags.map((tag: string) => (
+                            <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase">#{tag}</span>
+                        ))}
+                    </div>
+                </article>
+            ))}
+        </div>
+    )}
   </section>
 </Layout>
