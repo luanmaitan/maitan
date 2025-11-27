@@ -13,31 +13,30 @@ const socialLinks = [
   { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
   { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
   { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
-  { name: "twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" }, // Using x.svg for twitter/X
+  { name: "x/twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" }, // Renamed and using x.svg
   { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
-  // { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "/icons/pinterest.svg" }, // No pinterest svg in list, skipping or using generic
+  { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "" }, // No icon
+  { name: "soundcloud", href: "https://soundcloud.com/luanmaitan", icon: "/icons/soundcloud.svg" }, // Using soundcloud.svg
+  { name: "youtube", href: "https://youtube.com/luanmaitan", icon: "/icons/youtube.svg" }, // Using youtube.svg
+  { name: "discord", href: "https://discord.com", icon: "" }, // No icon
+  { name: "github", href: "https://github.com/luanmaitan", icon: "/icons/github.svg" }, // Using github.svg
+  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "" }, // No icon
   { name: "spotify", href: "https://open.spotify.com/user/luanmaitan", icon: "/icons/spotify.svg" },
 ];
 ---
 
 <Layout title="Maitan Hub">
-  <!-- Sidebar Content: Section Titles -->
-  <div slot="sidebar" class="flex flex-col gap-2 pt-2"> <!-- Adjusted padding to align with right content visually -->
-    <a href="#tipografia" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+  <!-- Sidebar Content: Main Title -->
+  <div slot="sidebar" class="flex flex-col gap-2 pt-2">
+    <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
       tipografia digital
-    </a>
-    <a href="#agora" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white lowercase transition-colors">
-      agora
-    </a>
-    <a href="#por-ai" class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white lowercase transition-colors">
-      por aí
-    </a>
+    </h1>
   </div>
 
-  <div class="space-y-32"> <!-- Increased vertical spacing between sections -->
+  <div class="space-y-16"> <!-- Increased vertical spacing between sections -->
     
     <!-- Section 1: Tipografia Digital / Intro -->
-    <div id="tipografia" class="scroll-mt-32">
+    <div id="intro">
       <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif max-w-xl">
         <p class="mb-4">
           olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
@@ -53,6 +52,9 @@ const socialLinks = [
 
     <!-- Section 2: Agora / Projects -->
     <div id="agora" class="scroll-mt-32">
+      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
+        agora
+      </h2>
       <div class="w-full">
         <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif mb-8 max-w-xl">
           nesse momento, me dedico aos seguintes projetos:
@@ -75,6 +77,9 @@ const socialLinks = [
 
     <!-- Section 3: Por aí / Socials -->
     <div id="por-ai" class="scroll-mt-32">
+      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
+        por aí
+      </h2>
       <div class="w-full">
         <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif mb-8 max-w-xl">
           você também pode me acompanhar pelas redes:
@@ -87,8 +92,14 @@ const socialLinks = [
               target="_blank"
               class="flex items-center gap-2 text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white lowercase transition-colors group"
             >
-              {link.icon && (
+              {link.icon ? (
                 <img src={link.icon} alt="" class="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity dark:invert" />
+              ) : (
+                // Placeholder circle if no icon, or just nothing? User asked for icon. 
+                // I'll use a simple circle placeholder if no icon provided to maintain alignment if desired, 
+                // but user said "incluir ícone", so for text-only ones maybe just no icon is better or a generic dot.
+                // I will leave it empty if no icon string is present, effectively text-only.
+                <span class="w-4 h-4 block bg-neutral-300 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></span>
               )}
               {link.name}
             </a>
