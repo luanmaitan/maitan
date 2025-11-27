@@ -227,7 +227,7 @@ const currentPath = Astro.url.pathname;
 			]}
 		>
             <!-- Left Column: Title & Submenu (passed via slot="sidebar") -->
-            <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-8 lg:sticky lg:top-16 h-fit">
                 <slot name="sidebar" />
             </div>
 
