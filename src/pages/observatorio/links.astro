@@ -3,12 +3,24 @@ import Layout from "../../layouts/Layout.astro";
 import { getRaindrops } from "../../lib/raindrop";
 
 let links = [];
+let allTags: Record<string, number> = {};
+
 try {
   links = await getRaindrops(0); // 0 = All items
+  
+  // Extract tags
+  links.forEach((link: any) => {
+    if (link.tags) {
+      link.tags.forEach((tag: string) => {
+        allTags[tag] = (allTags[tag] || 0) + 1;
+      });
+    }
+  });
 } catch (error) {
   console.error("Error fetching links:", error);
 }
 
+const tags = Object.entries(allTags).sort((a, b) => b[1] - a[1]);
 const currentPath = Astro.url.pathname;
 ---
 
@@ -23,33 +35,53 @@ const currentPath = Astro.url.pathname;
       </p>
     </header>
 
-    <nav class="flex flex-col gap-2">
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
-            ← início
+    <div class="flex flex-col gap-8">
+        <!-- Back Link -->
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase">
+            ← observatório
         </a>
 
-        {[
-            { name: 'livros', href: '/observatorio/livros', count: '—' },
-            { name: 'filmes', href: '/observatorio/filmes', count: '—' },
-            { name: 'citações', href: '/observatorio/citacoes', count: '—' },
-            { name: 'links', href: '/observatorio/links', count: links.length },
-        ].map(item => {
-            const isActive = currentPath === item.href;
-            return (
-            <a
-                href={item.href}
-                class="group flex flex-col"
-            >
-                <span class:list={[
-                    "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
-                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>{item.name}</span>
-                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
-                    {String(item.count).padStart(2, '0')}
+        <!-- Filters (Tags) -->
+        {tags.length > 0 && (
+            <div class="flex flex-col gap-2">
+                <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                    Filtros
                 </span>
-            </a>
-        )})}
-    </nav>
+                <div class="flex flex-wrap gap-2">
+                    {tags.map(([tag, count]) => (
+                        <a href={`#${tag}`} class="text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                            #{tag} <span class="text-neutral-300 dark:text-neutral-600">({count})</span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        )}
+
+        <!-- Sibling Navigation -->
+        <nav class="flex flex-col gap-2">
+            {[
+                { name: 'livros', href: '/observatorio/livros', count: '—' },
+                { name: 'filmes', href: '/observatorio/filmes', count: '—' },
+                { name: 'citações', href: '/observatorio/citacoes', count: '—' },
+                { name: 'links', href: '/observatorio/links', count: links.length },
+            ].map(item => {
+                const isActive = currentPath === item.href;
+                return (
+                <a
+                    href={item.href}
+                    class="group flex flex-col"
+                >
+                    <span class:list={[
+                        "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                        isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                    ]}>{item.name}</span>
+                    <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                        {String(item.count).padStart(2, '0')}
+                    </span>
+                </a>
+            )})}
+        </nav>
+    </div>
   </div>
 
   <section class="space-y-12">
@@ -64,7 +96,7 @@ const currentPath = Astro.url.pathname;
             {links.map((link: any) => (
                 <article class="group relative flex flex-col gap-2">
                     <div class="flex items-baseline justify-between gap-4">
-                        <a href={link.link} target="_blank" class="text-lg font-medium text-neutral-900 dark:text-white hover:text-redo-orange dark:hover:text-redo-orange transition-colors lowercase leading-tight">
+                        <a href={link.link} target="_blank" class="text-lg font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors lowercase leading-tight decoration-1 hover:underline underline-offset-4">
                             {link.title}
                         </a>
                         <span class="text-xs font-mono text-neutral-400 dark:text-neutral-600 shrink-0">
