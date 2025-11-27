@@ -129,38 +129,40 @@ const currentPath = Astro.url.pathname;
 						)})
 					}
 				</nav>
+                
+                <!-- Removed divider here as requested ("tire a divisória que fica acima dos links") -->
+			</div>
 
-                <!-- Divider between Main Nav and Secondary Links -->
-                <div class="w-full border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
-
+            <!-- 3. Footer Section (Clock & Secondary Links) -->
+			<div class="relative shrink-0 w-full">
+                
                 <!-- Secondary Links (Colophon, Policy, CC) -->
-                <div class="flex flex-col gap-[4px] items-start w-full pl-[32px] pr-[20px] py-[30px]">
-                    <a
-                        href="/colophon"
-                        class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-                    >
-                        colophon
-                    </a>
+                <!-- Applied same style as nav numbers: text-[10px] tracking-[-0.2px] leading-[1.2] text-[#575757] -->
+				<div class="flex flex-col gap-[4px] items-start w-full pl-[32px] pr-[20px] pb-[20px]">
                     <a
                         href="/policy"
-                        class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+                        class="block cursor-pointer text-[10px] font-medium leading-[1.2] tracking-[-0.2px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
                     >
                         políticas
                     </a>
                     <a
+                        href="/colophon"
+                        class="block cursor-pointer text-[10px] font-medium leading-[1.2] tracking-[-0.2px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+                    >
+                        colophon
+                    </a>
+                    <a
                         href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
                         target="_blank"
-                        class="block cursor-pointer font-medium text-[15px] leading-[1.2] tracking-[-0.3px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+                        class="block cursor-pointer text-[10px] font-medium leading-[1.2] tracking-[-0.2px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
                     >
                         cc by-nc-sa
                     </a>
-                </div>
+				</div>
 
-                <div class="absolute bottom-0 left-0 right-0 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
-			</div>
+                <!-- Divider before Clock -->
+                <div class="w-full border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
 
-            <!-- 3. Footer Section (Clock Only) -->
-			<div class="relative shrink-0 w-full">
 				<div class="flex flex-col gap-[20px] items-start pl-[32px] pr-[20px] py-[30px]">
                     <!-- Clock & Weather (Black Text) -->
                     <div class="text-black dark:text-white text-[15px] tracking-[-0.3px] leading-[1.2] font-medium">
