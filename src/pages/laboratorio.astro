@@ -3,56 +3,48 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Maitan Hub | Laboratório">
-    Hub | Laboratório"> <nav
-        slot="sidebar"
-        class="flex flex-col space-y-3 text-sm
-text-neutral-500 dark:text-neutral-400"
-    >
-        <a href="/laboratorio" class="text-black dark:text-white font-medium"
-            >experimentos</a
-        >
-        <span class="cursor-not-allowed opacity-50">playground</span>
-    </nav>
-    <section class="space-y-12">
-        <header class="space-y-4">
-            <h1
-                class="text-3xl font-serif
-font-medium text-neutral-900 dark:text-neutral-100"
-            >
-                Laboratório
+    <div slot="sidebar" class="flex flex-col gap-8">
+        <header>
+            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+                laboratório
             </h1>
-            <p
-                class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl
-leading-relaxed"
-            >
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Experimentos digitais, ferramentas e protótipos.
             </p>
         </header>
-        <hr class="border-neutral-100 dark:border-neutral-800" />
+
+        <nav class="flex flex-col gap-2">
+            <a href="/laboratorio" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white mb-4 lowercase">
+                experimentos
+            </a>
+            <!-- No sub-items for now, or add future items here -->
+        </nav>
+    </div>
+
+    <section class="space-y-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Latim Napoleônico -->
             <a href="#" class="group block">
                 <div
                     class="aspect-video w-full bg-neutral-100
-dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative border
-border-neutral-200 dark:border-neutral-800"
+                    dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative border
+                    border-neutral-200 dark:border-neutral-800"
                 >
                     <div
                         class="absolute inset-0 flex
-items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif
-italic"
+                        items-center justify-center text-neutral-400 dark:text-neutral-600 font-serif
+                        italic"
                     >
                         Latim Napoleônico
                     </div>
                 </div>
-                <div class="flex justify-between
-items-baseline mb-2">
+                <div class="flex justify-between items-baseline mb-2">
                     <h3
                         class="text-xl font-serif font-medium text-neutral-900
-dark:text-neutral-100 group-hover:text-neutral-600
-dark:group-hover:text-neutral-300 transition-colors"
+                        dark:text-neutral-100 group-hover:text-neutral-600
+                        dark:group-hover:text-neutral-300 transition-colors lowercase"
                     >
-                        Latim Napoleônico
+                        latim napoleônico
                     </h3>
                     <span class="text-xs font-mono text-neutral-400"
                         >Web App</span
@@ -64,30 +56,28 @@ dark:group-hover:text-neutral-300 transition-colors"
                     Ferramenta para estudo e análise de textos em latim.
                 </p>
             </a>
-            <!-- Timelines
--->
+            <!-- Timelines -->
             <a href="#" class="group block">
                 <div
                     class="aspect-video w-full
-bg-neutral-100 dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative
-border border-neutral-200 dark:border-neutral-800"
+                    bg-neutral-100 dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative
+                    border border-neutral-200 dark:border-neutral-800"
                 >
                     <div
                         class="absolute
-inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600
-font-serif italic"
+                        inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600
+                        font-serif italic"
                     >
                         Timelines
                     </div>
                 </div>
-                <div class="flex justify-between
-items-baseline mb-2">
+                <div class="flex justify-between items-baseline mb-2">
                     <h3
                         class="text-xl font-serif font-medium text-neutral-900
-dark:text-neutral-100 group-hover:text-neutral-600
-dark:group-hover:text-neutral-300 transition-colors"
+                        dark:text-neutral-100 group-hover:text-neutral-600
+                        dark:group-hover:text-neutral-300 transition-colors lowercase"
                     >
-                        Timelines
+                        timelines
                     </h3>
                     <span class="text-xs font-mono text-neutral-400"
                         >Visualização</span

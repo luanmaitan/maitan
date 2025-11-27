@@ -3,33 +3,25 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Maitan Hub | Portfólio">
-    <nav
-        slot="sidebar"
-        class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400"
-    >
-        <a href="/portfolio" class="text-black dark:text-white font-medium"
-            >trabalhos</a
-        >
-        <span class="cursor-not-allowed opacity-50">sobre mim</span>
-        <span class="cursor-not-allowed opacity-50">contato</span>
-    </nav>
-
-    <section class="space-y-8">
-        <header class="space-y-4">
-            <h1
-                class="text-3xl font-serif font-medium text-neutral-900 dark:text-neutral-100"
-            >
-                Portfólio
+    <div slot="sidebar" class="flex flex-col gap-8">
+        <header>
+            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+                portfólio
             </h1>
-            <p
-                class="text-neutral-600 dark:text-neutral-400 font-serif max-w-xl leading-relaxed"
-            >
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Trabalhos selecionados de edição, design e desenvolvimento.
             </p>
         </header>
 
-        <hr class="border-neutral-100 dark:border-neutral-800" />
+        <nav class="flex flex-col gap-2">
+            <a href="/portfolio" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white mb-4 lowercase">
+                trabalhos
+            </a>
+            <!-- Add other links or filters if needed -->
+        </nav>
+    </div>
 
+    <section class="space-y-8">
         <div class="space-y-12">
             <!-- Placeholder Section: Edição -->
             <div>
@@ -50,9 +42,9 @@ import Layout from "../layouts/Layout.astro";
                             </div>
                         </div>
                         <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100"
+                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
                         >
-                            Título do Livro
+                            título do livro
                         </h3>
                         <p
                             class="text-sm text-neutral-500 dark:text-neutral-400"
@@ -71,9 +63,9 @@ import Layout from "../layouts/Layout.astro";
                             </div>
                         </div>
                         <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100"
+                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
                         >
-                            Título do Livro
+                            título do livro
                         </h3>
                         <p
                             class="text-sm text-neutral-500 dark:text-neutral-400"
@@ -103,9 +95,9 @@ import Layout from "../layouts/Layout.astro";
                             </div>
                         </div>
                         <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100"
+                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
                         >
-                            Nome do Site
+                            nome do site
                         </h3>
                         <p
                             class="text-sm text-neutral-500 dark:text-neutral-400"

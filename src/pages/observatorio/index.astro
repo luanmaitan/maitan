@@ -3,39 +3,39 @@ import Layout from "../../layouts/Layout.astro";
 
 const sections = [
     {
-        title: "Filmes",
-        description:
-            "Registro dos filmes assistidos, avaliações e estatísticas.",
+        title: "filmes",
+        description: "Registro dos filmes assistidos, avaliações e estatísticas.",
         href: "/observatorio/filmes",
         icon: "film",
     },
     {
-        title: "Livros",
+        title: "livros",
         description: "Biblioteca digital com leituras, progresso e resenhas.",
         href: "/observatorio/livros",
         icon: "book",
     },
     {
-        title: "Links",
-        description:
-            "Curadoria de links, artigos e recursos interessantes da web.",
+        title: "links",
+        description: "Curadoria de links, artigos e recursos interessantes da web.",
         href: "/observatorio/links",
         icon: "link",
     },
     {
-        title: "Citações",
+        title: "citações",
         description: "Coleção de trechos memoráveis e pensamentos.",
         href: "/observatorio/citacoes",
         icon: "quote",
     },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Observatório">
     <div slot="sidebar" class="flex flex-col gap-8">
         <header>
-            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4">
-                Observatório
+            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+                observatório
             </h1>
             <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Um espaço dedicado ao registro e curadoria do que consumo e
@@ -44,24 +44,32 @@ const sections = [
             </p>
         </header>
 
-        <nav class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-            <a href="/observatorio" class="text-black dark:text-white font-medium">início</a>
-            <a
-                href="/observatorio/livros"
-                class="hover:text-black dark:hover:text-white transition-colors">livros</a
-            >
-            <a
-                href="/observatorio/filmes"
-                class="hover:text-black dark:hover:text-white transition-colors">filmes</a
-            >
-            <a
-                href="/observatorio/citacoes"
-                class="hover:text-black dark:hover:text-white transition-colors">citações</a
-            >
-            <a
-                href="/observatorio/links"
-                class="hover:text-black dark:hover:text-white transition-colors">links</a
-            >
+        <nav class="flex flex-col gap-2">
+            <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white mb-4 lowercase">
+                início
+            </a>
+            
+            {[
+                { name: 'livros', href: '/observatorio/livros', count: '—' },
+                { name: 'filmes', href: '/observatorio/filmes', count: '—' },
+                { name: 'citações', href: '/observatorio/citacoes', count: '—' },
+                { name: 'links', href: '/observatorio/links', count: '—' },
+            ].map(item => {
+                const isActive = currentPath === item.href;
+                return (
+                <a
+                    href={item.href}
+                    class="group flex flex-col"
+                >
+                    <span class:list={[
+                        "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                        isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                    ]}>{item.name}</span>
+                    <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                        {String(item.count).padStart(2, '0')}
+                    </span>
+                </a>
+            )})}
         </nav>
     </div>
 
@@ -74,7 +82,7 @@ const sections = [
                         class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
                     >
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                            <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors lowercase">
                                 {section.title}
                             </h2>
                             <span class="text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">

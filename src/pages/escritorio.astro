@@ -1,45 +1,35 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Fetch all content to count items
+const allContent = await getCollection("escritorio");
+const counts = {
+    'ensaios': allContent.filter(n => n.data.category === 'ensaios').length,
+    'dramaturgia': allContent.filter(n => n.data.category === 'dramaturgia').length,
+    'poesia': allContent.filter(n => n.data.category === 'poesia').length,
+    'autoficcoes': allContent.filter(n => n.data.category === 'autoficcoes').length,
+    'impressoes': allContent.filter(n => n.data.category === 'impressoes').length,
+    'traducoes': allContent.filter(n => n.data.category === 'traducoes').length,
+};
 
 const categories = [
-  {
-    title: "Ensaios",
-    description: "Textos provisórios e reflexões em desenvolvimento.",
-    href: "/escritorio/ensaios",
-  },
-  {
-    title: "Dramaturgia",
-    description: "Textos teatrais e roteiros em processo.",
-    href: "/escritorio/dramaturgia",
-  },
-  {
-    title: "Poesia",
-    description: "Versos e experimentações poéticas.",
-    href: "/escritorio/poesia",
-  },
-  {
-    title: "Autoficções",
-    description: "Narrativas que mesclam realidade e ficção.",
-    href: "/escritorio/autoficcoes",
-  },
-  {
-    title: "Impressões",
-    description: "Notas rápidas e observações do cotidiano.",
-    href: "/escritorio/impressoes",
-  },
-  {
-    title: "Traduções",
-    description: "Traduções e adaptações de textos.",
-    href: "/escritorio/traducoes",
-  },
+  { title: "ensaios", href: "/escritorio/ensaios", count: counts.ensaios, description: "Textos provisórios e reflexões em desenvolvimento." },
+  { title: "dramaturgia", href: "/escritorio/dramaturgia", count: counts.dramaturgia, description: "Textos teatrais e roteiros em processo." },
+  { title: "poesia", href: "/escritorio/poesia", count: counts.poesia, description: "Versos e experimentações poéticas." },
+  { title: "autoficções", href: "/escritorio/autoficcoes", count: counts.autoficcoes, description: "Narrativas que mesclam realidade e ficção." },
+  { title: "impressões", href: "/escritorio/impressoes", count: counts.impressoes, description: "Notas rápidas e observações do cotidiano." },
+  { title: "traduções", href: "/escritorio/traducoes", count: counts.traducoes, description: "Traduções e adaptações de textos." },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Escritório">
   <div slot="sidebar" class="flex flex-col gap-8">
     <header>
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4">
-        Escritório
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        escritório
       </h1>
       <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
         Um espaço para cultivar ideias em estágio inicial, notas de estudo e
@@ -47,36 +37,27 @@ const categories = [
       </p>
     </header>
 
-    <nav class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-      <a href="/escritorio" class="text-black dark:text-white font-medium">índice</a>
-      <a
-        href="/escritorio/ensaios"
-        class="hover:text-black dark:hover:text-white transition-colors">ensaios</a
-      >
-      <a
-        href="/escritorio/dramaturgia"
-        class="hover:text-black dark:hover:text-white transition-colors">dramaturgia</a
-      >
-      <a
-        href="/escritorio/poesia"
-        class="hover:text-black dark:hover:text-white transition-colors">poesia</a
-      >
-      <a
-        href="/escritorio/autoficcoes"
-        class="hover:text-black dark:hover:text-white transition-colors">autoficções</a
-      >
-      <a
-        href="/escritorio/impressoes"
-        class="hover:text-black dark:hover:text-white transition-colors">impressões</a
-      >
-      <a
-        href="/escritorio/traducoes"
-        class="hover:text-black dark:hover:text-white transition-colors">traduções</a
-      >
-      <a
-        href="/tags"
-        class="hover:text-black dark:hover:text-white transition-colors">tags</a
-      >
+    <nav class="flex flex-col gap-2">
+      <a href="/escritorio" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white mb-4 lowercase">
+        índice
+      </a>
+      
+      {categories.map((item) => {
+        const isActive = currentPath === item.href;
+        return (
+        <a
+            href={item.href}
+            class="group flex flex-col"
+        >
+            <span class:list={[
+                "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+            ]}>{item.title}</span>
+            <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                {String(item.count).padStart(2, '0')}
+            </span>
+        </a>
+      )})}
     </nav>
   </div>
 
@@ -89,7 +70,7 @@ const categories = [
             class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
           >
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+              <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors lowercase">
                 {category.title}
               </h2>
               <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
