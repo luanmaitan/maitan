@@ -26,32 +26,32 @@ const socialLinks = [
 ---
 
 <Layout title="Maitan Hub">
-  <!-- Sidebar Content: Main Title -->
-  <div slot="sidebar" class="flex flex-col gap-2 pt-2">
+  <!-- Sidebar Content: Main Title and Intro Description -->
+  <div slot="sidebar" class="flex flex-col gap-8 pt-2">
     <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
       tipografia digital
     </h1>
+    
+    <!-- Moved intro description to sidebar -->
+    <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif max-w-sm">
+      <p class="mb-4">
+        olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
+      </p>
+      <p class="mb-4">
+        se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
+      </p>
+      <p>
+        todos os dias eu cuido de plantas.
+      </p>
+    </div>
   </div>
 
   <div class="space-y-16"> <!-- Vertical spacing between sections -->
     
-    <!-- Section 1: Tipografia Digital / Intro -->
-    <div id="intro">
-      <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 font-serif max-w-xl">
-        <p class="mb-4">
-          olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
-        </p>
-        <p class="mb-4">
-          se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
-        </p>
-        <p>
-          todos os dias eu cuido de plantas.
-        </p>
-      </div>
-    </div>
+    <!-- Section 1: Intro was moved to Sidebar -->
 
     <!-- Section 2: Agora / Projects -->
-    <div id="agora" class="scroll-mt-32">
+    <div id="agora">
       <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
         agora
       </h2>
@@ -60,10 +60,10 @@ const socialLinks = [
           nesse momento, me dedico aos seguintes projetos:
         </p>
         
-        <!-- Projects grid modified to 4 columns on larger screens (one line as requested) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Projects grid modified: single line (up to 4 cols), row layout (icon left, text right), left aligned container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-12 gap-y-6 justify-start">
           {projects.map((project) => (
-            <a href={project.href} class="group flex flex-col items-center text-center gap-3 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors">
+            <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors max-w-xs">
               <div class="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
                  <div class="w-full h-full bg-neutral-300 dark:bg-neutral-700"></div>
               </div>
