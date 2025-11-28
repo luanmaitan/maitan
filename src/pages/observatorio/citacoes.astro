@@ -25,8 +25,8 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Citações">
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <header>
+  <div slot="sidebar" class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 md:py-4 md:border-b md:border-neutral-200 dark:md:border-neutral-800 md:w-full md:overflow-x-auto lg:flex-col lg:border-none lg:py-0 lg:w-auto lg:h-fit lg:sticky lg:top-16">
+    <header class="md:hidden lg:block">
       <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
         citações
       </h1>
@@ -35,24 +35,24 @@ const currentPath = Astro.url.pathname;
       </p>
     </header>
 
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-8 lg:flex-col">
         <!-- Back Link -->
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase">
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase md:hidden lg:block">
             ← observatório
         </a>
 
         <!-- Filters (Tags) -->
         {tags.length > 0 && (
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2 md:min-w-max">
                 <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                     Filtros
                 </span>
-                <div class="flex flex-wrap gap-2">
-                    <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase">
+                <div class="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap">
+                    <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
                         todos
                     </a>
                     {tags.map(([tag, count]) => (
-                        <a href={`#${tag}`} data-tag={tag} class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                        <a href={`#${tag}`} data-tag={tag} class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap">
                             #{tag} <span class="text-neutral-300 dark:text-neutral-600">({count})</span>
                         </a>
                     ))}
@@ -71,12 +71,16 @@ const currentPath = Astro.url.pathname;
         </div>
     ) : (
         <div class="grid grid-cols-1 gap-12">
-            {quotes.map((quote: any) => (
+            {quotes.map((quote: any, index: number) => (
                 <blockquote 
                     class="quote-item relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group"
                     data-tags={quote.tags ? quote.tags.join(',') : ''}
                 >
-                    <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 font-serif leading-relaxed italic mb-4">
+                    <span class="absolute top-0 right-0 text-xs font-mono text-neutral-200 dark:text-neutral-800">
+                        {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 leading-relaxed italic mb-4">
                         "{quote.text}"
                     </p>
                     <footer class="flex flex-col gap-1">

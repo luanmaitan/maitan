@@ -74,8 +74,8 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Livros">
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <header>
+  <div slot="sidebar" class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 md:py-4 md:border-b md:border-neutral-200 dark:md:border-neutral-800 md:w-full md:overflow-x-auto lg:flex-col lg:border-none lg:py-0 lg:w-auto lg:h-fit lg:sticky lg:top-16">
+    <header class="md:hidden lg:block">
       <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
         livros
       </h1>
@@ -84,8 +84,8 @@ const currentPath = Astro.url.pathname;
       </p>
     </header>
 
-    <nav class="flex flex-col gap-2">
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 min-w-max">
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
             ← início
         </a>
 
@@ -99,13 +99,13 @@ const currentPath = Astro.url.pathname;
             return (
             <a
                 href={item.href}
-                class="group flex flex-col"
+                class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
             >
                 <span class:list={[
                     "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
                     isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
                 ]}>{item.name}</span>
-                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1">
+                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0">
                     {String(item.count).padStart(2, '0')}
                 </span>
             </a>
@@ -130,6 +130,11 @@ const currentPath = Astro.url.pathname;
             <div class="relative group">
                 <a href={book.link} target="_blank" class="book-link flex items-center py-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors -mx-4 px-4 rounded-none" data-poster={book.poster}>
                 
+                <!-- Index Number -->
+                <div class="hidden md:block w-8 flex-shrink-0 text-xs font-mono text-neutral-300 dark:text-neutral-600">
+                    {String(index + 1).padStart(2, '0')}
+                </div>
+
                 <!-- Year (Left Column) -->
                 <div class="w-16 flex-shrink-0 text-xs font-mono text-neutral-400 dark:text-neutral-500 font-bold">
                     {showYear && book.year}

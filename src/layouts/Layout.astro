@@ -200,17 +200,16 @@ const currentPath = Astro.url.pathname;
 			>
 				{
 					navigationWithCounts.map((item) => (
-						<div class="flex items-center gap-2">
+						<div class="flex items-center gap-1">
                             <a
                                 href={item.href}
-                                class="text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
+                                class="relative group text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
                             >
                                 {item.name}
+                                <sup class="text-[9px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px] ml-0.5 absolute -top-1 -right-3">
+                                    {String(item.count).padStart(2, '0')}
+                                </sup>
                             </a>
-                            <!-- Number beside link on tablet -->
-                            <span class="text-[10px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px]">
-                                {String(item.count).padStart(2, '0')}
-                            </span>
                         </div>
 					))
 				}
