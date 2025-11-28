@@ -83,29 +83,27 @@ const updates = [
     </nav>
   </div>
 
-  <section class="space-y-8">
-    <div class="relative border-l border-neutral-200 dark:border-neutral-800 ml-3 space-y-12 py-4">
-      {updates.map((update) => (
-        <div class="relative pl-8">
-          <!-- Bolinha da timeline -->
-          <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 ring-4 ring-neutral-50 dark:ring-neutral-900"></div>
-          
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-            <h3 class="font-medium text-neutral-900 dark:text-neutral-200 text-lg">{update.title}</h3>
-            <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">{update.date}</span>
-          </div>
-          
-          <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-3">{update.description}</p>
-          
-          {update.tags && (
-            <div class="flex gap-2">
-              {update.tags.map((tag) => (
-                <span class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm">{tag}</span>
-              ))}
-            </div>
-          )}
+  <section class="space-y-16">
+    {updates.map((update, index) => (
+      <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">
+            v {updates.length - index}.0.0
+        </h4>
+        
+        <div>
+            <h3 class="text-xl font-medium text-neutral-900 dark:text-white mb-1">{update.title}</h3>
+            <span class="text-sm text-neutral-500 dark:text-neutral-500 font-mono block mb-4">{update.date}</span>
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-3xl">{update.description}</p>
+            
+            {update.tags && (
+                <div class="flex gap-2 flex-wrap">
+                {update.tags.map((tag) => (
+                    <span class="text-[10px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-sm border border-neutral-200 dark:border-neutral-800">{tag}</span>
+                ))}
+                </div>
+            )}
         </div>
-      ))}
-    </div>
+      </div>
+    ))}
   </section>
 </Layout>

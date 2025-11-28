@@ -20,34 +20,60 @@ import Layout from '../layouts/Layout.astro';
     </nav>
   </div>
 
-  <section class="space-y-8">
-    <div class="prose prose-neutral dark:prose-invert max-w-none">
-      <h3>Privacidade</h3>
-      <p>
-        Este site não utiliza cookies de rastreamento invasivos nem vende seus dados para terceiros.
-        Quaisquer dados coletados são utilizados apenas para fins de análise anônima de tráfego, visando melhorar a experiência do usuário.
-      </p>
-
-      <h3>Conteúdo e Licença</h3>
-      <p>
-        Todo o conteúdo original deste site, salvo indicação em contrário, está licenciado sob a licença
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
-      </p>
-      <p>
-        Isso significa que você é livre para:
-      </p>
-      <ul>
-        <li><strong>Compartilhar:</strong> copiar e redistribuir o material em qualquer suporte ou formato.</li>
-        <li><strong>Adaptar:</strong> remixar, transformar e criar a partir do material.</li>
-      </ul>
-      <p>
-        Desde que siga os seguintes termos:
-      </p>
-      <ul>
-        <li><strong>Atribuição:</strong> Você deve dar o crédito apropriado.</li>
-        <li><strong>Não Comercial:</strong> Você não pode usar o material para fins comerciais.</li>
-        <li><strong>CompartilhaIgual:</strong> Se você remixar, transformar ou criar a partir do material, deve distribuir as suas contribuições sob a mesma licença que o original.</li>
-      </ul>
+  <section class="space-y-16">
+    <!-- Editor -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Editor</h4>
+        <ul class="space-y-1 text-neutral-600 dark:text-neutral-400">
+            <li>Luan Maitan</li>
+            <li><a href="mailto:luan.maitan@hotmail.com" class="hover:text-black dark:hover:text-white transition-colors">luan.maitan@hotmail.com</a></li>
+            <li><a href="https://maitan.org" class="hover:text-black dark:hover:text-white transition-colors">maitan.org</a></li>
+        </ul>
     </div>
+
+    <!-- Contact -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Contato</h4>
+        <ul class="space-y-1 text-neutral-600 dark:text-neutral-400">
+            <li>São Paulo, SP</li>
+            <li>Brasil</li>
+        </ul>
+    </div>
+
+    <!-- Liability for content -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Responsabilidade pelo conteúdo</h4>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            O conteúdo destas páginas foi criado com grande cuidado. No entanto, não posso garantir a exatidão, integridade e atualidade do conteúdo. Como prestador de serviços, sou responsável pelo meu próprio conteúdo nestas páginas de acordo com as leis gerais. Obrigações de remover ou bloquear o uso de informações sob as leis gerais permanecem inalteradas.
+        </p>
+    </div>
+
+    <!-- Liability for links -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Responsabilidade por links</h4>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            Esta oferta contém links para sites externos de terceiros, sobre cujos conteúdos não tenho influência. Portanto, não posso assumir qualquer responsabilidade por esses conteúdos externos. O respectivo provedor ou operador das páginas é sempre responsável pelo conteúdo das páginas vinculadas. As páginas vinculadas foram verificadas quanto a possíveis violações legais no momento da vinculação. Conteúdos ilegais não eram reconhecíveis no momento da vinculação. Se eu tomar conhecimento de quaisquer infrações, removerei esses links imediatamente.
+        </p>
+    </div>
+
+    <!-- Copyright -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Direitos Autorais</h4>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            O conteúdo e as obras criadas nestas páginas estão sujeitos à licença <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>, salvo indicação em contrário. Downloads e cópias deste site são permitidos apenas para uso privado e não comercial, desde que dada a devida atribuição. Na medida em que o conteúdo deste site não foi criado pelo operador, os direitos autorais de terceiros são respeitados. Em particular, o conteúdo de terceiros é identificado como tal.
+        </p>
+    </div>
+
+    <!-- Privacy -->
+    <div class="space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Privacidade</h4>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            Levo a proteção dos seus dados pessoais muito a sério. Trato seus dados pessoais de forma confidencial e de acordo com os regulamentos legais de proteção de dados. O uso deste site é geralmente possível sem fornecer dados pessoais. Na medida em que dados pessoais (por exemplo, nome ou endereços de e-mail) são coletados, isso é feito, sempre que possível, de forma voluntária. Esses dados não serão repassados a terceiros sem o seu consentimento expresso.
+        </p>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-4">
+            Este site utiliza Vercel Analytics para coleta anônima de dados de tráfego visando melhoria de performance e experiência. Não são utilizados cookies de rastreamento invasivos para fins publicitários.
+        </p>
+    </div>
+
   </section>
 </Layout>
