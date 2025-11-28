@@ -38,10 +38,10 @@
 </script>
 
 <div
-    class="flex items-center gap-4 text-xs font-mono text-neutral-400 dark:text-neutral-500"
+    class="flex items-center gap-4 text-xs font-mono"
 >
     <!-- Clock -->
-    <a href="/calendario" class="flex items-center gap-2 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors cursor-pointer">
+    <a href="/calendario" class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"

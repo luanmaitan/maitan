@@ -254,20 +254,16 @@ const currentPath = Astro.url.pathname;
 
 		<!-- Footer (Mobile Only) -->
 		<footer
-			class="lg:hidden w-full border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-8 mt-auto"
+			class="lg:hidden w-full border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-6 mt-auto"
 		>
-			<div
-				class="max-w-7xl mx-auto flex flex-col gap-6"
-			>
-				<div class="flex flex-col gap-2 text-black dark:text-white text-[15px]">
+			<div class="flex justify-between items-center text-black dark:text-white">
+				<div class="flex items-center">
                      <FooterInfo client:load />
 				</div>
 				
-				<div class="border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pt-6 flex justify-between items-center text-[15px] tracking-[-0.3px]">
-					<div class="flex gap-4 w-full justify-between">
-                        <a href="/colophon" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">colophon</a>
-						<a href="/policy" class="text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">políticas</a>
-					</div>
+				<div class="flex gap-6 text-xs font-mono">
+                    <a href="/colophon" class="hover:opacity-70 transition-opacity lowercase">colophon</a>
+					<a href="/policy" class="hover:opacity-70 transition-opacity lowercase">políticas</a>
 				</div>
 			</div>
 		</footer>
