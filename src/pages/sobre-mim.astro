@@ -62,6 +62,14 @@ const timeline = [
         ← voltar ao início
       </a>
     </nav>
+    <nav class="flex flex-col gap-1">
+      {timeline.map((item) => (
+        <a href={`#${item.year}`} class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
+          {item.year}
+          <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
+        </a>
+      ))}
+    </nav>
   </div>
 
   <section class="space-y-16">
@@ -76,7 +84,7 @@ const timeline = [
 
     <div class="space-y-12">
     {timeline.map((item) => (
-      <div class="space-y-2">
+      <div class="space-y-2" id={item.year}>
         <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-1">
             {item.year}
         </h4>
