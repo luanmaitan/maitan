@@ -74,7 +74,27 @@ const openTabs = [
         </div>
     </div>
 
-    <!-- Section 2: Agora / Projects -->
+    <!-- Section 2: Abas Abertas (Moved Up) -->
+    <div id="abas-abertas">
+      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
+        abas abertas
+      </h2>
+      <div class="w-full">
+        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
+          o que está no meu radar nesse momento:
+        </p>
+        
+        <div class="flex flex-wrap gap-3">
+          {openTabs.map((tab) => (
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
+              {tab}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Agora / Projects -->
     <div id="agora">
       <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
         agora
@@ -101,26 +121,6 @@ const openTabs = [
         <!-- Weather Widget -->
         <div class="max-w-md">
             <WeatherWidget client:load />
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 3: Abas Abertas -->
-    <div id="abas-abertas">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
-        abas abertas
-      </h2>
-      <div class="w-full">
-        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
-          o que está no meu radar nesse momento:
-        </p>
-        
-        <div class="flex flex-wrap gap-3">
-          {openTabs.map((tab) => (
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
-              {tab}
-            </span>
-          ))}
         </div>
       </div>
     </div>
