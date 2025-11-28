@@ -3,88 +3,88 @@ import Layout from '../../layouts/Layout.astro';
 
 const updates = [
   {
-    version: "0.11.0",
-    id: "v-0-11-0",
+    version: "0.1.5",
+    id: "v-0-1-5",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "refinamentos de ui, busca e funcionalidades",
     description: "implementação de busca fuzzy com fuse.js (desktop e mobile overlay). nova página de clima com previsão detalhada. portfólio com grid masonry responsivo e filtros por tipo e função. correção no sistema de citações migrando para content collections. ajustes finos de layout responsivo para tablet (menu, footer, sidebar).",
     tags: ["search", "weather", "portfolio", "responsive", "fix"]
   },
   {
-    version: "0.10.0",
-    id: "v-0-10-0",
+    version: "0.1.4",
+    id: "v-0-1-4",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "refinamentos finais na home e redes sociais",
     description: "ajuste de layout na página inicial: 'tipografia digital' consolidado como título principal na barra lateral, e seções 'agora' e 'por aí' integradas ao fluxo de conteúdo principal. expansão da lista de redes sociais com ícones (twitter atualizado para x, adição de soundcloud, youtube, github, etc).",
     tags: ["home", "layout", "socials", "icons"]
   },
   {
-    version: "0.9.0",
-    id: "v-0-9-0",
+    version: "0.1.3",
+    id: "v-0-1-3",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "refinamentos finais",
     description: "reestruturação da página inicial para um layout mais descritivo com seções de 'tipografia digital', 'agora' e 'por aí'. criação da página 'sobre mim' (testemunho) e adição de ícones nas redes sociais. ajustes de navegação interna e tipografia.",
     tags: ["home", "content", "about me", "icons"]
   },
   {
-    version: "0.8.0",
-    id: "v-0-8-0",
+    version: "0.1.2",
+    id: "v-0-1-2",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "refatoração da home e consistência geral",
     description: "finalização da refatoração completa do site. a página inicial agora apresenta uma estrutura clara com introdução, projetos e redes sociais. criação da página de currículo dedicada. padronização total de tipografia, layouts de duas colunas e menus laterais com contagem dinâmica em todas as seções.",
     tags: ["home", "layout", "consistency", "refactor"]
   },
   {
-    version: "0.7.0",
-    id: "v-0-7-0",
+    version: "0.1.1",
+    id: "v-0-1-1",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "refinamento de sidebar e footer",
     description: "ajuste fino no layout do sidebar desktop: reposicionamento do toggle de tema para o cabeçalho, reorganização dos links secundários (colophon, políticas, cc) com divisória própria, e fixação do widget de clima/relógio no rodapé com tipografia escura.",
     tags: ["ui", "layout", "sidebar", "footer"]
   },
   {
-    version: "0.6.0",
-    id: "v-0-6-0",
+    version: "0.1.0",
+    id: "v-0-1-0",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "design system redo & refatoração",
     description: "adoção completa do estilo visual do redo design system. implementação de layout de coluna dupla em todas as subpáginas (escritório, observatório, colophon), títulos em caixa baixa com tipografia display (60px) e contagem dinâmica nos submenus laterais. navegação e estrutura unificadas.",
     tags: ["design system", "ui", "redo", "refactor", "layout"]
   },
   {
-    version: "0.5.0",
-    id: "v-0-5-0",
+    version: "0.0.5",
+    id: "v-0-0-5",
     date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
     title: "reestruturação de navegação",
     description: "nova arquitetura de navegação com sidebar fixa em desktop (250px), header de duas linhas em tablet e menu expansível em mobile. contagem dinâmica de itens no menu principal.",
     tags: ["navigation", "ux", "structure"]
   },
   {
-    version: "0.4.0",
-    id: "v-0-4-0",
+    version: "0.0.4",
+    id: "v-0-0-4",
     date: "25 NOV 2025",
     title: "estrutura do escritório e páginas de projetos",
     description: "criação da estrutura completa do escritório com 6 categorias (ensaios, dramaturgia, poesia, autoficções, impressões, traduções) e páginas individuais para cada categoria. criação de 3 posts provisórios de ensaios. implementação de páginas individuais para cada projeto (vigília, labirinto, floresta) com links para suas plataformas. atualização do colophon com documentação completa de todas as apis, serviços e bibliotecas utilizadas.",
     tags: ["feature", "content", "structure", "documentation"]
   },
   {
-    version: "0.3.0",
-    id: "v-0-3-0",
+    version: "0.0.3",
+    id: "v-0-0-3",
     date: "25 NOV 2025",
     title: "sistema de calendário e citações",
     description: "implementação completa do sistema de calendário com fullcalendar, incluindo visualização mensal, filtros por categorias e tags, e integração na homepage. criação do sistema de citações com leitura automática de arquivos markdown, extração de autor e fonte, e atribuição automática de tags. calendário ancorado no dia atual e widget de horário no footer agora leva à página inicial.",
     tags: ["feature", "calendar", "citations", "markdown"]
   },
   {
-    version: "0.2.0",
-    id: "v-0-2-0",
+    version: "0.0.2",
+    id: "v-0-0-2",
     date: "21 NOV 2025",
     title: "refinamentos de ui e conteúdo",
     description: "ajustes visuais no modo escuro, redesenho do rodapé com ícones minimalistas, criação das páginas de sobre e políticas, e reorganização da navegação.",
     tags: ["ui", "content", "dark mode"]
   },
   {
-    version: "0.1.0",
-    id: "v-0-1-0",
+    version: "0.0.1",
+    id: "v-0-0-1",
     date: "21 NOV 2025",
     title: "estrutura inicial",
     description: "configuração do projeto com astro, tailwindcss e svelte. implementação do layout responsivo, sistema de temas e páginas fundamentais.",
