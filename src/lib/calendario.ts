@@ -6,7 +6,6 @@ export interface CalendarEvent {
     end?: string | Date;
     allDay?: boolean;
     category: string;
-    tags: string[];
     color: string;
     backgroundColor?: string;
     borderColor?: string;
@@ -15,33 +14,25 @@ export interface CalendarEvent {
     url?: string;
     extendedProps?: {
         category: string;
-        tags: string[];
         description?: string;
     };
 }
 
 // Categorias e suas cores
 export const CATEGORIES = {
-    trabalho: {
-        name: 'Trabalho',
+    marketing: {
+        name: 'Marketing',
         color: '#3b82f6', // blue
         bgColor: '#dbeafe',
         borderColor: '#3b82f6',
         textColor: '#1e40af'
     },
-    pessoal: {
-        name: 'Pessoal',
+    efemerides: {
+        name: 'Efemérides',
         color: '#10b981', // green
         bgColor: '#d1fae5',
         borderColor: '#10b981',
         textColor: '#065f46'
-    },
-    estudos: {
-        name: 'Estudos',
-        color: '#8b5cf6', // purple
-        bgColor: '#ede9fe',
-        borderColor: '#8b5cf6',
-        textColor: '#5b21b6'
     },
     eventos: {
         name: 'Eventos',
@@ -49,49 +40,12 @@ export const CATEGORIES = {
         bgColor: '#fef3c7',
         borderColor: '#f59e0b',
         textColor: '#92400e'
-    },
-    viagens: {
-        name: 'Viagens',
-        color: '#ef4444', // red
-        bgColor: '#fee2e2',
-        borderColor: '#ef4444',
-        textColor: '#991b1b'
-    },
-    saude: {
-        name: 'Saúde',
-        color: '#ec4899', // pink
-        bgColor: '#fce7f3',
-        borderColor: '#ec4899',
-        textColor: '#9f1239'
-    },
-    outros: {
-        name: 'Outros',
-        color: '#6b7280', // gray
-        bgColor: '#f3f4f6',
-        borderColor: '#6b7280',
-        textColor: '#374151'
     }
 } as const;
 
-// Tags disponíveis
-export const TAGS = [
-    'importante',
-    'urgente',
-    'reunião',
-    'deadline',
-    'projeto',
-    'aprendizado',
-    'lazer',
-    'família',
-    'amigos',
-    'saúde',
-    'financeiro',
-    'criativo'
-] as const;
-
 // Função para criar um evento formatado para FullCalendar
 export function formatEventForCalendar(event: CalendarEvent): any {
-    const categoryConfig = CATEGORIES[event.category as keyof typeof CATEGORIES] || CATEGORIES.outros;
+    const categoryConfig = CATEGORIES[event.category as keyof typeof CATEGORIES] || CATEGORIES.eventos;
     
     return {
         id: event.id,
@@ -106,7 +60,6 @@ export function formatEventForCalendar(event: CalendarEvent): any {
         url: event.url,
         extendedProps: {
             category: event.category,
-            tags: event.tags || [],
             description: event.description || ''
         }
     };
@@ -114,7 +67,6 @@ export function formatEventForCalendar(event: CalendarEvent): any {
 
 // Função para obter eventos (pode ser expandida para buscar de uma API ou arquivo)
 export function getEvents(): CalendarEvent[] {
-    // Exemplo de eventos - pode ser substituído por uma chamada de API ou leitura de arquivo
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -125,36 +77,30 @@ export function getEvents(): CalendarEvent[] {
     return [
         {
             id: '1',
-            title: 'Reunião de Equipe',
+            title: 'Lançamento de Campanha',
             start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 0),
             end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 30),
-            category: 'trabalho',
-            tags: ['importante', 'reunião'],
-            color: CATEGORIES.trabalho.color,
-            description: 'Reunião semanal com a equipe para alinhamento de projetos'
+            category: 'marketing',
+            color: CATEGORIES.marketing.color,
+            description: 'Lançamento da nova campanha de verão'
         },
         {
             id: '2',
-            title: 'Aniversário',
+            title: 'Dia da Poesia',
             start: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate()),
             allDay: true,
-            category: 'pessoal',
-            tags: ['família', 'importante'],
-            color: CATEGORIES.pessoal.color,
-            description: 'Aniversário de alguém especial'
+            category: 'efemerides',
+            color: CATEGORIES.efemerides.color,
+            description: 'Comemoração internacional'
         },
         {
             id: '3',
-            title: 'Curso Online',
+            title: 'Feira do Livro',
             start: new Date(nextWeek.getFullYear(), nextWeek.getMonth(), nextWeek.getDate(), 14, 0),
-            end: new Date(nextWeek.getFullYear(), nextWeek.getMonth(), nextWeek.getDate(), 16, 0),
-            category: 'estudos',
-            tags: ['aprendizado', 'projeto'],
-            color: CATEGORIES.estudos.color,
-            description: 'Aula do curso de desenvolvimento web'
+            end: new Date(nextWeek.getFullYear(), nextWeek.getMonth(), nextWeek.getDate(), 18, 0),
+            category: 'eventos',
+            color: CATEGORIES.eventos.color,
+            description: 'Participação na feira local'
         }
     ];
 }
-
-
-

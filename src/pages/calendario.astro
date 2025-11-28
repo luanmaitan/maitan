@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getEvents, formatEventForCalendar, CATEGORIES, TAGS } from '../lib/calendario';
+import { getEvents, formatEventForCalendar, CATEGORIES } from '../lib/calendario';
 
 // Carrega eventos
 const events = getEvents();
@@ -39,28 +39,6 @@ const formattedEvents = events.map(formatEventForCalendar);
                     ))}
                 </div>
             </div>
-
-            <!-- Filtros de Tags -->
-            <div class="space-y-2 w-full md:w-auto">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 block mb-2 lg:mb-0">Tags</span>
-                <div class="flex flex-wrap gap-2 md:flex-nowrap lg:flex-wrap">
-                    <button 
-                        id="filter-tags-all"
-                        class="text-[10px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap tag-filter-btn active"
-                        data-tag="all"
-                    >
-                        todos
-                    </button>
-                    {TAGS.map(tag => (
-                        <button
-                            class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors tag-filter-btn whitespace-nowrap"
-                            data-tag={tag}
-                        >
-                            #{tag}
-                        </button>
-                    ))}
-                </div>
-            </div>
         </div>
     </div>
 
@@ -81,7 +59,6 @@ const formattedEvents = events.map(formatEventForCalendar);
 </Layout>
 
 <script define:vars={{ eventsData: formattedEvents }}>
-    // Importando os módulos necessários
     import { Calendar } from '@fullcalendar/core';
     import dayGridPlugin from '@fullcalendar/daygrid';
     import timeGridPlugin from '@fullcalendar/timegrid';
@@ -128,11 +105,9 @@ const formattedEvents = events.map(formatEventForCalendar);
                     const props = event.extendedProps;
                     
                     const category = props.category || 'Geral';
-                    const tags = props.tags ? props.tags.map(t => `#${t}`).join(' ') : '';
                     const description = props.description || '';
                     
                     let details = `\n\nCategoria: ${category}`;
-                    if(tags) details += `\nTags: ${tags}`;
                     if(description) details += `\n\n${description}`;
                     
                     alert(`${event.title}${details}`);
@@ -141,83 +116,49 @@ const formattedEvents = events.map(formatEventForCalendar);
                 height: 'auto',
                 contentHeight: 'auto',
                 aspectRatio: 1.8,
-                dayMaxEvents: true, // Allow "more" link when too many events
-                
-                // Highlight Today logic is handled by CSS, but we can ensure it's updated
-                datesSet: function() {
-                    // Optional: hook for view changes
-                }
+                dayMaxEvents: true,
             });
 
             calendar.render();
-            console.log('Calendar rendered');
 
             // Filtros
-            setupFilters(calendar);
+            const categoryFilters = document.querySelectorAll('.filter-btn');
+            let activeCategory = 'all';
+
+            function applyFilters() {
+                const allEvents = calendar.getEvents();
+                
+                allEvents.forEach(event => {
+                    const props = event.extendedProps;
+                    const eventCategory = props.category || '';
+                    
+                    let show = true;
+                    if (activeCategory !== 'all' && eventCategory !== activeCategory) show = false;
+                    
+                    if (show) {
+                        event.setProp('display', 'auto');
+                    } else {
+                        event.setProp('display', 'none');
+                    }
+                });
+            }
+
+            categoryFilters.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    activeCategory = category || 'all';
+                    
+                    categoryFilters.forEach(b => b.classList.remove('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium'));
+                    this.classList.add('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium');
+                    
+                    applyFilters();
+                });
+            });
 
         } catch (e) {
             console.error('Error initializing calendar:', e);
         }
     });
-
-    function setupFilters(calendar) {
-        const categoryFilters = document.querySelectorAll('.filter-btn');
-        const tagFilters = document.querySelectorAll('.tag-filter-btn');
-        
-        let activeCategory = 'all';
-        let activeTag = 'all';
-
-        function applyFilters() {
-            const allEvents = calendar.getEvents();
-            
-            allEvents.forEach(event => {
-                const props = event.extendedProps;
-                const eventCategory = props.category || '';
-                const eventTags = props.tags || [];
-                
-                let show = true;
-                if (activeCategory !== 'all' && eventCategory !== activeCategory) show = false;
-                if (activeTag !== 'all' && !eventTags.includes(activeTag)) show = false;
-                
-                // FullCalendar doesn't have a simple "hide" method for single events without removing them
-                // So we use classNames to toggle visibility or set display prop if supported by view
-                // Actually, setProp('display', 'none') works for rendering
-                if (show) {
-                    event.setProp('display', 'auto');
-                } else {
-                    event.setProp('display', 'none');
-                }
-            });
-        }
-
-        categoryFilters.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                activeCategory = category || 'all';
-                
-                categoryFilters.forEach(b => b.classList.remove('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium'));
-                this.classList.add('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium');
-                
-                applyFilters();
-            });
-        });
-
-        tagFilters.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tag = this.getAttribute('data-tag');
-                activeTag = tag || 'all';
-                
-                tagFilters.forEach(b => {
-                    b.classList.remove('active', 'text-black', 'dark:text-white', 'font-medium');
-                    b.classList.add('text-neutral-400', 'dark:text-neutral-600');
-                });
-                this.classList.add('active', 'text-black', 'dark:text-white', 'font-medium');
-                this.classList.remove('text-neutral-400', 'dark:text-neutral-600');
-                
-                applyFilters();
-            });
-        });
-    }
 </script>
 
 <style>
@@ -228,7 +169,7 @@ const formattedEvents = events.map(formatEventForCalendar);
         --fc-page-bg-color: transparent;
         --fc-neutral-bg-color: rgba(0,0,0,0.03);
         --fc-list-event-hover-bg-color: rgba(0,0,0,0.05);
-        --fc-today-bg-color: rgba(0,0,0,0.03); /* Default is usually yellow-ish */
+        --fc-today-bg-color: rgba(0,0,0,0.03); 
     }
 
     .dark :global(.fc) {
@@ -283,7 +224,7 @@ const formattedEvents = events.map(formatEventForCalendar);
 
     /* Today Highlight - More Prominent */
     :global(.fc-day-today) {
-        background-color: transparent !important; /* Reset default bg */
+        background-color: transparent !important;
         position: relative;
     }
     
