@@ -202,7 +202,7 @@ const currentPath = Astro.url.pathname;
 
 			<!-- Row 2: Navigation (Tablet Only: md -> lg) -->
 			<div
-				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800"
+				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto"
 			>
 				{
 					navigationWithCounts.map((item) => (
@@ -212,7 +212,7 @@ const currentPath = Astro.url.pathname;
                                 class="relative group text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
                             >
                                 {item.name}
-                                <sup class="text-[9px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px] ml-0.5 absolute -top-1 -right-3">
+                                <sup class="text-[9px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px] ml-0.5 absolute -top-1 -right-1.5">
                                     {String(item.count).padStart(2, '0')}
                                 </sup>
                             </a>
