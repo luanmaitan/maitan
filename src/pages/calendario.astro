@@ -14,60 +14,67 @@ const formattedEvents = events.map(formatEventForCalendar);
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.10/main.min.css" rel="stylesheet" />
 
 <Layout title="Maitan Hub | Calendário">
-    <section class="space-y-8">
-        <header class="space-y-4">
-            <h1 class="text-3xl font-medium text-neutral-900 dark:text-neutral-100 lowercase">calendário</h1>
-            <p class="text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
+    <div slot="sidebar" class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 md:py-4 md:border-b md:border-neutral-200 dark:md:border-neutral-800 md:w-full md:overflow-x-auto lg:flex-col lg:border-none lg:py-0 lg:w-full lg:h-fit lg:sticky lg:top-16">
+        <header class="md:hidden lg:block">
+            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">calendário</h1>
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Organize seus eventos, compromissos e atividades em um calendário interativo.
             </p>
         </header>
 
-        <!-- Filtros de Categorias -->
-        <div class="space-y-4 border-b border-neutral-100 dark:border-neutral-800 pb-6">
-            <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Categorias:</span>
-                <button 
-                    id="filter-all"
-                    class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 border border-transparent bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium filter-btn active"
-                    data-category="all"
-                >
-                    Todas
-                </button>
-                {Object.entries(CATEGORIES).map(([key, category]) => (
-                    <button
-                        class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent filter-btn"
-                        data-category={key}
-                        style={`--category-color: ${category.color}`}
+        <!-- Filtros -->
+        <div class="space-y-6 w-full">
+            <!-- Filtros de Categorias -->
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 block">Categorias</span>
+                <div class="flex flex-wrap gap-2">
+                    <button 
+                        id="filter-all"
+                        class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 border border-transparent bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium filter-btn active w-full text-left justify-start"
+                        data-category="all"
                     >
-                        <span class="w-2 h-2 rounded-full" style={`background-color: ${category.color}`}></span>
-                        {category.name}
+                        Todas
                     </button>
-                ))}
+                    {Object.entries(CATEGORIES).map(([key, category]) => (
+                        <button
+                            class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent filter-btn w-full text-left"
+                            data-category={key}
+                            style={`--category-color: ${category.color}`}
+                        >
+                            <span class="w-2 h-2 rounded-full shrink-0" style={`background-color: ${category.color}`}></span>
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <!-- Filtros de Tags -->
-            <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-2">Tags:</span>
-                <button 
-                    id="filter-tags-all"
-                    class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100 tag-filter-btn active"
-                    data-tag="all"
-                >
-                    Todas
-                </button>
-                {TAGS.map(tag => (
-                    <button
-                        class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400 tag-filter-btn"
-                        data-tag={tag}
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 block">Tags</span>
+                <div class="flex flex-wrap gap-2">
+                    <button 
+                        id="filter-tags-all"
+                        class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100 tag-filter-btn active"
+                        data-tag="all"
                     >
-                        {tag}
+                        Todas
                     </button>
-                ))}
+                    {TAGS.map(tag => (
+                        <button
+                            class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400 tag-filter-btn"
+                            data-tag={tag}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
+    </div>
 
+    <section class="h-full min-h-[600px]">
         <!-- Calendário -->
-        <div id="calendar" class="bg-white dark:bg-neutral-900 rounded-none border border-neutral-200 dark:border-neutral-800 p-4"></div>
+        <div id="calendar" class="bg-white dark:bg-neutral-900 rounded-none border border-neutral-200 dark:border-neutral-800 p-4 h-full"></div>
     </section>
 </Layout>
 
