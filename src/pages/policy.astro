@@ -4,42 +4,43 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Luan Maitan | Políticas">
   <div slot="sidebar" class="flex flex-col gap-8">
-    <header>
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
-        políticas
-      </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-        Transparência sobre como este site funciona e como seus dados são tratados.
-      </p>
-    </header>
-
-    <nav class="flex flex-col gap-2 mb-8">
+    <nav class="flex flex-col gap-2">
       <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
         ← voltar ao início
       </a>
     </nav>
-
-    <!-- Editor -->
-    <div class="space-y-4 mb-8">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Editor</h4>
-        <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            <li>Luan Maitan</li>
-            <li><a href="mailto:luan.maitan@hotmail.com" class="hover:text-black dark:hover:text-white transition-colors">luan.maitan@hotmail.com</a></li>
-            <li><a href="https://maitan.org" class="hover:text-black dark:hover:text-white transition-colors">maitan.org</a></li>
-        </ul>
-    </div>
-
-    <!-- Contact -->
-    <div class="space-y-4">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Contato</h4>
-        <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            <li>São Paulo, SP</li>
-            <li>Brasil</li>
-        </ul>
-    </div>
   </div>
 
   <section class="space-y-16">
+    <header>
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        políticas
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+        Transparência sobre como este site funciona e como seus dados são tratados.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-neutral-200 dark:border-neutral-800 pb-12">
+        <!-- Editor -->
+        <div class="space-y-4">
+            <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Editor</h4>
+            <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <li>Luan Maitan</li>
+                <li><a href="mailto:luan.maitan@hotmail.com" class="hover:text-black dark:hover:text-white transition-colors">luan.maitan@hotmail.com</a></li>
+                <li><a href="https://maitan.org" class="hover:text-black dark:hover:text-white transition-colors">maitan.org</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="space-y-4">
+            <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Contato</h4>
+            <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <li>São Paulo, SP</li>
+                <li>Brasil</li>
+            </ul>
+        </div>
+    </div>
 
     <!-- Liability for content -->
     <div class="space-y-4">

@@ -46,29 +46,27 @@ const openTabs = [
 ---
 
 <Layout title="Maitan Hub" sidebarLayout={false}>
-  <!-- Sidebar Content: Main Title and Intro Description -->
-  <div slot="sidebar" class="flex flex-col gap-8 pt-2">
-    <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
-      tipografia digital
-    </h1>
+  <!-- Main Content -->
+  <div class="space-y-16"> 
     
-    <!-- Moved intro description to sidebar -->
-    <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-sm">
-      <p class="mb-4">
-        olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
-      </p>
-      <p class="mb-4">
-        se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
-      </p>
-      <p>
-        todos os dias eu cuido de plantas.
-      </p>
+    <!-- Section 1: Intro (Moved from Sidebar) -->
+    <div>
+        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
+          tipografia digital
+        </h1>
+        
+        <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-xl">
+          <p class="mb-4">
+            olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
+          </p>
+          <p class="mb-4">
+            se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
+          </p>
+          <p>
+            todos os dias eu cuido de plantas.
+          </p>
+        </div>
     </div>
-  </div>
-
-  <div class="space-y-16"> <!-- Vertical spacing between sections -->
-    
-    <!-- Section 1: Intro was moved to Sidebar -->
 
     <!-- Section 2: Agora / Projects -->
     <div id="agora">
