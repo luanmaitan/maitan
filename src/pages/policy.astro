@@ -9,6 +9,24 @@ import Layout from '../layouts/Layout.astro';
         ← voltar ao início
       </a>
     </nav>
+    <nav class="flex flex-col gap-1">
+        <a href="#conteudo" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
+            Conteúdo
+            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
+        </a>
+        <a href="#links" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
+            Links Externos
+            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
+        </a>
+        <a href="#direitos" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
+            Direitos Autorais
+            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
+        </a>
+        <a href="#privacidade" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
+            Privacidade
+            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
+        </a>
+    </nav>
   </div>
 
   <section class="space-y-16">
@@ -43,7 +61,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Liability for content -->
-    <div class="space-y-4">
+    <div class="space-y-4" id="conteudo">
         <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Conteúdo</h4>
         <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
             O conteúdo deste site é criado com cuidado e dedicação. No entanto, não garanto a precisão, integridade ou atualização constante das informações apresentadas. Como editor, sou responsável pelo conteúdo autoral aqui publicado, de acordo com a legislação brasileira vigente. Não me responsabilizo por interpretações equivocadas ou pelo uso indevido das informações aqui contidas.
@@ -51,7 +69,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Liability for links -->
-    <div class="space-y-4">
+    <div class="space-y-4" id="links">
         <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Links Externos</h4>
         <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
             Este site contém links para páginas externas de terceiros, sobre as quais não tenho controle. Portanto, não assumo responsabilidade pelo conteúdo desses sites. A responsabilidade pelo conteúdo das páginas vinculadas é sempre do respectivo provedor ou operador. Se eu tomar conhecimento de violações legais em links externos, eles serão removidos imediatamente.
@@ -59,7 +77,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Copyright -->
-    <div class="space-y-4">
+    <div class="space-y-4" id="direitos">
         <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Direitos Autorais</h4>
         <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
             O conteúdo original deste site (textos, imagens, código) está licenciado sob a licença <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>, salvo indicação em contrário.
@@ -78,7 +96,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Privacy -->
-    <div class="space-y-4">
+    <div class="space-y-4" id="privacidade">
         <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Privacidade (LGPD)</h4>
         <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
             Em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), informo que este site preza pela sua privacidade.
