@@ -29,8 +29,18 @@ const timeline = [
   },
   {
     year: "2013",
+    title: "Antessala",
+    description: "Início da pesquisa dramatúrgica no coletivo Antessala, dedicado à investigação e produção de textos teatrais."
+  },
+  {
+    year: "2013",
     title: "Editora Hedra",
     description: "Início profissional no mercado editorial. Como editor-assistente, atuei no planejamento e edição integral de livros de ficção e não ficção."
+  },
+  {
+    year: "2015",
+    title: "Peça Casa",
+    description: "Apresentação da peça autoral 'Casa', resultado da pesquisa no Antessala e financiada pelo ProAC."
   },
   {
     year: "2016",
@@ -38,9 +48,24 @@ const timeline = [
     description: "Coordenação editorial de publicações científicas para universidades como USP, Unicamp e Unesp. Trabalho com normas técnicas, fluxo de revisão por pares e gestão de processos editoriais."
   },
   {
+    year: "2017",
+    title: "Revista Vigília",
+    description: "Fundação e edição da Vigília, publicação digital focada em ensaios, crítica literária e produção cultural."
+  },
+  {
+    year: "2018",
+    title: "Canal Vigília",
+    description: "Expansão do projeto Vigília para o formato audiovisual, com vídeo-ensaios e leituras no YouTube."
+  },
+  {
     year: "2019",
     title: "Letras USP & Tecnologia",
     description: "Ingresso no curso de Letras na Universidade de São Paulo (USP) e transição para o setor de EdTech como Líder de Avaliação, gerenciando grandes volumes de produção de conteúdo."
+  },
+  {
+    year: "2020",
+    title: "Projeto Labirinto",
+    description: "Criação do Labirinto, um espaço experimental para narrativas digitais e formatos híbridos de escrita."
   },
   {
     year: "2021",
@@ -48,9 +73,19 @@ const timeline = [
     description: "Coordenação de Garantia de Qualidade (QA) na Digital Pages. Liderança de equipes em projetos de tecnologia educacional imersiva, estruturando processos para realidade virtual e aumentada."
   },
   {
+    year: "2023",
+    title: "Loja Floresta",
+    description: "Lançamento da Floresta, uma iniciativa de curadoria e venda de livros raros e edições especiais."
+  },
+  {
     year: "2024",
     title: "FTD Educação",
     description: "Retorno ao editorial didático como Editor de materiais de Língua Portuguesa e Artes para a educação básica."
+  },
+  {
+    year: "2025",
+    title: "Retorno à Hedra",
+    description: "Reentrada na Editora Hedra, agora assumindo as funções de editor e coordenador de comunicação, fechando um ciclo e iniciando novos projetos."
   }
 ];
 ---
@@ -62,7 +97,7 @@ const timeline = [
         ← voltar ao início
       </a>
     </nav>
-    <nav class="flex flex-col gap-1">
+    <nav class="flex flex-col gap-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-hide">
       {timeline.map((item) => (
         <a href={`#${item.year}`} class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
           {item.year}
