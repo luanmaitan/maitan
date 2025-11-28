@@ -72,33 +72,73 @@ export function formatEventForCalendar(event: CalendarEvent): any {
     };
 }
 
-// Feriados Nacionais e de São Paulo para 2025
-const HOLIDAYS_2025 = [
-    { date: '2025-01-01', title: 'Confraternização Universal' },
-    { date: '2025-01-25', title: 'Aniversário de São Paulo' },
-    { date: '2025-03-03', title: 'Carnaval' },
-    { date: '2025-03-04', title: 'Carnaval' },
-    { date: '2025-04-18', title: 'Paixão de Cristo' },
-    { date: '2025-04-21', title: 'Tiradentes' },
-    { date: '2025-05-01', title: 'Dia do Trabalho' },
-    { date: '2025-06-19', title: 'Corpus Christi' },
-    { date: '2025-07-09', title: 'Revolução Constitucionalista' },
-    { date: '2025-09-07', title: 'Independência do Brasil' },
-    { date: '2025-10-12', title: 'Nossa Senhora Aparecida' },
-    { date: '2025-11-02', title: 'Finados' },
-    { date: '2025-11-15', title: 'Proclamação da República' },
-    { date: '2025-11-20', title: 'Dia da Consciência Negra' },
-    { date: '2025-12-25', title: 'Natal' }
-];
+// Algoritmo para calcular a data da Páscoa (Meeus/Jones/Butcher)
+function getEaster(year: number): Date {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31) - 1; // 0-indexed (March is 2, April is 3)
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    
+    return new Date(year, month, day);
+}
 
-// Função para obter eventos (pode ser expandida para buscar de uma API ou arquivo)
+// Gera feriados para um ano específico
+function generateHolidaysForYear(year: number): Array<{ date: Date, title: string }> {
+    const holidays = [
+        // Feriados Fixos
+        { date: new Date(year, 0, 1), title: 'Confraternização Universal' },
+        { date: new Date(year, 0, 25), title: 'Aniversário de São Paulo' },
+        { date: new Date(year, 3, 21), title: 'Tiradentes' },
+        { date: new Date(year, 4, 1), title: 'Dia do Trabalho' },
+        { date: new Date(year, 6, 9), title: 'Revolução Constitucionalista' },
+        { date: new Date(year, 8, 7), title: 'Independência do Brasil' },
+        { date: new Date(year, 9, 12), title: 'Nossa Senhora Aparecida' },
+        { date: new Date(year, 10, 2), title: 'Finados' },
+        { date: new Date(year, 10, 15), title: 'Proclamação da República' },
+        { date: new Date(year, 10, 20), title: 'Dia da Consciência Negra' },
+        { date: new Date(year, 11, 25), title: 'Natal' }
+    ];
+
+    // Feriados Móveis (baseados na Páscoa)
+    const easter = getEaster(year);
+    
+    // Carnaval (47 dias antes da Páscoa - Terça)
+    const carnival = new Date(easter);
+    carnaval.setDate(easter.getDate() - 47);
+    holidays.push({ date: new Date(carnaval), title: 'Carnaval' });
+    
+    // Segunda de Carnaval
+    const carnivalMonday = new Date(carnaval);
+    carnavalMonday.setDate(carnaval.getDate() - 1);
+    holidays.push({ date: new Date(carnavalMonday), title: 'Carnaval' });
+
+    // Paixão de Cristo (2 dias antes da Páscoa)
+    const goodFriday = new Date(easter);
+    goodFriday.setDate(easter.getDate() - 2);
+    holidays.push({ date: new Date(goodFriday), title: 'Paixão de Cristo' });
+
+    // Corpus Christi (60 dias após a Páscoa)
+    const corpusChristi = new Date(easter);
+    corpusChristi.setDate(easter.getDate() + 60);
+    holidays.push({ date: new Date(corpusChristi), title: 'Corpus Christi' });
+
+    return holidays;
+}
+
+// Função para obter eventos
 export function getEvents(): CalendarEvent[] {
     const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    const nextWeek = new Date(today);
-    nextWeek.setDate(nextWeek.getDate() + 7);
+    const currentYear = today.getFullYear();
     
     const events: CalendarEvent[] = [
         {
@@ -113,7 +153,7 @@ export function getEvents(): CalendarEvent[] {
         {
             id: '2',
             title: 'Dia da Poesia',
-            start: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate()),
+            start: new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()), // Approx 1 month from now for demo
             allDay: true,
             category: 'efemerides',
             color: CATEGORIES.efemerides.color,
@@ -122,30 +162,33 @@ export function getEvents(): CalendarEvent[] {
         {
             id: '3',
             title: 'Feira do Livro',
-            start: new Date(nextWeek.getFullYear(), nextWeek.getMonth(), nextWeek.getDate(), 14, 0),
-            end: new Date(nextWeek.getFullYear(), nextWeek.getMonth(), nextWeek.getDate(), 18, 0),
+            start: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, 14, 0),
+            end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, 18, 0),
             category: 'eventos',
             color: CATEGORIES.eventos.color,
             description: 'Participação na feira local'
         }
     ];
 
-    // Adiciona feriados
-    HOLIDAYS_2025.forEach((holiday, index) => {
-        // Ajusta o fuso horário para garantir que a data fique correta
-        const holidayDate = new Date(holiday.date + 'T00:00:00');
+    // Gera feriados para o ano anterior, atual e próximo (para garantir cobertura na navegação)
+    const yearsToGenerate = [currentYear - 1, currentYear, currentYear + 1, currentYear + 2];
+    
+    yearsToGenerate.forEach(year => {
+        const holidays = generateHolidaysForYear(year);
         
-        events.push({
-            id: `holiday-${index}`,
-            title: holiday.title,
-            start: holidayDate,
-            allDay: true,
-            category: 'feriados',
-            color: CATEGORIES.feriados.color,
-            backgroundColor: CATEGORIES.feriados.bgColor,
-            borderColor: CATEGORIES.feriados.borderColor,
-            textColor: CATEGORIES.feriados.textColor,
-            description: 'Feriado Nacional ou Regional'
+        holidays.forEach((holiday, index) => {
+            events.push({
+                id: `holiday-${year}-${index}`,
+                title: holiday.title,
+                start: holiday.date,
+                allDay: true,
+                category: 'feriados',
+                color: CATEGORIES.feriados.color,
+                backgroundColor: CATEGORIES.feriados.bgColor,
+                borderColor: CATEGORIES.feriados.borderColor,
+                textColor: CATEGORIES.feriados.textColor,
+                description: 'Feriado Nacional ou Regional'
+            });
         });
     });
 
