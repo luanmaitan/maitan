@@ -2,216 +2,222 @@
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="Maitan Hub | Colophon">
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <header>
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+<Layout title="Maitan Hub | Colophon" sidebarLayout={false}>
+  <div class="max-w-5xl mx-auto py-16 px-6 md:px-12">
+    <header class="mb-20 max-w-2xl">
+      <h1 class="text-[80px] leading-[0.9] tracking-[-2px] font-medium text-black dark:text-white mb-8 lowercase">
         colophon
       </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+      <p class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed font-serif max-w-xl">
         Detalhes técnicos e decisões de design que constroem este espaço.
       </p>
     </header>
-    
-    <nav class="flex flex-col space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-      <a href="#stack" class="hover:text-black dark:hover:text-white transition-colors">Stack</a>
-      <a href="#design-system" class="hover:text-black dark:hover:text-white transition-colors">Design System</a>
-      <a href="#tipografia" class="hover:text-black dark:hover:text-white transition-colors">Tipografia</a>
-      <a href="#cores" class="hover:text-black dark:hover:text-white transition-colors">Cores</a>
-      <a href="#licenca" class="hover:text-black dark:hover:text-white transition-colors">Licença</a>
-      <a href="/colophon/changelog" class="hover:text-black dark:hover:text-white transition-colors">Changelog →</a>
-    </nav>
-  </div>
 
-  <section class="space-y-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16 items-start">
-      <div class="space-y-4" id="stack">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-24">
+      
+      <!-- Stack -->
+      <div class="space-y-8" id="stack">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
           Stack
         </h2>
-        <ul class="space-y-2 text-body text-neutral-600 dark:text-neutral-400">
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-redo-orange"></span>
+        <ul class="space-y-4 text-lg text-neutral-800 dark:text-neutral-200">
+          <li class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-redo-orange shrink-0"></span>
             Redo Design System (Aesthetic)
           </li>
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100"></span>
+          <li class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-neutral-900 dark:bg-neutral-100 shrink-0"></span>
             Astro 5.0 (Static Site Generator)
           </li>
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-redo-navy"></span>
+          <li class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-redo-navy shrink-0"></span>
             TailwindCSS (Styling)
           </li>
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-redo-caption"></span>
+          <li class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-redo-caption shrink-0"></span>
             Svelte (Interactivity)
           </li>
-          <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"
+          <li class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-black dark:bg-white shrink-0"
             ></span>
             Vercel (Hosting)
           </li>
         </ul>
       </div>
 
-      <div class="space-y-4" id="design-system">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
+      <!-- Design System -->
+      <div class="space-y-8" id="design-system">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
           Design System
         </h2>
-        <p class="text-body text-neutral-600 dark:text-neutral-400 mb-2">
-          Este site utiliza a estética visual do Redo Design System, focado em precisão e clareza.
+        <p class="text-lg text-neutral-800 dark:text-neutral-200 leading-relaxed">
+          Este site utiliza a estética visual do Redo Design System, focado em precisão, clareza e tipografia forte.
         </p>
-        <a
-          href="https://remix-star-expand.figma.site/"
-          target="_blank"
-          class="inline-flex items-center gap-2 text-body font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors group"
-        >
-          Ver Referência Visual
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="group-hover:translate-x-1 transition-transform"
-            ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
-          >
-        </a>
       </div>
 
-      <div class="space-y-4" id="tipografia">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
+      <!-- Tipografia -->
+      <div class="space-y-8 md:col-span-2" id="tipografia">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
           Tipografia
         </h2>
-        <div class="space-y-6">
-          <div>
-            <p
-              class="text-3xl font-sans font-medium text-neutral-900 dark:text-neutral-100 mb-1"
-            >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div class="space-y-2">
+            <p class="text-6xl md:text-7xl font-sans font-medium text-neutral-900 dark:text-neutral-100 leading-none tracking-tight">
               Rethink Sans
             </p>
-            <p class="text-display text-neutral-500 dark:text-neutral-400">
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
               Primary Sans-Serif. Clean, modern sans-serif typeface that ensures legibility and precision.
             </p>
           </div>
-          <div>
-            <p
-              class="text-3xl font-serif text-neutral-900 dark:text-neutral-100 mb-1"
-            >
-              Hedvig Letters Serif
+          <div class="space-y-2">
+            <p class="text-6xl md:text-7xl font-serif text-neutral-900 dark:text-neutral-100 leading-none">
+              Hedvig Letters
             </p>
-            <p class="text-display text-neutral-500 dark:text-neutral-400">
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
               Secondary Serif. Refined, authoritative serif font adding tradition and credibility.
             </p>
           </div>
-          <div>
-            <p
-              class="text-xl font-mono font-medium text-neutral-900 dark:text-neutral-100 mb-1"
-            >
+          <div class="space-y-2 md:col-span-2">
+            <p class="text-4xl font-mono font-medium text-neutral-900 dark:text-neutral-100">
               IBM Plex Mono
             </p>
-            <p class="text-display text-neutral-500 dark:text-neutral-400">
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
               Usada para código e dados técnicos.
             </p>
           </div>
         </div>
       </div>
 
-      <div class="space-y-4" id="cores">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
+      <!-- Escala (Sizing) -->
+      <div class="space-y-8 md:col-span-2" id="sizing">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+          Escala Tipográfica
+        </h2>
+        <div class="space-y-8 border-t border-neutral-200 dark:border-neutral-800 pt-8">
+            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+                <span class="text-xs font-mono text-neutral-400">H1 / 60-80px</span>
+                <h1 class="text-[60px] md:text-[80px] leading-[1.1] tracking-[-2px] font-medium">Tipografia Digital</h1>
+            </div>
+            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+                <span class="text-xs font-mono text-neutral-400">H2 / 30-40px</span>
+                <h2 class="text-[30px] md:text-[40px] leading-[1.2] tracking-[-1px] font-medium">Subtítulo da Seção</h2>
+            </div>
+            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+                <span class="text-xs font-mono text-neutral-400">Body / 16-18px</span>
+                <p class="text-lg leading-relaxed max-w-2xl">
+                    O corpo do texto é definido para garantir uma leitura confortável, com altura de linha generosa e espaçamento adequado. A fonte sans-serif traz modernidade, enquanto a serifada é usada para momentos de pausa e reflexão.
+                </p>
+            </div>
+             <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+                <span class="text-xs font-mono text-neutral-400">Small / 12-14px</span>
+                <p class="text-sm text-neutral-500">
+                    Legendas, metadados e informações secundárias utilizam um tamanho menor para criar hierarquia sem perder a legibilidade.
+                </p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Cores -->
+      <div class="space-y-8 md:col-span-2" id="cores">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
           Cores
         </h2>
-        <div class="grid grid-cols-2 gap-2 text-display text-neutral-600 dark:text-neutral-400">
-          <div class="flex items-center gap-2">
-            <div class="w-4 h-4 rounded bg-redo-orange"></div>
-            <span>Orange #FA9819</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+          <div class="space-y-3">
+            <div class="aspect-square rounded-full bg-redo-orange w-full max-w-[160px]"></div>
+            <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Orange</p>
+                <p class="text-xs font-mono text-neutral-500">#FA9819</p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-             <div class="w-4 h-4 rounded bg-redo-navy"></div>
-             <span>Navy #1E3D59</span>
+          <div class="space-y-3">
+             <div class="aspect-square rounded-full bg-redo-navy w-full max-w-[160px]"></div>
+             <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Navy</p>
+                <p class="text-xs font-mono text-neutral-500">#1E3D59</p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-             <div class="w-4 h-4 rounded bg-redo-blue-tint"></div>
-             <span>Blue Tint #B6C9CF</span>
+          <div class="space-y-3">
+             <div class="aspect-square rounded-full bg-redo-blue-tint w-full max-w-[160px]"></div>
+             <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Blue Tint</p>
+                <p class="text-xs font-mono text-neutral-500">#B6C9CF</p>
+            </div>
           </div>
-           <div class="flex items-center gap-2">
-             <div class="w-4 h-4 rounded bg-redo-baby-blue"></div>
-             <span>Baby Blue #C6EBF7</span>
+           <div class="space-y-3">
+             <div class="aspect-square rounded-full bg-redo-baby-blue w-full max-w-[160px]"></div>
+             <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Baby Blue</p>
+                <p class="text-xs font-mono text-neutral-500">#C6EBF7</p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-             <div class="w-4 h-4 rounded bg-redo-caption"></div>
-             <span>Caption #48749E</span>
+          <div class="space-y-3">
+             <div class="aspect-square rounded-full bg-redo-caption w-full max-w-[160px]"></div>
+             <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Caption</p>
+                <p class="text-xs font-mono text-neutral-500">#48749E</p>
+            </div>
           </div>
-           <div class="flex items-center gap-2">
-             <div class="w-4 h-4 rounded bg-redo-off-blue border border-neutral-200"></div>
-             <span>Off-Blue #E8EBEF</span>
+           <div class="space-y-3">
+             <div class="aspect-square rounded-full bg-redo-off-blue border border-neutral-200 w-full max-w-[160px]"></div>
+             <div>
+                <p class="font-medium text-neutral-900 dark:text-white">Off-Blue</p>
+                <p class="text-xs font-mono text-neutral-500">#E8EBEF</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="space-y-4" id="licenca">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Licença
-        </h2>
-        <p
-          class="text-body text-neutral-600 dark:text-neutral-400"
-        >
-          Conteúdo sob licença <a
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-            target="_blank"
-            class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-            >CC BY-NC-SA 4.0</a
-          >. Código no <a
-            href="https://github.com/luanmaitan/maitan"
-            target="_blank"
-            class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
-            >GitHub</a
-          >.
-        </p>
+      <!-- Footer Info -->
+      <div class="space-y-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-4" id="licenca">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+            Licença
+            </h2>
+            <p class="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Conteúdo sob licença <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                target="_blank"
+                class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+                >CC BY-NC-SA 4.0</a
+            >. Código no <a
+                href="https://github.com/luanmaitan/maitan"
+                target="_blank"
+                class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+                >GitHub</a
+            >.
+            </p>
+        </div>
+        
+        <div class="space-y-4">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+            Histórico
+            </h2>
+            <p class="text-base text-neutral-600 dark:text-neutral-400 mb-2">
+                Acompanhe a evolução do projeto através do changelog.
+            </p>
+            <a
+            href="/colophon/changelog"
+            class="inline-flex items-center gap-2 text-base font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors group"
+            >
+            Ver Changelog
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="group-hover:translate-x-1 transition-transform"
+                ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+            >
+            </a>
+        </div>
       </div>
-    
-      <div class="space-y-4">
-        <h2
-          class="text-label uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Histórico
-        </h2>
-        <p class="text-body text-neutral-600 dark:text-neutral-400 mb-2">
-            Acompanhe a evolução do projeto através do changelog.
-        </p>
-        <a
-          href="/colophon/changelog"
-          class="inline-flex items-center gap-2 text-body font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors group"
-        >
-          Ver Changelog
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="group-hover:translate-x-1 transition-transform"
-            ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
-          >
-        </a>
-      </div>
-  </section>
+
+    </div>
+  </div>
 </Layout>

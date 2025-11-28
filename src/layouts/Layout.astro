@@ -10,11 +10,12 @@ import FooterInfo from "../components/FooterInfo.svelte";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import { navigation } from "../lib/navigation";
 
-interface Props {
-	title: string;
-}
+	interface Props {
+		title: string;
+		sidebarLayout?: boolean;
+	}
 
-const { title } = Astro.props;
+	const { title, sidebarLayout = true } = Astro.props;
 
 // Dynamic counts for subpages
 const escritorioFiles = import.meta.glob('../pages/escritorio/*.astro');
@@ -221,19 +222,26 @@ const currentPath = Astro.url.pathname;
 			class:list={[
 				"flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[250px]", 
 				"pt-24 md:pt-32 lg:pt-16",
-				// Two-column grid for desktop
-				"grid lg:grid-cols-[400px_1fr] gap-12 items-start" 
+				// Two-column grid for desktop IF sidebarLayout is true
+				sidebarLayout ? "grid lg:grid-cols-[400px_1fr] gap-12 items-start" : ""
 			]}
 		>
-            <!-- Left Column: Title & Submenu (passed via slot="sidebar") -->
-            <div class="flex flex-col gap-8 lg:sticky lg:top-16 h-fit">
-                <slot name="sidebar" />
-            </div>
+            {sidebarLayout ? (
+                <>
+                    <!-- Left Column: Title & Submenu (passed via slot="sidebar") -->
+                    <div class="flex flex-col gap-8 lg:sticky lg:top-16 h-fit">
+                        <slot name="sidebar" />
+                    </div>
 
-            <!-- Right Column: Main Content -->
-			<div class="min-w-0">
-				<slot />
-			</div>
+                    <!-- Right Column: Main Content -->
+                    <div class="min-w-0">
+                        <slot />
+                    </div>
+                </>
+            ) : (
+                // Full width content if sidebarLayout is false
+                <slot />
+            )}
 		</main>
 
 		<!-- Footer (Mobile Only) -->
