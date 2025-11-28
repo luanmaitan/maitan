@@ -141,9 +141,9 @@
     {#if isOpen}
         <div
             transition:fade={{ duration: 150 }}
-            class="fixed inset-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-[100] p-6 flex flex-col"
+            class="fixed inset-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-[100] p-6 flex flex-col md:absolute md:inset-0 md:w-full md:h-full md:z-10 md:bg-white dark:md:bg-neutral-900 md:p-0 md:flex-row md:items-center md:backdrop-blur-none"
         >
-            <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center justify-between mb-8 md:mb-0 md:w-0 md:h-0 md:opacity-0 md:overflow-hidden">
                 <span class="text-sm font-bold uppercase tracking-widest text-neutral-400">Busca</span>
                 <button
                     on:click={toggleMobileSearch}
@@ -153,16 +153,26 @@
                 </button>
             </div>
 
-            <input
-                bind:this={inputElement}
-                bind:value={query}
-                on:input={handleSearch}
-                type="text"
-                placeholder="digite para buscar..."
-                class="w-full bg-transparent border-b border-neutral-200 dark:border-neutral-800 pb-4 text-2xl font-medium text-black dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 focus:outline-none focus:border-black dark:focus:border-white transition-colors lowercase"
-            />
+            <div class="md:flex-1 md:relative md:h-full md:flex md:items-center md:px-6">
+                <input
+                    bind:this={inputElement}
+                    bind:value={query}
+                    on:input={handleSearch}
+                    on:keydown={(e) => { if (e.key === 'Escape') toggleMobileSearch(); }}
+                    type="text"
+                    placeholder="encontrar..."
+                    class="w-full bg-transparent border-b border-neutral-200 dark:border-neutral-800 pb-4 text-2xl font-medium text-black dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 focus:outline-none focus:border-black dark:focus:border-white transition-colors lowercase md:border-none md:pb-0 md:text-xl md:h-full"
+                />
+                <button
+                    on:click={toggleMobileSearch}
+                    class="hidden md:flex p-2 text-neutral-400 hover:text-black dark:hover:text-white transition-colors"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
 
-            <div class="mt-8 flex-1 overflow-y-auto">
+            <!-- Mobile Results (below input) -->
+            <div class="mt-8 flex-1 overflow-y-auto md:hidden">
                 {#if results.length > 0}
                     <ul class="flex flex-col gap-4">
                         {#each results as result}
@@ -188,6 +198,36 @@
                     </div>
                 {/if}
             </div>
+
+            <!-- Tablet/Desktop Results (Dropdown) -->
+            {#if variant === 'mobile' && isOpen} <!-- Only show dropdown logic if open, reusing desktop style dropdown for tablet mode inside the header -->
+                 <div class="hidden md:block absolute top-full left-0 w-full bg-white dark:bg-neutral-900 border-b border-x border-neutral-200 dark:border-neutral-800 shadow-sm max-h-[400px] overflow-y-auto z-50">
+                    {#if results.length > 0}
+                        <ul class="flex flex-col">
+                            {#each results as result}
+                                <li>
+                                    <a
+                                        href={result.slug}
+                                        class="block px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                                        on:click={toggleMobileSearch}
+                                    >
+                                        <p class="text-[15px] font-medium text-black dark:text-white lowercase leading-tight mb-1">
+                                            {result.title}
+                                        </p>
+                                        <p class="text-[13px] text-neutral-500 leading-tight">
+                                            {result.description}
+                                        </p>
+                                    </a>
+                                </li>
+                            {/each}
+                        </ul>
+                    {:else if query}
+                        <div class="p-6 text-[14px] text-neutral-500 text-center">
+                            nenhum resultado encontrado
+                        </div>
+                    {/if}
+                 </div>
+            {/if}
         </div>
     {/if}
 {/if}
