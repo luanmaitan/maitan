@@ -1,110 +1,71 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Labirinto">
-  <nav
-    slot="sidebar"
-    class="w-full flex flex-col gap-3 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-3 text-sm text-neutral-500 dark:text-neutral-400"
-  >
-    <a
-      href="/projetos"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >← voltar</a
-    >
-    <a href="/projetos" class="text-black dark:text-white font-medium">todos</a>
-    <a
-      href="/projetos/vigilia"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >vigília</a
-    >
-    <a href="/projetos/labirinto" class="text-black dark:text-white font-medium"
-      >labirinto</a
-    >
-    <a
-      href="/projetos/floresta"
-      class="hover:text-black dark:hover:text-white transition-colors"
-      >floresta</a
-    >
-  </nav>
+  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
+    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
+        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
+            ← voltar
+        </a>
+      
+      {[
+        { name: 'hedra', href: '/projetos/hedra' },
+        { name: 'vigília', href: '/projetos/vigilia' },
+        { name: 'labirinto', href: '/projetos/labirinto' },
+        { name: 'floresta', href: '/projetos/floresta' },
+      ].map((item) => {
+        const isActive = currentPath === item.href;
+        return (
+        <a
+            href={item.href}
+            class="group flex flex-col md:flex-row md:items-center md:gap-1 lg:flex-col lg:items-start lg:gap-0"
+        >
+            <div class="flex flex-col justify-center relative shrink-0">
+                <span class:list={[
+                    "text-[15px] font-medium lowercase leading-[1.2] tracking-[-0.3px]",
+                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                ]}>{item.name}</span>
+            </div>
+        </a>
+      )})}
+    </nav>
+  </div>
 
-  <section class="space-y-8">
-    <header class="space-y-4">
-      <h1
-        class="text-3xl font-medium text-neutral-900 dark:text-neutral-100"
-      >
-        Labirinto
-      </h1>
-      <p
-        class="text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed"
-      >
-        Projeto musical e sonoro.
-      </p>
+  <section class="space-y-12">
+    <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
+            labirinto
+        </h1>
+        <div class="space-y-4 text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400">
+            <p>
+                Projeto musical e sonoro explorando texturas, ambiências e narrativas auditivas.
+            </p>
+            <p>
+                Experimentos com síntese, gravações de campo e composição algorítmica.
+            </p>
+        </div>
     </header>
 
-    <hr class="border-neutral-100 dark:border-neutral-800" />
+    <div class="w-full aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden relative border border-neutral-200 dark:border-neutral-800">
+        <img src="/projects/labirinto.png" alt="Labirinto" class="w-full h-full object-cover" />
+    </div>
 
-    <div class="space-y-6">
-      <div
-        class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-none overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
-      >
-        <div
-          class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic"
-        >
-          Labirinto
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+            <h3 class="text-lg font-medium text-black dark:text-white lowercase mb-2">role</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Compositor / Produtor</p>
         </div>
-      </div>
-
-      <div class="prose prose-neutral dark:prose-invert max-w-none">
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-          *Página em construção*
-        </p>
-      </div>
-
-      <div class="flex items-center gap-4 pt-4">
-        <a
-          href="https://soundcloud.com/labirinto_co"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path
-              d="M1.175 13.5c-.64 0-1.175.535-1.175 1.175v4.65c0 .64.535 1.175 1.175 1.175S2.35 19.965 2.35 19.325v-4.65c0-.64-.535-1.175-1.175-1.175zm2.968 1.932c-.64 0-1.175.535-1.175 1.175v2.718c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175v-2.718c0-.64-.535-1.175-1.175-1.175zm2.969-1.289c-.64 0-1.175.535-1.175 1.175v4.007c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175v-4.007c0-.64-.535-1.175-1.175-1.175zm2.968.322c-.64 0-1.175.535-1.175 1.175v3.365c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175v-3.365c0-.64-.535-1.175-1.175-1.175zm2.969-.644c-.64 0-1.175.535-1.175 1.175v4.007c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175v-4.007c0-.64-.535-1.175-1.175-1.175zm2.968-1.289c-.64 0-1.175.535-1.175 1.175v5.936c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175V13.82c0-.64-.535-1.175-1.175-1.175zm2.969-1.61c-.64 0-1.175.535-1.175 1.175v7.155c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175V12.54c0-.64-.535-1.175-1.175-1.175zm2.968-1.932c-.64 0-1.175.535-1.175 1.175v9.019c0 .64.535 1.175 1.175 1.175s1.175-.535 1.175-1.175V9.853c0-.64-.535-1.175-1.175-1.175zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.992 17.539c-.64 0-1.175.535-1.175 1.175s.535 1.175 1.175 1.175 1.175-.535 1.175-1.175-.535-1.175-1.175-1.175z"
-            />
-          </svg>
-          <span>SoundCloud</span>
-        </a>
-        <a
-          href="https://www.instagram.com/lab.iri.nto/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-          <span>Instagram</span>
-        </a>
-      </div>
+        <div>
+            <h3 class="text-lg font-medium text-black dark:text-white lowercase mb-2">status</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Em andamento</p>
+        </div>
+        <div>
+            <h3 class="text-lg font-medium text-black dark:text-white lowercase mb-2">links</h3>
+            <a href="https://soundcloud.com/luanmaitan" target="_blank" class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">soundcloud</a>
+        </div>
     </div>
   </section>
 </Layout>

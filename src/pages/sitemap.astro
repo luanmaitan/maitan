@@ -1,0 +1,150 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const allContent = await getCollection("escritorio");
+
+const pages = [
+  { title: "Início", url: "/", priority: "1.0" },
+  { title: "Sobre Mim", url: "/sobre-mim", priority: "0.8" },
+  { title: "Currículo", url: "/curriculo", priority: "0.8" },
+  { title: "Portfólio", url: "/portfolio", priority: "0.8" },
+  { title: "Laboratório", url: "/laboratorio", priority: "0.8" },
+  { title: "Observatório", url: "/observatorio", priority: "0.8" },
+  { title: "Escritório", url: "/escritorio", priority: "0.8" },
+  { title: "Colophon", url: "/colophon", priority: "0.5" },
+  { title: "Políticas", url: "/policy", priority: "0.5" },
+  { title: "Sitemap", url: "/sitemap", priority: "0.3" },
+];
+
+const projects = [
+    { title: "Hedra", url: "/projetos/hedra" },
+    { title: "Vigília", url: "/projetos/vigilia" },
+    { title: "Labirinto", url: "/projetos/labirinto" },
+    { title: "Floresta", url: "/projetos/floresta" },
+];
+
+const observatorio = [
+    { title: "Filmes", url: "/observatorio/filmes" },
+    { title: "Livros", url: "/observatorio/livros" },
+    { title: "Links", url: "/observatorio/links" },
+    { title: "Citações", url: "/observatorio/citacoes" },
+];
+
+const escritorioCategories = [
+    "ensaios",
+    "dramaturgia",
+    "poesia",
+    "autoficcoes",
+    "impressoes",
+    "traducoes"
+];
+---
+
+<Layout title="Maitan Hub | Sitemap" sidebarLayout={false}>
+  <div slot="sidebar" class="w-full">
+    <nav class="flex flex-col gap-4">
+        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+            ← voltar
+        </a>
+    </nav>
+  </div>
+
+  <div class="max-w-5xl mx-auto py-16 px-6 md:px-12">
+    <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-24">
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
+        sitemap
+      </h1>
+      <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-xl">
+        <p>
+          Índice completo de todas as páginas e conteúdos do site.
+        </p>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        
+        <!-- Páginas Principais -->
+        <div class="space-y-6">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                Principal
+            </h2>
+            <ul class="space-y-3">
+                {pages.map(page => (
+                    <li>
+                        <a href={page.url} class="text-[15px] text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                            {page.title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <!-- Projetos -->
+        <div class="space-y-6">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                Projetos
+            </h2>
+            <ul class="space-y-3">
+                {projects.map(page => (
+                    <li>
+                        <a href={page.url} class="text-[15px] text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                            {page.title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <!-- Observatório -->
+        <div class="space-y-6">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                Observatório
+            </h2>
+            <ul class="space-y-3">
+                {observatorio.map(page => (
+                    <li>
+                        <a href={page.url} class="text-[15px] text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase">
+                            {page.title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <!-- Escritório -->
+        <div class="space-y-6 md:col-span-2 lg:col-span-3">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                Escritório
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+                {escritorioCategories.map(cat => {
+                    const catContent = allContent.filter(item => item.data.category === cat);
+                    return (
+                        <div class="space-y-3">
+                            <a href={`/escritorio/${cat}`} class="block text-[16px] font-medium text-black dark:text-white hover:text-redo-orange transition-colors lowercase mb-2">
+                                {cat}
+                            </a>
+                            <ul class="space-y-2 pl-4 border-l border-neutral-200 dark:border-neutral-800">
+                                {catContent.length > 0 ? (
+                                    catContent.map(item => (
+                                        <li>
+                                            <a href={`/notas/${item.slug}`} class="text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors line-clamp-1 lowercase">
+                                                {item.data.title}
+                                            </a>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li><span class="text-[13px] text-neutral-300 dark:text-neutral-700 italic lowercase">vazio</span></li>
+                                )}
+                            </ul>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+
+    </div>
+  </div>
+</Layout>
+
