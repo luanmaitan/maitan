@@ -14,18 +14,12 @@ const formattedEvents = events.map(formatEventForCalendar);
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.10/main.min.css" rel="stylesheet" />
 
 <Layout title="Maitan Hub | Calendário">
-    <!-- Sidebar Slot: Título, Descrição e Filtros -->
-    <!-- Desktop: Coluna Lateral | Tablet: Barra Horizontal | Mobile: Topo do Main -->
+    <!-- Sidebar Slot: Filtros -->
     <div slot="sidebar" class="w-full flex flex-col gap-6 md:flex-row md:items-center lg:flex-col lg:items-start">
+        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0 hidden lg:block">
+            ← voltar
+        </a>
         
-        <!-- Header: Visível em Desktop, Escondido em Tablet (pois ocuparia muito espaço na barra) -->
-        <header class="hidden lg:block space-y-4">
-            <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight">calendário</h1>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Organize seus eventos, compromissos e atividades em um calendário interativo.
-            </p>
-        </header>
-
         <!-- Filtros -->
         <div class="flex flex-col gap-6 w-full md:flex-row md:items-center lg:flex-col lg:items-start md:w-auto">
             <!-- Filtros de Categorias -->
@@ -78,10 +72,9 @@ const formattedEvents = events.map(formatEventForCalendar);
 
     <!-- Main Content -->
     <section class="h-full min-h-[600px] flex flex-col gap-8">
-        <!-- Header Mobile/Tablet (Já que escondemos na sidebar nesses breakpoints) -->
-        <header class="lg:hidden space-y-2">
-            <h1 class="text-3xl font-medium text-black dark:text-white lowercase">calendário</h1>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400">
+        <header class="space-y-4">
+            <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight">calendário</h1>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
                 Organize seus eventos, compromissos e atividades em um calendário interativo.
             </p>
         </header>

@@ -26,19 +26,10 @@ const currentPath = Astro.url.pathname;
 
 <Layout title="Maitan Hub | Citações">
   <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <header class="md:hidden lg:block">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
-        citações
-      </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-        Coleção de trechos memoráveis e pensamentos.
-      </p>
-    </header>
-
     <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
         <!-- Back Link -->
         <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase whitespace-nowrap">
-            ← observatório
+            ← voltar
         </a>
 
         <!-- Filters (Tags) -->
@@ -63,6 +54,19 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <section class="space-y-12">
+    <header class="hidden lg:block">
+      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+        citações
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+        Coleção de trechos memoráveis e pensamentos.
+      </p>
+    </header>
+    <header class="lg:hidden">
+        <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2">citações</h1>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Coleção de trechos memoráveis e pensamentos.</p>
+    </header>
+
     {quotes.length === 0 ? (
         <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
             <p class="text-neutral-400 dark:text-neutral-500 italic">
