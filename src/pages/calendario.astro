@@ -52,17 +52,17 @@ const formattedEvents = events.map(formatEventForCalendar);
                 <div class="flex flex-wrap gap-2 md:flex-nowrap lg:flex-wrap">
                     <button 
                         id="filter-tags-all"
-                        class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100 tag-filter-btn active whitespace-nowrap"
+                        class="text-[10px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap tag-filter-btn active"
                         data-tag="all"
                     >
-                        Todas
+                        todos
                     </button>
                     {TAGS.map(tag => (
                         <button
-                            class="text-[11px] uppercase tracking-wider border px-2 py-1 rounded-full transition-colors border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 text-neutral-500 dark:text-neutral-400 tag-filter-btn whitespace-nowrap"
+                            class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors tag-filter-btn whitespace-nowrap"
                             data-tag={tag}
                         >
-                            {tag}
+                            #{tag}
                         </button>
                     ))}
                 </div>
@@ -165,11 +165,11 @@ const formattedEvents = events.map(formatEventForCalendar);
                     
                     // Atualiza estado visual
                     tagFilters.forEach(b => {
-                        b.classList.remove('active', 'border-neutral-900', 'dark:border-neutral-100', 'text-neutral-900', 'dark:text-neutral-100');
-                        b.classList.add('border-neutral-200', 'dark:border-neutral-800', 'text-neutral-500', 'dark:text-neutral-400');
+                        b.classList.remove('active', 'text-black', 'dark:text-white', 'font-medium');
+                        b.classList.add('text-neutral-400', 'dark:text-neutral-600');
                     });
-                    this.classList.add('active', 'border-neutral-900', 'dark:border-neutral-100', 'text-neutral-900', 'dark:text-neutral-100');
-                    this.classList.remove('border-neutral-200', 'dark:border-neutral-800', 'text-neutral-500', 'dark:text-neutral-400');
+                    this.classList.add('active', 'text-black', 'dark:text-white', 'font-medium');
+                    this.classList.remove('text-neutral-400', 'dark:text-neutral-600');
                     
                     applyFilters();
                 });
@@ -325,15 +325,13 @@ const formattedEvents = events.map(formatEventForCalendar);
     }
 
     /* Filtros ativos */
-    .filter-btn.active,
-    .tag-filter-btn.active {
+    .filter-btn.active {
         background-color: rgb(23 23 23);
         color: white;
         border-color: rgb(23 23 23);
     }
 
-    .dark .filter-btn.active,
-    .dark .tag-filter-btn.active {
+    .dark .filter-btn.active {
         background-color: rgb(245 245 245);
         color: rgb(23 23 23);
         border-color: rgb(245 245 245);
