@@ -177,45 +177,54 @@ const formattedEvents = events.map(formatEventForCalendar);
     }
 
     /* Toolbar */
+    :global(.fc-header-toolbar) {
+        margin-bottom: 2rem !important;
+        gap: 1rem;
+    }
+
     :global(.fc-toolbar-title) {
-        font-size: 1.5rem !important;
-        font-weight: 400 !important;
+        font-size: 1.25rem !important; /* 20px */
+        font-weight: 500 !important;
         letter-spacing: -0.02em;
     }
 
     :global(.fc-button) {
         text-transform: lowercase !important;
         font-weight: 500 !important;
-        border-radius: 0.25rem !important;
-        padding: 0.4rem 0.8rem !important;
+        border-radius: 9999px !important; /* Pill shape */
+        padding: 0.25rem 1rem !important;
         background-color: transparent !important;
-        border: 1px solid var(--fc-border-color) !important;
+        border: 1px solid transparent !important;
         color: rgb(115 115 115) !important; /* neutral-500 */
         box-shadow: none !important;
+        transition: all 0.2s ease;
     }
 
     :global(.fc-button:hover) {
         color: rgb(23 23 23) !important;
-        border-color: rgb(163 163 163) !important;
+        background-color: rgba(0,0,0,0.05) !important;
     }
 
     :global(.fc-button-active) {
-        background-color: rgb(23 23 23) !important;
+        background-color: rgb(23 23 23) !important; /* black */
         color: white !important;
-        border-color: rgb(23 23 23) !important;
     }
 
     .dark :global(.fc-button) {
-        color: rgb(163 163 163) !important;
+        color: rgb(163 163 163) !important; /* neutral-400 */
     }
     .dark :global(.fc-button:hover) {
         color: white !important;
-        border-color: rgb(82 82 82) !important;
+        background-color: rgba(255,255,255,0.1) !important;
     }
     .dark :global(.fc-button-active) {
         background-color: white !important;
         color: black !important;
-        border-color: white !important;
+    }
+
+    /* Icons in buttons (prev/next) */
+    :global(.fc-icon) {
+        font-size: 1rem !important;
     }
 
     /* Today Highlight - More Prominent */
@@ -269,5 +278,15 @@ const formattedEvents = events.map(formatEventForCalendar);
     :global(.fc-multimonth-title) {
         font-size: 1rem !important;
         font-weight: 500 !important;
+    }
+
+    /* Grid lines */
+    :global(.fc-theme-standard td), 
+    :global(.fc-theme-standard th) {
+        border-color: rgb(245 245 245) !important; /* Very light gray */
+    }
+    .dark :global(.fc-theme-standard td), 
+    .dark :global(.fc-theme-standard th) {
+        border-color: rgb(38 38 38) !important;
     }
 </style>
