@@ -65,7 +65,7 @@ const currentPath = Astro.url.pathname;
   <section class="space-y-12">
     {links.length === 0 ? (
         <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-            <p class="text-neutral-400 dark:text-neutral-500 font-serif italic">
+            <p class="text-neutral-400 dark:text-neutral-500 italic">
             Nenhum link encontrado.
             </p>
         </div>
@@ -103,7 +103,7 @@ const currentPath = Astro.url.pathname;
                     </div>
                     
                     {link.excerpt && (
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3 font-serif">
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3">
                             {link.excerpt}
                         </p>
                     )}

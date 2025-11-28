@@ -189,7 +189,7 @@ const currentPath = Astro.url.pathname;
 				<div class="flex items-center gap-4">
 					<ThemeToggle client:load />
 					<div class="md:hidden">
-						<MobileMenu client:load />
+						<MobileMenu client:load currentPath={currentPath} />
 					</div>
 				</div>
 			</div>
@@ -220,7 +220,7 @@ const currentPath = Astro.url.pathname;
 		<!-- Main Content -->
 		<main
 			class:list={[
-				"flex-1 w-full mx-auto p-8 lg:p-16 lg:ml-[250px]", 
+				"flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[250px]", 
 				"pt-24 md:pt-32 lg:pt-16",
 				// Two-column grid for desktop
 				"grid lg:grid-cols-[400px_1fr] gap-12 items-start" 

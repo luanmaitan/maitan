@@ -2,6 +2,8 @@
     import { slide } from "svelte/transition";
     import { navigation } from "../lib/navigation"; 
 
+    export let currentPath = "";
+
     // Hardcoded counts for now to match layout logic (client-side limitation)
     // Ideally this would be passed from layout props, but keeping it simple for now
     const counts = {
@@ -70,9 +72,10 @@
             class="absolute top-full left-0 w-full bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-lg py-4 px-6 flex flex-col gap-4 z-50"
         >
             {#each navigation as item}
+                {@const isActive = currentPath.startsWith(item.href)}
                 <a
                     href={item.href}
-                    class="flex items-center justify-between text-lg font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                    class="flex items-center justify-between text-lg font-medium hover:text-black dark:hover:text-white {isActive ? 'text-black dark:text-white' : 'text-neutral-600 dark:text-neutral-300'}"
                     on:click={toggle}
                 >
                     <span class="lowercase">{item.name}</span>
