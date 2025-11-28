@@ -29,6 +29,20 @@ const socialLinks = [
   { name: "rss", href: "/rss.xml", icon: "/icons/rss.svg" },
   { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "/icons/gmail.svg" },
 ];
+
+const openTabs = [
+  "teoria da internet morta",
+  "big techs",
+  "inteligência artificial",
+  "bolha da ia",
+  "herdeiros de escravistas",
+  "marketing editorial",
+  "indie web",
+  "ozempic",
+  "beterraba",
+  "white savior",
+  "tidsoptimismo"
+];
 ---
 
 <Layout title="Maitan Hub" sidebarLayout={false}>
@@ -82,7 +96,27 @@ const socialLinks = [
       </div>
     </div>
 
-    <!-- Section 3: Por aí / Socials -->
+    <!-- Section 3: Abas Abertas -->
+    <div id="abas-abertas">
+      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
+        abas abertas
+      </h2>
+      <div class="w-full">
+        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
+          o que está no meu radar nesse momento:
+        </p>
+        
+        <div class="flex flex-wrap gap-3">
+          {openTabs.map((tab) => (
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
+              {tab}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Por aí / Socials -->
     <div id="por-ai" class="scroll-mt-32">
       <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
         por aí
