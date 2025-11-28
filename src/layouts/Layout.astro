@@ -128,8 +128,8 @@ const currentPath = Astro.url.pathname;
                                     </div>
                                     
                                     {/* Link Number - BELOW on Desktop */}
-                                    <div class="flex flex-col justify-center relative shrink-0 mt-1">
-                                        <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre">
+                                    <div class="flex flex-col justify-center relative shrink-0 mt-0.5">
+                                        <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre -mt-0.5">
                                             {String(item.count).padStart(2, '0')}
                                         </p>
                                     </div>
@@ -184,7 +184,7 @@ const currentPath = Astro.url.pathname;
 		>
 			<!-- Row 1: Logo + Divider + Nav (Tablet) + Controls -->
 			<div
-				class="px-6 py-4 flex justify-between items-center"
+				class="px-6 py-4 flex justify-between items-center relative"
 			>
                 <div class="flex items-center gap-6">
                     <a
@@ -194,11 +194,11 @@ const currentPath = Astro.url.pathname;
                         luan maitan
                     </a>
                     
-                    <!-- Vertical Divider (Tablet Only) -->
-                    <div class="hidden md:block h-4 w-px bg-neutral-200 dark:bg-neutral-800"></div>
+                    <!-- Vertical Divider (Tablet Only) - Now Full Height -->
+                    <div class="hidden md:block absolute top-0 bottom-0 left-[150px] w-px bg-[rgba(0,0,0,0.1)] dark:bg-neutral-800 h-full"></div>
                     
                     <!-- Navigation (Tablet Only) -->
-                    <div class="hidden md:flex items-center gap-6">
+                    <div class="hidden md:flex items-center gap-6 ml-8">
                         {
                             navigationWithCounts.map((item) => (
                                 <div class="flex items-center gap-1">
@@ -239,7 +239,7 @@ const currentPath = Astro.url.pathname;
 				"flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[250px]", 
 				"pt-24 md:pt-20 lg:pt-16", // Reduced padding on tablet since nav is now inline
                 // Se houver sidebar no tablet, precisamos de mais padding top
-                hasSidebar ? "md:pt-32 lg:pt-16" : ""
+                hasSidebar ? "md:pt-40 lg:pt-16" : ""
 			]}
 		>
              <!-- Conteúdo da Sidebar para Mobile (visível apenas < md se necessário, mas o user não pediu explicitamente mobile, só tablet. Vou deixar no main flow para mobile ou esconder se for duplicado) -->
