@@ -27,6 +27,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "astro": "^5.16.0",
     "fast-xml-parser": "^5.3.2",
+    "fuse.js": "^7.1.0",
     "svelte": "^5.43.14",
     "tailwindcss": "^3.4.17"
   }

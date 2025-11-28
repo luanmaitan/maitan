@@ -8,6 +8,7 @@ import MobileMenu from "../components/MobileMenu.svelte";
 import ThemeToggle from "../components/ThemeToggle.svelte";
 import FooterInfo from "../components/FooterInfo.svelte";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Search from "../components/Search.svelte";
 import { navigation } from "../lib/navigation";
 
 	interface Props {
@@ -97,6 +98,13 @@ const currentPath = Astro.url.pathname;
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
 			</div>
+
+            <!-- Search Section (Desktop) -->
+            <div class="relative shrink-0 w-full border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800">
+                <div class="px-[32px] py-[20px]">
+                    <Search client:load variant="desktop" />
+                </div>
+            </div>
 
             <!-- 2. Contents Section (Dynamic) -->
 			<div class="relative shrink-0 w-full flex-1 overflow-y-auto">
@@ -218,6 +226,7 @@ const currentPath = Astro.url.pathname;
                 </div>
 
 				<div class="flex items-center gap-4">
+                    <Search client:load variant="mobile" />
 					<ThemeToggle client:load />
 					<div class="md:hidden">
 						<MobileMenu client:load currentPath={currentPath} />
