@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import WeatherWidget from '../components/WeatherWidget.svelte';
 
 const projects = [
   { name: "hedra", href: "https://hedra.com.br", image: "/projects/hedra.jpg" },
@@ -78,7 +79,7 @@ const openTabs = [
       <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
         agora
       </h2>
-      <div class="w-full">
+      <div class="w-full space-y-12">
         <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
           nesse momento, me dedico aos seguintes projetos:
         </p>
@@ -95,6 +96,11 @@ const openTabs = [
               </span>
             </a>
           ))}
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="max-w-md">
+            <WeatherWidget client:load />
         </div>
       </div>
     </div>

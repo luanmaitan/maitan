@@ -41,7 +41,7 @@
     class="flex items-center gap-4 text-xs font-mono"
 >
     <!-- Clock -->
-    <a href="/calendario" class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer">
+    <a href="/calendario" class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer text-black dark:text-white">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
@@ -61,7 +61,7 @@
 
     <!-- Weather -->
     {#if weatherTemp}
-        <div class="flex items-center gap-2">
+        <a href="/clima" class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer text-black dark:text-white">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -83,6 +83,6 @@
                 <line x1="19.78" y1="4.22" x2="18.36" y2="5.64"></line>
             </svg>
             <span>{weatherTemp}</span>
-        </div>
+        </a>
     {/if}
 </div>
