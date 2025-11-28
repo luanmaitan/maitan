@@ -40,6 +40,13 @@ export const CATEGORIES = {
         bgColor: '#fef3c7',
         borderColor: '#f59e0b',
         textColor: '#92400e'
+    },
+    feriados: {
+        name: 'Feriados',
+        color: '#ef4444', // red
+        bgColor: '#fee2e2',
+        borderColor: '#ef4444',
+        textColor: '#991b1b'
     }
 } as const;
 
@@ -65,6 +72,25 @@ export function formatEventForCalendar(event: CalendarEvent): any {
     };
 }
 
+// Feriados Nacionais e de São Paulo para 2025
+const HOLIDAYS_2025 = [
+    { date: '2025-01-01', title: 'Confraternização Universal' },
+    { date: '2025-01-25', title: 'Aniversário de São Paulo' },
+    { date: '2025-03-03', title: 'Carnaval' },
+    { date: '2025-03-04', title: 'Carnaval' },
+    { date: '2025-04-18', title: 'Paixão de Cristo' },
+    { date: '2025-04-21', title: 'Tiradentes' },
+    { date: '2025-05-01', title: 'Dia do Trabalho' },
+    { date: '2025-06-19', title: 'Corpus Christi' },
+    { date: '2025-07-09', title: 'Revolução Constitucionalista' },
+    { date: '2025-09-07', title: 'Independência do Brasil' },
+    { date: '2025-10-12', title: 'Nossa Senhora Aparecida' },
+    { date: '2025-11-02', title: 'Finados' },
+    { date: '2025-11-15', title: 'Proclamação da República' },
+    { date: '2025-11-20', title: 'Dia da Consciência Negra' },
+    { date: '2025-12-25', title: 'Natal' }
+];
+
 // Função para obter eventos (pode ser expandida para buscar de uma API ou arquivo)
 export function getEvents(): CalendarEvent[] {
     const today = new Date();
@@ -74,7 +100,7 @@ export function getEvents(): CalendarEvent[] {
     const nextWeek = new Date(today);
     nextWeek.setDate(nextWeek.getDate() + 7);
     
-    return [
+    const events: CalendarEvent[] = [
         {
             id: '1',
             title: 'Lançamento de Campanha',
@@ -103,4 +129,25 @@ export function getEvents(): CalendarEvent[] {
             description: 'Participação na feira local'
         }
     ];
+
+    // Adiciona feriados
+    HOLIDAYS_2025.forEach((holiday, index) => {
+        // Ajusta o fuso horário para garantir que a data fique correta
+        const holidayDate = new Date(holiday.date + 'T00:00:00');
+        
+        events.push({
+            id: `holiday-${index}`,
+            title: holiday.title,
+            start: holidayDate,
+            allDay: true,
+            category: 'feriados',
+            color: CATEGORIES.feriados.color,
+            backgroundColor: CATEGORIES.feriados.bgColor,
+            borderColor: CATEGORIES.feriados.borderColor,
+            textColor: CATEGORIES.feriados.textColor,
+            description: 'Feriado Nacional ou Regional'
+        });
+    });
+
+    return events;
 }
