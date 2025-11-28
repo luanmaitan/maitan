@@ -14,7 +14,7 @@ const socialLinks = [
   { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
   { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
   { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
-  { name: "linkedin", href: "https://linkedin.com/in/luanmaitan", icon: "/icons/inspire.svg" }, // Using inspire icon as requested
+  { name: "linkedin", href: "https://linkedin.com/in/luanmaitan", icon: "/icons/inspire.svg" },
   { name: "substack", href: "https://luanmaitan.substack.com", icon: "/icons/substack.svg" },
   { name: "literal", href: "https://literal.club/luanmaitan", icon: "/icons/literal.svg" },
   { name: "goodreads", href: "https://goodreads.com/luanmaitan", icon: "/icons/goodreads.svg" },
@@ -48,31 +48,26 @@ const openTabs = [
 
 <Layout title="Maitan Hub" sidebarLayout={false}>
   <!-- Main Content -->
-  <div class="space-y-16"> 
+  <div class="space-y-24"> 
     
-    <!-- Section 1: Intro (Moved from Sidebar) -->
-    <div>
-        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-8">
+    <!-- Section 1: Intro (Redo Layout) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <!-- Left: Title -->
+        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
           tipografia digital
         </h1>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-4xl">
-          <div>
-            <p class="mb-4">
-              olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
-            </p>
-            <p>
-              se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>.
-            </p>
-          </div>
-          <div>
-            <p class="mb-4">
-              se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
-            </p>
-            <p>
-              todos os dias eu cuido de plantas.
-            </p>
-          </div>
+        <!-- Right: Description -->
+        <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-xl space-y-4">
+          <p>
+            olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
+          </p>
+          <p>
+            se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
+          </p>
+          <p>
+            todos os dias eu cuido de plantas.
+          </p>
         </div>
     </div>
 
@@ -86,7 +81,7 @@ const openTabs = [
           nesse momento, me dedico aos seguintes projetos:
         </p>
         
-        <!-- Projects grid: responsive grid (flex-wrap) to break lines as needed -->
+        <!-- Projects grid -->
         <div class="flex flex-wrap gap-x-12 gap-y-6 justify-start">
           {projects.map((project) => (
             <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors">
