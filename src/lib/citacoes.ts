@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { getCollection } from 'astro:content';
 
 export interface Quote {
     text: string;
@@ -7,8 +6,6 @@ export interface Quote {
     source?: string;
     tags: string[];
 }
-
-const CITACOES_DIR = '/Users/luanmaitan/Library/CloudStorage/OneDrive-Pessoal/Biblioteca/cofre/index/citações';
 
 // Função para atribuir tags baseada no conteúdo e nome do arquivo
 function assignTags(fileName: string, text: string, author: string): string[] {
@@ -156,11 +153,9 @@ function extractSource(text: string): { source?: string; remainingText: string }
     return { remainingText: text };
 }
 
-// Função para processar um arquivo Markdown
-function processMarkdownFile(filePath: string): Quote | null {
+// Função para processar o conteúdo da citação
+function processQuoteContent(content: string, id: string): Quote | null {
     try {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        
         // Remove a primeira linha se for [[Citações]] ou ⮪ [[Citações]]
         let text = content.replace(/^[⮪\s]*\[\[Citações\]\]\s*\n?/i, '').trim();
         
@@ -221,8 +216,7 @@ function processMarkdownFile(filePath: string): Quote | null {
                 if (match) {
                     const foundAuthor = match[1] || match[0];
                     cleanText = cleanText.replace(pattern, '').trim();
-                    const fileName = path.basename(filePath, '.md');
-                    const tags = assignTags(fileName, cleanText, foundAuthor);
+                    const tags = assignTags(id, cleanText, foundAuthor);
                     return {
                         text: cleanText,
                         author: foundAuthor,
@@ -235,12 +229,12 @@ function processMarkdownFile(filePath: string): Quote | null {
 
         // Se ainda não tem autor mas tem texto, tenta extrair do nome do arquivo ou usar "Desconhecido"
         if (!author && cleanText) {
-            // Tenta extrair do nome do arquivo (última parte antes do .md)
-            const fileName = path.basename(filePath, '.md');
+            // Tenta extrair do nome do arquivo (id)
+            // Decodifica URI caso o ID venha com caracteres encoded
+            const fileName = decodeURIComponent(id);
             // Se o nome do arquivo contém "por" ou "-", pode ser o autor
             const authorFromFile = fileName.match(/(?:por|de|-)\s*(.+)$/i);
             if (authorFromFile) {
-                const fileName = path.basename(filePath, '.md');
                 const tags = assignTags(fileName, cleanText, authorFromFile[1].trim());
                 return {
                     text: cleanText,
@@ -255,7 +249,7 @@ function processMarkdownFile(filePath: string): Quote | null {
         if (!cleanText || cleanText.length < 10) return null;
 
         // Atribui tags baseadas no conteúdo
-        const fileName = path.basename(filePath, '.md');
+        const fileName = decodeURIComponent(id);
         const tags = assignTags(fileName, cleanText, author || '');
 
         return {
@@ -265,27 +259,25 @@ function processMarkdownFile(filePath: string): Quote | null {
             tags,
         };
     } catch (error) {
-        console.error(`Erro ao processar arquivo ${filePath}:`, error);
+        console.error(`Erro ao processar citação ${id}:`, error);
         return null;
     }
 }
 
-// Função para ler todas as citações
-export function getQuotes(): Quote[] {
+// Função para ler todas as citações usando Content Collections
+export async function getQuotes(): Promise<Quote[]> {
     try {
-        if (!fs.existsSync(CITACOES_DIR)) {
-            console.warn(`Diretório de citações não encontrado: ${CITACOES_DIR}`);
+        // @ts-ignore - 'citacoes' collection is created dynamically
+        const collection = await getCollection('citacoes');
+        
+        if (!collection || collection.length === 0) {
             return [];
         }
 
-        const files = fs.readdirSync(CITACOES_DIR);
-        const markdownFiles = files.filter(file => file.endsWith('.md'));
-
         const quotes: Quote[] = [];
 
-        for (const file of markdownFiles) {
-            const filePath = path.join(CITACOES_DIR, file);
-            const quote = processMarkdownFile(filePath);
+        for (const item of collection) {
+            const quote = processQuoteContent(item.body, item.id);
             if (quote && quote.text && quote.author) {
                 quotes.push(quote);
             }
@@ -297,4 +289,3 @@ export function getQuotes(): Quote[] {
         return [];
     }
 }
-

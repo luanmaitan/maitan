@@ -6,7 +6,7 @@ let quotes = [];
 let allTags: Record<string, number> = {};
 
 try {
-    quotes = getQuotes();
+    quotes = await getQuotes();
     
     // Extract tags
     quotes.forEach((quote: any) => {

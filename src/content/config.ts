@@ -14,4 +14,8 @@ const escritorio = defineCollection({
     }),
 });
 
-export const collections = { escritorio };
+const citacoes = defineCollection({
+    type: 'content',
+});
+
+export const collections = { escritorio, citacoes };
