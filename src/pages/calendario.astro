@@ -7,6 +7,9 @@ const events = getEvents();
 const formattedEvents = events.map(formatEventForCalendar);
 ---
 
+<!-- Carrega FullCalendar Global Bundle (solução mais robusta para evitar problemas de bundler client-side) -->
+<script is:inline src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
 <Layout title="Maitan Hub | Calendário">
     <!-- Sidebar Slot: Filtros -->
     <div slot="sidebar" class="w-full flex flex-col gap-6 md:flex-row md:items-center lg:flex-col lg:items-start">
@@ -59,33 +62,26 @@ const formattedEvents = events.map(formatEventForCalendar);
 </Layout>
 
 <script define:vars={{ eventsData: formattedEvents }}>
-    import { Calendar } from '@fullcalendar/core';
-    import dayGridPlugin from '@fullcalendar/daygrid';
-    import timeGridPlugin from '@fullcalendar/timegrid';
-    import interactionPlugin from '@fullcalendar/interaction';
-    import listPlugin from '@fullcalendar/list';
-    import multiMonthPlugin from '@fullcalendar/multimonth';
-    import ptBrLocale from '@fullcalendar/core/locales/pt-br';
-
     document.addEventListener('DOMContentLoaded', () => {
         const calendarEl = document.getElementById('calendar');
+        
+        // Verificação de segurança se FullCalendar foi carregado
+        if (typeof FullCalendar === 'undefined') {
+            console.error('FullCalendar not loaded properly.');
+            if (calendarEl) calendarEl.innerHTML = '<div class="p-4 text-red-500">Erro ao carregar calendário. Por favor, recarregue a página.</div>';
+            return;
+        }
+
         if (!calendarEl) {
             console.error('Calendar element not found');
             return;
         }
 
         try {
-            const calendar = new Calendar(calendarEl, {
-                plugins: [
-                    dayGridPlugin, 
-                    timeGridPlugin, 
-                    interactionPlugin, 
-                    listPlugin,
-                    multiMonthPlugin
-                ],
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 initialDate: new Date(),
-                locale: ptBrLocale,
+                locale: 'pt-br',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
