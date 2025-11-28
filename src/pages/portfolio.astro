@@ -137,6 +137,9 @@ const getAspectClass = (aspect) => {
                 
                 <!-- Role Filters (Main Content) -->
                 <div class="flex flex-wrap gap-x-4 gap-y-2">
+                    <a href="#" data-filter="all" class="filter-btn text-[13px] font-medium bg-neutral-900 text-white dark:bg-white dark:text-black border border-neutral-900 dark:border-white px-3 py-1 rounded-full transition-colors lowercase">
+                        todos
+                    </a>
                     {roleFilters.map((filter) => (
                         <a href={`#${filter}`} data-filter={filter} data-type="role" class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase border border-neutral-200 dark:border-neutral-800 px-3 py-1 rounded-full hover:border-neutral-400 dark:hover:border-neutral-600">
                             {filter}
