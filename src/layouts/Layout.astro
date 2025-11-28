@@ -182,16 +182,41 @@ const currentPath = Astro.url.pathname;
 		<header
 			class="lg:hidden fixed top-0 left-0 w-full bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-50 transition-colors duration-300 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800"
 		>
-			<!-- Row 1: Logo + Controls -->
+			<!-- Row 1: Logo + Divider + Nav (Tablet) + Controls -->
 			<div
 				class="px-6 py-4 flex justify-between items-center"
 			>
-				<a
-					href="/"
-					class="text-[18px] font-bold text-black dark:text-white leading-none lowercase"
-				>
-					luan maitan
-				</a>
+                <div class="flex items-center gap-6">
+                    <a
+                        href="/"
+                        class="text-[18px] font-bold text-black dark:text-white leading-none lowercase"
+                    >
+                        luan maitan
+                    </a>
+                    
+                    <!-- Vertical Divider (Tablet Only) -->
+                    <div class="hidden md:block h-4 w-px bg-neutral-200 dark:bg-neutral-800"></div>
+                    
+                    <!-- Navigation (Tablet Only) -->
+                    <div class="hidden md:flex items-center gap-6">
+                        {
+                            navigationWithCounts.map((item) => (
+                                <div class="flex items-center gap-1">
+                                    <a
+                                        href={item.href}
+                                        class="relative group text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
+                                    >
+                                        {item.name}
+                                        <sup class="text-[9px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px] ml-0.5 absolute -top-1 -right-1.5">
+                                            {String(item.count).padStart(2, '0')}
+                                        </sup>
+                                    </a>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+
 				<div class="flex items-center gap-4">
 					<ThemeToggle client:load />
 					<div class="md:hidden">
@@ -200,28 +225,7 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</div>
 
-			<!-- Row 2: Navigation (Tablet Only: md -> lg) -->
-			<div
-				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto"
-			>
-				{
-					navigationWithCounts.map((item) => (
-						<div class="flex items-center gap-1">
-                            <a
-                                href={item.href}
-                                class="relative group text-[15px] font-medium tracking-[-0.3px] text-[#575757] hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
-                            >
-                                {item.name}
-                                <sup class="text-[9px] text-[#575757] dark:text-neutral-500 tracking-[-0.2px] ml-0.5 absolute -top-1 -right-1.5">
-                                    {String(item.count).padStart(2, '0')}
-                                </sup>
-                            </a>
-                        </div>
-					))
-				}
-			</div>
-
-            <!-- Row 3: Subpage Sidebar Content (Tablet Only) -->
+            <!-- Row 2: Subpage Sidebar Content (Tablet Only) -->
              {hasSidebar && (
                  <div class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 items-center">
                      <slot name="sidebar" />
@@ -233,9 +237,9 @@ const currentPath = Astro.url.pathname;
 		<main
 			class:list={[
 				"flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[250px]", 
-				"pt-24 md:pt-32 lg:pt-16",
+				"pt-24 md:pt-20 lg:pt-16", // Reduced padding on tablet since nav is now inline
                 // Se houver sidebar no tablet, precisamos de mais padding top
-                hasSidebar ? "md:pt-44 lg:pt-16" : ""
+                hasSidebar ? "md:pt-32 lg:pt-16" : ""
 			]}
 		>
              <!-- Conteúdo da Sidebar para Mobile (visível apenas < md se necessário, mas o user não pediu explicitamente mobile, só tablet. Vou deixar no main flow para mobile ou esconder se for duplicado) -->
@@ -264,6 +268,7 @@ const currentPath = Astro.url.pathname;
 				<div class="flex gap-6 text-xs font-mono">
                     <a href="/colophon" class="hover:opacity-70 transition-opacity lowercase">colophon</a>
 					<a href="/policy" class="hover:opacity-70 transition-opacity lowercase">políticas</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="hover:opacity-70 transition-opacity lowercase">cc by-nc-sa</a>
 				</div>
 			</div>
 		</footer>
