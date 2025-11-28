@@ -1,17 +1,116 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const portfolioItems = [
+  // Livros (Vertical - Aspect 2/3)
+  {
+    title: "Coleção Clássicos",
+    category: "livro",
+    role: "Edição",
+    image: "/portfolio/livro-1.jpg", // Placeholder path
+    aspect: "vertical" 
+  },
+  {
+    title: "Romance Contemporâneo",
+    category: "livro",
+    role: "Revisão",
+    image: "/portfolio/livro-2.jpg",
+    aspect: "vertical"
+  },
+  // Revistas (Vertical or Square depending on design, let's use Vertical for consistency with print)
+  {
+    title: "Revista Acadêmica #42",
+    category: "revista",
+    role: "Coordenação Editorial",
+    image: "/portfolio/revista-1.jpg",
+    aspect: "vertical"
+  },
+  // Web (Horizontal - Aspect Video)
+  {
+    title: "Portal de Notícias",
+    category: "web",
+    role: "Webdesign",
+    image: "/portfolio/web-1.jpg",
+    aspect: "horizontal"
+  },
+  {
+    title: "Landing Page Institucional",
+    category: "web",
+    role: "Desenvolvimento",
+    image: "/portfolio/web-2.jpg",
+    aspect: "horizontal"
+  },
+  // Vídeo (Horizontal)
+  {
+    title: "Documentário Curta",
+    category: "vídeo",
+    role: "Edição de Vídeo",
+    image: "/portfolio/video-1.jpg",
+    aspect: "horizontal"
+  },
+  // Design (Square or Variable, let's try Square for visual variety)
+  {
+    title: "Identidade Visual",
+    category: "design",
+    role: "Design Gráfico",
+    image: "/portfolio/design-1.jpg",
+    aspect: "square"
+  },
+  // Áudio (Square - Album art style)
+  {
+    title: "Podcast Episódio 1",
+    category: "áudio",
+    role: "Tratamento de Áudio",
+    image: "/portfolio/audio-1.jpg",
+    aspect: "square"
+  }
+];
+
+const categories = [
+    "livro",
+    "revista",
+    "vídeo",
+    "áudio",
+    "design",
+    "web"
+];
+
+// Helper to get aspect ratio classes
+const getAspectClass = (aspect) => {
+    switch(aspect) {
+        case 'vertical': return 'aspect-[2/3]';
+        case 'horizontal': return 'aspect-video';
+        case 'square': return 'aspect-square';
+        default: return 'aspect-square';
+    }
+}
 ---
 
 <Layout title="Maitan Hub | Portfólio">
-    <div slot="sidebar" class="flex flex-col gap-8">
-        <nav class="flex flex-col gap-2">
-            <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
-                ← voltar
-            </a>
-            <a href="/portfolio" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white mb-4 lowercase">
-                trabalhos
-            </a>
-        </nav>
+    <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
+        <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
+            <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
+                <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
+                    ← voltar
+                </a>
+                
+                <div class="flex flex-col gap-2 w-full md:w-auto overflow-hidden">
+                    <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
+                        Filtros
+                    </span>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap pb-2 md:pb-0">
+                        <a href="#" data-filter="all" class="filter-btn text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
+                            todos
+                        </a>
+                        {categories.map((cat) => (
+                            <a href={`#${cat}`} data-filter={cat} class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap">
+                                {cat}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </nav>
+        </div>
     </div>
 
     <section class="space-y-12">
@@ -24,91 +123,94 @@ import Layout from "../layouts/Layout.astro";
             </p>
         </header>
 
-        <div class="space-y-12">
-            <!-- Placeholder Section: Edição -->
-            <div>
-                <h2
-                    class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
-                >
-                    Edição de Livros
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="group">
+        <!-- Masonry Grid Wrapper -->
+        <div class="masonry-grid" id="portfolio-grid">
+            {portfolioItems.map((item) => (
+                <div class="masonry-item mb-8 break-inside-avoid" data-category={item.category}>
+                    <div class="group cursor-pointer">
                         <div
-                            class="aspect-[2/3] w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
+                            class={`w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-3 overflow-hidden relative border border-neutral-200 dark:border-neutral-800 ${getAspectClass(item.aspect)}`}
                         >
-                            <div
-                                class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic"
-                            >
-                                Capa do Livro
+                            <div class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic">
+                                {/* Placeholder for missing image */}
+                                {item.title}
                             </div>
+                            {/* Uncomment when real images are available */}
+                            {/* <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" /> */}
                         </div>
                         <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
+                            class="text-[16px] font-medium text-neutral-900 dark:text-neutral-100 lowercase leading-tight group-hover:text-redo-orange transition-colors"
                         >
-                            título do livro
+                            {item.title}
                         </h3>
-                        <p
-                            class="text-sm text-neutral-500 dark:text-neutral-400"
-                        >
-                            Edição e Projeto Gráfico
-                        </p>
-                    </div>
-                    <div class="group">
-                        <div
-                            class="aspect-[2/3] w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
-                        >
-                            <div
-                                class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic"
-                            >
-                                Capa do Livro
-                            </div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">{item.category}</span>
+                            <span class="text-neutral-300 dark:text-neutral-700">•</span>
+                            <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">{item.role}</span>
                         </div>
-                        <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
-                        >
-                            título do livro
-                        </h3>
-                        <p
-                            class="text-sm text-neutral-500 dark:text-neutral-400"
-                        >
-                            Edição e Projeto Gráfico
-                        </p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Placeholder Section: Web -->
-            <div>
-                <h2
-                    class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
-                >
-                    Web Design
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="group">
-                        <div
-                            class="aspect-video w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-4 overflow-hidden relative border border-neutral-200 dark:border-neutral-800"
-                        >
-                            <div
-                                class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic"
-                            >
-                                Interface
-                            </div>
-                        </div>
-                        <h3
-                            class="text-lg font-medium text-neutral-900 dark:text-neutral-100 lowercase"
-                        >
-                            nome do site
-                        </h3>
-                        <p
-                            class="text-sm text-neutral-500 dark:text-neutral-400"
-                        >
-                            Design e Desenvolvimento
-                        </p>
-                    </div>
-                </div>
-            </div>
+            ))}
         </div>
     </section>
 </Layout>
+
+<style>
+    .masonry-grid {
+        column-count: 1;
+        column-gap: 2rem;
+    }
+    @media (min-width: 640px) {
+        .masonry-grid {
+            column-count: 2;
+        }
+    }
+    @media (min-width: 1024px) {
+        .masonry-grid {
+            column-count: 3;
+        }
+    }
+</style>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.masonry-item');
+
+    function filterPortfolio(category) {
+        items.forEach(item => {
+            const itemCategory = (item as HTMLElement).dataset.category;
+            if (category === 'all' || itemCategory === category) {
+                (item as HTMLElement).style.display = 'block';
+            } else {
+                (item as HTMLElement).style.display = 'none';
+            }
+        });
+
+        filterBtns.forEach(btn => {
+            const btnCategory = (btn as HTMLElement).dataset.filter;
+            if (btnCategory === category) {
+                btn.classList.remove('text-neutral-500', 'dark:text-neutral-400');
+                btn.classList.add('text-black', 'dark:text-white', 'font-medium');
+            } else {
+                btn.classList.add('text-neutral-500', 'dark:text-neutral-400');
+                btn.classList.remove('text-black', 'dark:text-white', 'font-medium');
+            }
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const category = (e.currentTarget as HTMLElement).dataset.filter;
+            if (category) {
+                filterPortfolio(category);
+                history.replaceState(null, '', category === 'all' ? ' ' : `#${category}`);
+            }
+        });
+    });
+
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        filterPortfolio(decodeURIComponent(initialHash));
+    }
+</script>
