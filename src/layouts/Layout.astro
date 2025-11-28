@@ -12,10 +12,11 @@ import { navigation } from "../lib/navigation";
 
 	interface Props {
 		title: string;
-		sidebarLayout?: boolean;
+		sidebarLayout?: boolean; // Mantido para compatibilidade, mas a lógica muda
 	}
 
 	const { title, sidebarLayout = true } = Astro.props;
+    const hasSidebar = Astro.slots.has('sidebar');
 
 // Dynamic counts for subpages
 const escritorioFiles = import.meta.glob('../pages/escritorio/*.astro');
@@ -97,48 +98,56 @@ const currentPath = Astro.url.pathname;
                 <div class="absolute bottom-0 left-0 right-0 border-b border-[rgba(0,0,0,0.1)] dark:border-neutral-800 pointer-events-none"></div>
 			</div>
 
-            <!-- 2. Contents Section -->
+            <!-- 2. Contents Section (Dynamic) -->
 			<div class="relative shrink-0 w-full flex-1 overflow-y-auto">
-                <!-- Main Nav -->
-				<nav class="flex flex-col gap-[10px] items-start pt-[30px] pb-[30px] pl-[32px] pr-[20px]">
-					{
-						navigationWithCounts.map((item) => {
-                            const isActive = currentPath.startsWith(item.href);
-                            return (
-							<a
-								href={item.href}
-								class="w-full flex flex-col cursor-pointer group"
-                                aria-label={`Go to ${item.name}`}
-							>
-                                {/* Link Text */}
-                                <div class="flex flex-col justify-center relative shrink-0">
-                                    <p class:list={[
-                                        "text-[15px] font-medium leading-[1.2] tracking-[-0.3px] whitespace-pre transition-colors lowercase",
-                                        isActive ? "text-black dark:text-white" : "text-black dark:text-neutral-200 hover:opacity-70"
-                                    ]}>
-                                        {item.name}
-                                    </p>
-                                </div>
-                                
-                                {/* Link Number - BELOW on Desktop */}
-                                <div class="flex flex-col justify-center relative shrink-0 mt-1">
-                                    <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre">
-                                        {String(item.count).padStart(2, '0')}
-                                    </p>
-                                </div>
-							</a>
-						)})
-					}
-				</nav>
-                
-                <!-- Removed divider here as requested ("tire a divisória que fica acima dos links") -->
+                {hasSidebar ? (
+                     // Subpage Sidebar Content
+                    <div class="flex flex-col gap-4 items-start pt-[30px] pb-[30px] pl-[32px] pr-[20px] animate-in slide-in-from-left-4 fade-in duration-300">
+                        <a href="/" class="flex items-center gap-2 text-[14px] text-[#575757] dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors mb-4 group">
+                            <span class="group-hover:-translate-x-1 transition-transform duration-200">←</span>
+                            voltar
+                        </a>
+                        <slot name="sidebar" />
+                    </div>
+                ) : (
+                    // Main Navigation
+                    <nav class="flex flex-col gap-[10px] items-start pt-[30px] pb-[30px] pl-[32px] pr-[20px]">
+                        {
+                            navigationWithCounts.map((item) => {
+                                const isActive = currentPath.startsWith(item.href);
+                                return (
+                                <a
+                                    href={item.href}
+                                    class="w-full flex flex-col cursor-pointer group"
+                                    aria-label={`Go to ${item.name}`}
+                                >
+                                    {/* Link Text */}
+                                    <div class="flex flex-col justify-center relative shrink-0">
+                                        <p class:list={[
+                                            "text-[15px] font-medium leading-[1.2] tracking-[-0.3px] whitespace-pre transition-colors lowercase",
+                                            isActive ? "text-black dark:text-white" : "text-black dark:text-neutral-200 hover:opacity-70"
+                                        ]}>
+                                            {item.name}
+                                        </p>
+                                    </div>
+                                    
+                                    {/* Link Number - BELOW on Desktop */}
+                                    <div class="flex flex-col justify-center relative shrink-0 mt-1">
+                                        <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre">
+                                            {String(item.count).padStart(2, '0')}
+                                        </p>
+                                    </div>
+                                </a>
+                            )})
+                        }
+                    </nav>
+                )}
 			</div>
 
             <!-- 3. Footer Section (Clock & Secondary Links) -->
 			<div class="relative shrink-0 w-full">
                 
                 <!-- Secondary Links (Colophon, Policy, CC) -->
-                <!-- Applied same style as nav numbers: text-[10px] tracking-[-0.2px] leading-[1.2] text-[#575757] -->
 				<div class="flex flex-col gap-[4px] items-start w-full pl-[32px] pr-[20px] pb-[20px]">
                     <a
                         href="/policy"
@@ -197,7 +206,7 @@ const currentPath = Astro.url.pathname;
 
 			<!-- Row 2: Navigation (Tablet Only: md -> lg) -->
 			<div
-				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto"
+				class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800"
 			>
 				{
 					navigationWithCounts.map((item) => (
@@ -215,6 +224,13 @@ const currentPath = Astro.url.pathname;
 					))
 				}
 			</div>
+
+            <!-- Row 3: Subpage Sidebar Content (Tablet Only) -->
+             {hasSidebar && (
+                 <div class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-[rgba(0,0,0,0.1)] dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 items-center">
+                     <slot name="sidebar" />
+                 </div>
+             )}
 		</header>
 
 		<!-- Main Content -->
@@ -222,26 +238,22 @@ const currentPath = Astro.url.pathname;
 			class:list={[
 				"flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[250px]", 
 				"pt-24 md:pt-32 lg:pt-16",
-				// Two-column grid for desktop IF sidebarLayout is true
-				sidebarLayout ? "grid lg:grid-cols-[400px_1fr] gap-12 items-start" : ""
+                // Se houver sidebar no tablet, precisamos de mais padding top
+                hasSidebar ? "md:pt-44 lg:pt-16" : ""
 			]}
 		>
-            {sidebarLayout ? (
-                <>
-                    <!-- Left Column: Title & Submenu (passed via slot="sidebar") -->
-                    <div class="flex flex-col gap-8 lg:sticky lg:top-16 h-fit">
-                        <slot name="sidebar" />
+             <!-- Conteúdo da Sidebar para Mobile (visível apenas < md se necessário, mas o user não pediu explicitamente mobile, só tablet. Vou deixar no main flow para mobile ou esconder se for duplicado) -->
+             <!-- A estratégia atual renderiza slot="sidebar" dentro do Header para Tablet e dentro da Sidebar para Desktop. Para Mobile (<md), ele não está renderizando. Onde mostrar? -->
+             <!-- No mobile, a "sidebar" geralmente é o conteúdo principal ou um menu. Vou renderizar no topo do main para mobile -->
+            <div class="md:hidden mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                {hasSidebar && (
+                    <div class="flex flex-col gap-4">
+                         <slot name="sidebar" />
                     </div>
+                )}
+            </div>
 
-                    <!-- Right Column: Main Content -->
-                    <div class="min-w-0">
-                        <slot />
-                    </div>
-                </>
-            ) : (
-                // Full width content if sidebarLayout is false
-                <slot />
-            )}
+			<slot />
 		</main>
 
 		<!-- Footer (Mobile Only) -->

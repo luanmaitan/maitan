@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Citações">
-  <div slot="sidebar" class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 md:py-4 md:border-b md:border-neutral-200 dark:md:border-neutral-800 md:w-full md:overflow-x-auto lg:flex-col lg:border-none lg:py-0 lg:w-auto lg:h-fit lg:sticky lg:top-16">
+  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
     <header class="md:hidden lg:block">
       <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
         citações
@@ -35,19 +35,19 @@ const currentPath = Astro.url.pathname;
       </p>
     </header>
 
-    <div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-8 lg:flex-col">
+    <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
         <!-- Back Link -->
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase md:hidden lg:block">
+        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase whitespace-nowrap">
             ← observatório
         </a>
 
         <!-- Filters (Tags) -->
         {tags.length > 0 && (
-            <div class="flex flex-col gap-2 md:min-w-max">
-                <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+            <div class="flex flex-col gap-2 md:min-w-max overflow-hidden">
+                <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
                     Filtros
                 </span>
-                <div class="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap">
+                <div class="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap pb-2 md:pb-0">
                     <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
                         todos
                     </a>
