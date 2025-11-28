@@ -1,12 +1,19 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { XMLParser } from "fast-xml-parser";
+import Layout from '../../layouts/Layout.astro';
+import { XMLParser } from 'fast-xml-parser';
 
-const RSS_URL = "https://letterboxd.com/maitan/rss/";
+const RSS_URL = 'https://letterboxd.com/maitan/rss/';
 
 async function getMovies() {
   try {
-    const response = await fetch(RSS_URL);
+    // Added User-Agent to avoid 403 Forbidden from Letterboxd/Cloudflare
+    const response = await fetch(RSS_URL, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+    });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    
     const xml = await response.text();
     const parser = new XMLParser({
       ignoreAttributes: false,
@@ -27,22 +34,18 @@ async function getMovies() {
     const moviesWithPosters = await Promise.all(
       items.map(async (item: any) => {
         // Extract rating
-        const ratingMatch = item.description.match(/Stars: ([\d.]+) of 5/);
+        const ratingMatch = item.description && item.description.match(/Stars: ([\d.]+) of 5/);
         const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
         const stars = "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
 
         // Extract original letterboxd poster to fallback
-        const posterMatch = item.description.match(/src="([^"]+)"/);
+        const posterMatch = item.description && item.description.match(/src="([^"]+)"/);
         let poster = posterMatch ? posterMatch[1] : "";
 
-        // Extract Letterboxd ID/Slug to find on TMDB if needed (skipping complex search for now to keep it fast)
-        // We'll use the Letterboxd poster which is decent, but small.
-        // To get high res, we'd need TMDB API search by title + year.
-        
         const date = new Date(item.pubDate); // Watched date usually in letterboxd RSS
 
         return {
-          title: item.title.replace(/ \(.*\)$/, ""), // Remove year from title
+          title: item.title ? item.title.replace(/ \(.*\)$/, "") : "Sem título", // Remove year from title
           link: item.link,
           rating: rating,
           stars: stars,
@@ -50,7 +53,7 @@ async function getMovies() {
           dateString: date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace(' de ', ' ').replace('.', '').toUpperCase(),
           year: date.getFullYear(),
           poster: poster,
-          rewatch: item.description.includes('Rewatched')
+          rewatch: item.description && item.description.includes('Rewatched')
         };
       })
     );
@@ -78,7 +81,7 @@ const currentPath = Astro.url.pathname;
             { name: 'filmes', href: '/observatorio/filmes', count: movies.length },
             { name: 'citações', href: '/observatorio/citacoes', count: '—' },
             { name: 'links', href: '/observatorio/links', count: '—' },
-        ].map(item => {
+        ].map((item, i) => {
             const isActive = currentPath === item.href;
             return (
             <a
@@ -88,9 +91,12 @@ const currentPath = Astro.url.pathname;
                 <span class:list={[
                     "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
                     isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>{item.name}</span>
-                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0">
-                    {String(item.count).padStart(2, '0')}
+                ]}>
+                    <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(i + 1).padStart(2, '0')}</span>
+                    {item.name}
+                </span>
+                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0 hidden lg:block">
+                    {item.count !== '—' ? String(item.count).padStart(2, '0') : '—'}
                 </span>
             </a>
         )})}

@@ -6,7 +6,11 @@ const RSS_URL = 'https://www.goodreads.com/review/list_rss/9832371?key=NiGdczsTd
 
 async function getBooks() {
   try {
-    const response = await fetch(RSS_URL);
+    const response = await fetch(RSS_URL, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+    });
     const xml = await response.text();
     const parser = new XMLParser({
       ignoreAttributes: false,
@@ -74,7 +78,7 @@ const currentPath = Astro.url.pathname;
             { name: 'filmes', href: '/observatorio/filmes', count: '—' }, 
             { name: 'citações', href: '/observatorio/citacoes', count: '—' },
             { name: 'links', href: '/observatorio/links', count: '—' },
-        ].map(item => {
+        ].map((item, i) => {
             const isActive = currentPath === item.href;
             return (
             <a
@@ -84,8 +88,11 @@ const currentPath = Astro.url.pathname;
                 <span class:list={[
                     "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
                     isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>{item.name}</span>
-                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0">
+                ]}>
+                    <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(i + 1).padStart(2, '0')}</span>
+                    {item.name}
+                </span>
+                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0 hidden lg:block">
                     {String(item.count).padStart(2, '0')}
                 </span>
             </a>

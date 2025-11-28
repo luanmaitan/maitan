@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
             ← voltar
         </a>
       
-      {categories.map((item) => {
+      {categories.map((item, index) => {
         const isActive = currentPath === item.href;
         return (
         <a
@@ -43,7 +43,10 @@ const currentPath = Astro.url.pathname;
                 <span class:list={[
                     "text-[15px] font-medium lowercase leading-[1.2] tracking-[-0.3px]",
                     isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>{item.title}</span>
+                ]}>
+                    <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(index + 1).padStart(2, '0')}</span>
+                    {item.title}
+                </span>
             </div>
             <div class="flex flex-col justify-center relative shrink-0 mt-0.5 md:mt-0 lg:mt-0.5">
                 <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre -mt-0.5 md:-mt-3 lg:-mt-0.5 ml-0.5 md:ml-0.5 lg:ml-0">
