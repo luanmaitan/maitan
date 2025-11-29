@@ -1,48 +1,37 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { XMLParser } from 'fast-xml-parser';
 
 const RSS_URL = 'https://letterboxd.com/maitan/rss/';
+// Using rss2json to avoid CORS/User-Agent blocking issues with direct RSS fetching
+const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
 
 async function getMovies() {
   try {
-    // Added User-Agent to avoid 403 Forbidden from Letterboxd/Cloudflare
-    const response = await fetch(RSS_URL, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        }
-    });
+    const response = await fetch(PROXY_URL);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
-    const xml = await response.text();
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      attributeNamePrefix: "@_",
-    });
-    const result = parser.parse(xml);
+    const data = await response.json();
 
-    if (!result.rss || !result.rss.channel || !result.rss.channel.item) {
+    if (!data.items || !Array.isArray(data.items)) {
       return [];
     }
 
-    let items = result.rss.channel.item;
-    if (!Array.isArray(items)) {
-      items = [items];
-    }
-
-    // Get TMDB data for better covers
-    const moviesWithPosters = await Promise.all(
-      items.map(async (item: any) => {
+    // Get TMDB data for better covers (simulated/extracted from description)
+    const movies = data.items.map((item: any) => {
         // Extract rating
         const ratingMatch = item.description && item.description.match(/Stars: ([\d.]+) of 5/);
         const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
         const stars = "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
 
         // Extract original letterboxd poster to fallback
+        // rss2json extracts images into 'thumbnail' or we parse description
+        // Letterboxd RSS description contains HTML with img src
         const posterMatch = item.description && item.description.match(/src="([^"]+)"/);
-        let poster = posterMatch ? posterMatch[1] : "";
+        let poster = posterMatch ? posterMatch[1] : (item.thumbnail || "");
 
-        const date = new Date(item.pubDate); // Watched date usually in letterboxd RSS
+        // Fix poster resolution if needed (Letterboxd RSS usually gives small thumbs, but we can try to replace /0- with /0-600-0-900-crop if predictable, but let's stick to what is given first)
+
+        const date = new Date(item.pubDate); 
 
         return {
           title: item.title ? item.title.replace(/ \(.*\)$/, "") : "Sem título", // Remove year from title
@@ -55,10 +44,9 @@ async function getMovies() {
           poster: poster,
           rewatch: item.description && item.description.includes('Rewatched')
         };
-      })
-    );
+      });
 
-    return moviesWithPosters;
+    return movies;
   } catch (error) {
     console.error("Error fetching Letterboxd RSS:", error);
     return [];

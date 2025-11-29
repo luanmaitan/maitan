@@ -2,26 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-// Fetch all content to count items
+// Fetch all content to count items (future use)
 const allContent = await getCollection("escritorio");
-const counts = {
-    'ensaios': allContent.filter(n => n.data.category === 'ensaios').length,
-    'dramaturgia': allContent.filter(n => n.data.category === 'dramaturgia').length,
-    'poesia': allContent.filter(n => n.data.category === 'poesia').length,
-    'autoficcoes': allContent.filter(n => n.data.category === 'autoficcoes').length,
-    'impressoes': allContent.filter(n => n.data.category === 'impressoes').length,
-    'traducoes': allContent.filter(n => n.data.category === 'traducoes').length,
-};
-
-const categories = [
-  { title: "ensaios", href: "/escritorio/ensaios", count: counts.ensaios, description: "Textos provisórios e reflexões em desenvolvimento." },
-  { title: "dramaturgia", href: "/escritorio/dramaturgia", count: counts.dramaturgia, description: "Textos teatrais e roteiros em processo." },
-  { title: "poesia", href: "/escritorio/poesia", count: counts.poesia, description: "Versos e experimentações poéticas." },
-  { title: "autoficções", href: "/escritorio/autoficcoes", count: counts.autoficcoes, description: "Narrativas que mesclam realidade e ficção." },
-  { title: "impressões", href: "/escritorio/impressoes", count: counts.impressoes, description: "Notas rápidas e observações do cotidiano." },
-  { title: "traduções", href: "/escritorio/traducoes", count: counts.traducoes, description: "Traduções e adaptações de textos." },
-];
-
 const currentPath = Astro.url.pathname;
 ---
 
@@ -31,30 +13,6 @@ const currentPath = Astro.url.pathname;
         <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
             ← voltar
         </a>
-      
-      {categories.map((item, index) => {
-        const isActive = currentPath === item.href;
-        return (
-        <a
-            href={item.href}
-            class="group flex flex-col md:flex-row md:items-center md:gap-1 lg:flex-col lg:items-start lg:gap-0"
-        >
-            <div class="flex flex-col justify-center relative shrink-0">
-                <span class:list={[
-                    "text-[15px] font-medium lowercase leading-[1.2] tracking-[-0.3px]",
-                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>
-                    <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(index + 1).padStart(2, '0')}</span>
-                    {item.title}
-                </span>
-            </div>
-            <div class="flex flex-col justify-center relative shrink-0 mt-0.5 md:mt-0 lg:mt-0.5">
-                <p class="text-[#575757] dark:text-neutral-500 text-[10px] tracking-[-0.2px] leading-[1.2] whitespace-pre -mt-0.5 md:-mt-3 lg:-mt-0.5 ml-0.5 md:ml-0.5 lg:ml-0">
-                     {String(item.count).padStart(2, '0')}
-                </p>
-            </div>
-        </a>
-      )})}
     </nav>
   </div>
 
@@ -64,32 +22,16 @@ const currentPath = Astro.url.pathname;
             escritório
         </h1>
         <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-            Um espaço para cultivar ideias em estágio inicial, notas de estudo e
-            conexões mentais. Textos provisórios que crescem e se transformam.
+            Um jardim digital. Notas, ideias em estágio inicial e conexões mentais.
+            <br>
+            <span class="text-sm text-neutral-400 italic mt-2 block">(Em construção: integração com Obsidian em breve)</span>
         </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {
-        categories.map((category) => (
-          <a
-            href={category.href}
-            class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors lowercase">
-                {category.title}
-              </h2>
-              <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
-                →
-              </span>
-            </div>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              {category.description}
-            </p>
-          </a>
-        ))
-      }
+    <div class="py-12 border-y border-neutral-100 dark:border-neutral-800">
+        <p class="text-neutral-400 dark:text-neutral-500 italic">
+            O jardim está sendo plantado.
+        </p>
     </div>
   </section>
 </Layout>
