@@ -77,11 +77,11 @@ const currentPath = Astro.url.pathname;
             </p>
         </div>
     ) : (
-        /* Grid layout to prevent overflow and control card size better */
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        /* Masonry Layout using CSS Columns */
+        <div class="masonry-grid gap-4">
             {links.map((link: any, index: number) => (
                 <article 
-                    class="link-item group relative flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg transition-all duration-300 hover:shadow-md border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 h-fit"
+                    class="link-item group relative flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg transition-all duration-300 hover:shadow-md border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 break-inside-avoid mb-4"
                     data-tags={link.tags ? link.tags.join(',') : ''}
                 >
                     <div class="absolute top-3 right-3 text-[10px] font-mono text-neutral-300 dark:text-neutral-600 z-10">
@@ -135,6 +135,28 @@ const currentPath = Astro.url.pathname;
   </section>
 </Layout>
 
+<style>
+    .masonry-grid {
+        column-count: 1;
+        column-gap: 1rem;
+    }
+    @media (min-width: 640px) {
+        .masonry-grid {
+            column-count: 2;
+        }
+    }
+    @media (min-width: 1024px) {
+        .masonry-grid {
+            column-count: 3;
+        }
+    }
+    @media (min-width: 1280px) {
+        .masonry-grid {
+            column-count: 4;
+        }
+    }
+</style>
+
 <script>
   // Filter Logic
   const filterTags = document.querySelectorAll('.filter-tag');
@@ -143,7 +165,7 @@ const currentPath = Astro.url.pathname;
   function filterLinks(selectedTag) {
     linkItems.forEach(item => {
       const itemTags = (item as HTMLElement).dataset.tags?.split(',') || [];
-      // For Grid to work well with filtering, we just toggle display.
+      // For Masonry to work well with filtering, we just toggle display.
       if (selectedTag === 'all' || itemTags.includes(selectedTag)) {
         (item as HTMLElement).style.display = 'flex'; // Restore flex display
       } else {

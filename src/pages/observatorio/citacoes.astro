@@ -60,11 +60,12 @@ const currentPath = Astro.url.pathname;
 
         <!-- Filters (Tags) -->
         {tags.length > 0 && (
-            <div class="flex flex-col gap-2 md:min-w-max overflow-hidden">
+            <div class="flex flex-col gap-2 w-full">
                 <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
                     Filtros
                 </span>
-                <div class="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap pb-2 md:pb-0">
+                <!-- Changed flex-nowrap to flex-wrap to allow wrapping -->
+                <div class="flex flex-wrap gap-x-3 gap-y-2 pb-2 md:pb-0">
                     <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
                         todos
                     </a>
