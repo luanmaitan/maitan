@@ -119,9 +119,9 @@ function generateHolidaysForYear(year: number): Array<{ date: Date, title: strin
     holidays.push({ date: carnaval, title: 'Carnaval' });
     
     // Segunda de Carnaval
-    const carnivalMonday = new Date(carnaval.getTime());
-    carnavalMonday.setDate(carnaval.getDate() - 1);
-    holidays.push({ date: carnivalMonday, title: 'Carnaval' });
+    const segundaCarnaval = new Date(carnaval.getTime());
+    segundaCarnaval.setDate(carnaval.getDate() - 1);
+    holidays.push({ date: segundaCarnaval, title: 'Carnaval' });
 
     // Paixão de Cristo (2 dias antes da Páscoa)
     const goodFriday = new Date(easter.getTime());
