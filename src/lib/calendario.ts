@@ -114,9 +114,9 @@ function generateHolidaysForYear(year: number): Array<{ date: Date, title: strin
     
     // Carnaval (47 dias antes da Páscoa - Terça)
     // Create new Date instance to avoid reference issues
-    const carnival = new Date(easter.getTime());
+    const carnaval = new Date(easter.getTime());
     carnaval.setDate(easter.getDate() - 47);
-    holidays.push({ date: carnival, title: 'Carnaval' });
+    holidays.push({ date: carnaval, title: 'Carnaval' });
     
     // Segunda de Carnaval
     const carnivalMonday = new Date(carnaval.getTime());
