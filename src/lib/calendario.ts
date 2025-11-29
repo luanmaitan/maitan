@@ -113,24 +113,25 @@ function generateHolidaysForYear(year: number): Array<{ date: Date, title: strin
     const easter = getEaster(year);
     
     // Carnaval (47 dias antes da Páscoa - Terça)
-    const carnival = new Date(easter);
+    // Create new Date instance to avoid reference issues
+    const carnival = new Date(easter.getTime());
     carnaval.setDate(easter.getDate() - 47);
-    holidays.push({ date: new Date(carnaval), title: 'Carnaval' });
+    holidays.push({ date: carnival, title: 'Carnaval' });
     
     // Segunda de Carnaval
-    const carnivalMonday = new Date(carnaval);
+    const carnivalMonday = new Date(carnaval.getTime());
     carnavalMonday.setDate(carnaval.getDate() - 1);
-    holidays.push({ date: new Date(carnavalMonday), title: 'Carnaval' });
+    holidays.push({ date: carnivalMonday, title: 'Carnaval' });
 
     // Paixão de Cristo (2 dias antes da Páscoa)
-    const goodFriday = new Date(easter);
+    const goodFriday = new Date(easter.getTime());
     goodFriday.setDate(easter.getDate() - 2);
-    holidays.push({ date: new Date(goodFriday), title: 'Paixão de Cristo' });
+    holidays.push({ date: goodFriday, title: 'Paixão de Cristo' });
 
     // Corpus Christi (60 dias após a Páscoa)
-    const corpusChristi = new Date(easter);
+    const corpusChristi = new Date(easter.getTime());
     corpusChristi.setDate(easter.getDate() + 60);
-    holidays.push({ date: new Date(corpusChristi), title: 'Corpus Christi' });
+    holidays.push({ date: corpusChristi, title: 'Corpus Christi' });
 
     return holidays;
 }
