@@ -91,7 +91,7 @@ const currentPath = Astro.url.pathname;
                 <div class="flex justify-between items-center">
                     <a
                         href="/"
-                        class="flex items-center gap-2 text-lg font-bold text-black dark:text-white leading-none lowercase tracking-tight"
+                        class="flex items-center gap-2 text-lg font-black text-black dark:text-white leading-none lowercase tracking-tighter"
                     >
                         luan maitan
                     </a>
@@ -122,10 +122,10 @@ const currentPath = Astro.url.pathname;
                                     >
                                         <span
                                             class:list={[
-                                                "text-[15px] font-medium lowercase transition-colors",
+                                                "text-[15px] font-bold lowercase transition-colors tracking-tight",
                                                 isActive
                                                     ? "text-black dark:text-white"
-                                                    : "text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white",
+                                                    : "text-neutral-500 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white",
                                             ]}
                                         >
                                             {item.name}
@@ -238,7 +238,7 @@ const currentPath = Astro.url.pathname;
         <!-- Main Content -->
         <main
             class:list={[
-                "flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[280px]",
+                "flex-1 w-full max-w-5xl mx-auto px-6 py-8 lg:p-16 lg:ml-[280px]",
                 "pt-24 md:pt-20 lg:pt-16", // Reduced padding on tablet since nav is now inline
                 hasSidebar ? "md:pt-40 lg:pt-16" : "",
             ]}

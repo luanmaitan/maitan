@@ -6,56 +6,92 @@ import Layout from "../../layouts/Layout.astro";
   <!-- Sidebar Menu (Anchors) -->
   <div slot="sidebar" class="w-full">
     <nav class="flex flex-col gap-4">
-        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
-            ← voltar
-        </a>
-        <div class="flex flex-col gap-2">
-            <a href="#stack" class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase">Stack</a>
-            <a href="#design-system" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase">Design System</a>
-            <a href="#tipografia" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase">Tipografia</a>
-            <a href="#sizing" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase">Escala</a>
-            <a href="#cores" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase">Cores</a>
-            <a href="#licenca" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase">Licença</a>
-        </div>
+      <a
+        href="/"
+        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
+      >
+        ← voltar
+      </a>
+      <div class="flex flex-col gap-2">
+        <a
+          href="#stack"
+          class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
+          >Stack</a
+        >
+        <a
+          href="#design-system"
+          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+          >Design System</a
+        >
+        <a
+          href="#tipografia"
+          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+          >Tipografia</a
+        >
+        <a
+          href="#sizing"
+          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+          >Escala</a
+        >
+        <a
+          href="#cores"
+          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+          >Cores</a
+        >
+        <a
+          href="#licenca"
+          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
+          >Licença</a
+        >
+      </div>
     </nav>
   </div>
 
-  <div class="max-w-5xl mx-auto py-16 px-6 md:px-12">
+  <div class="w-full py-16">
     <header class="mb-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-      <h1 class="text-[80px] leading-[0.9] tracking-[-2px] font-medium text-black dark:text-white lowercase">
+      <h1
+        class="text-[80px] leading-[0.9] tracking-tighter font-black text-black dark:text-white lowercase"
+      >
         colophon
       </h1>
-      <p class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed font-serif max-w-xl">
+      <p
+        class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed font-serif max-w-xl"
+      >
         Detalhes técnicos e decisões de design que constroem este espaço.
       </p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-24">
-      
       <!-- Stack -->
       <div class="space-y-8" id="stack">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+        <h2
+          class="text-sm font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-500"
+        >
           Stack
         </h2>
         <ul class="space-y-4 text-lg text-neutral-800 dark:text-neutral-200">
           <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-redo-orange shrink-0"></span>
-            Redo Design System (Aesthetic)
+            <span class="w-2 h-2 bg-neutral-900 dark:bg-neutral-100 shrink-0"
+            ></span>
+            Swiss Style / Engineering Design (Aesthetic)
           </li>
           <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-neutral-900 dark:bg-neutral-100 shrink-0"></span>
+            <span class="w-2 h-2 bg-neutral-900 dark:bg-neutral-100 shrink-0"
+            ></span>
             Astro 5.0 (Static Site Generator)
           </li>
           <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-redo-navy shrink-0"></span>
+            <span class="w-2 h-2 bg-neutral-900 dark:bg-neutral-100 shrink-0"
+            ></span>
             TailwindCSS (Styling)
           </li>
           <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-redo-caption shrink-0"></span>
+            <span class="w-2 h-2 bg-neutral-900 dark:bg-neutral-100 shrink-0"
+            ></span>
             Svelte (Interactivity)
           </li>
           <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-black dark:bg-white shrink-0"
+            <span class="w-2 h-2 bg-neutral-900 dark:bg-neutral-100 shrink-0"
             ></span>
             Vercel (Hosting)
           </li>
@@ -64,42 +100,59 @@ import Layout from "../../layouts/Layout.astro";
 
       <!-- Design System -->
       <div class="space-y-8" id="design-system">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+        <h2
+          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+        >
           Design System
         </h2>
-        <p class="text-lg text-neutral-800 dark:text-neutral-200 leading-relaxed">
-          Este site utiliza a estética visual do Redo Design System, focado em precisão, clareza e tipografia forte.
+        <p
+          class="text-lg text-neutral-800 dark:text-neutral-200 leading-relaxed"
+        >
+          Este site segue os princípios do Estilo Tipográfico Internacional
+          (Swiss Style) e do Engineering Design, priorizando a grade, a
+          legibilidade e a honestidade estrutural.
         </p>
       </div>
 
       <!-- Tipografia -->
       <div class="space-y-8 md:col-span-2" id="tipografia">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+        <h2
+          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+        >
           Tipografia
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div class="space-y-2">
-            <p class="text-6xl md:text-7xl font-sans font-medium text-neutral-900 dark:text-neutral-100 leading-none tracking-tight">
-              Rethink Sans
+            <p
+              class="text-6xl md:text-7xl font-sans font-medium text-neutral-900 dark:text-neutral-100 leading-none tracking-tight"
+            >
+              Geist Sans
             </p>
             <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
-              Primary Sans-Serif. Clean, modern sans-serif typeface that ensures legibility and precision.
+              Primary Sans-Serif. Uma fonte neo-grotesque projetada para
+              precisão e legibilidade em interfaces digitais.
             </p>
           </div>
           <div class="space-y-2">
-            <p class="text-6xl md:text-7xl font-serif text-neutral-900 dark:text-neutral-100 leading-none">
+            <p
+              class="text-6xl md:text-7xl font-serif text-neutral-900 dark:text-neutral-100 leading-none"
+            >
               Hedvig Letters
             </p>
             <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
-              Secondary Serif. Refined, authoritative serif font adding tradition and credibility.
+              Secondary Serif. Uma serifa refinada que traz autoridade e
+              tradição para o conteúdo editorial.
             </p>
           </div>
           <div class="space-y-2 md:col-span-2">
-            <p class="text-4xl font-mono font-medium text-neutral-900 dark:text-neutral-100">
-              IBM Plex Mono
+            <p
+              class="text-4xl font-mono font-medium text-neutral-900 dark:text-neutral-100"
+            >
+              Geist Mono
             </p>
             <p class="text-sm text-neutral-500 dark:text-neutral-400 pt-2">
-              Usada para código e dados técnicos.
+              Typeface monoespaçada para código e dados técnicos, alinhada
+              perfeitamente com a Geist Sans.
             </p>
           </div>
         </div>
@@ -107,134 +160,153 @@ import Layout from "../../layouts/Layout.astro";
 
       <!-- Escala (Sizing) -->
       <div class="space-y-8 md:col-span-2" id="sizing">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+        <h2
+          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+        >
           Escala Tipográfica
         </h2>
-        <div class="space-y-8 border-t border-neutral-200 dark:border-neutral-800 pt-8">
-            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-                <span class="text-xs font-mono text-neutral-400">H1 / 60-80px</span>
-                <h1 class="text-[60px] md:text-[80px] leading-[1.1] tracking-[-2px] font-medium">Tipografia Digital</h1>
-            </div>
-            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-                <span class="text-xs font-mono text-neutral-400">H2 / 30-40px</span>
-                <h2 class="text-[30px] md:text-[40px] leading-[1.2] tracking-[-1px] font-medium">Subtítulo da Seção</h2>
-            </div>
-            <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-                <span class="text-xs font-mono text-neutral-400">Body / 16-18px</span>
-                <p class="text-lg leading-relaxed max-w-2xl">
-                    O corpo do texto é definido para garantir uma leitura confortável, com altura de linha generosa e espaçamento adequado. A fonte sans-serif traz modernidade, enquanto a serifada é usada para momentos de pausa e reflexão.
-                </p>
-            </div>
-             <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-                <span class="text-xs font-mono text-neutral-400">Small / 12-14px</span>
-                <p class="text-sm text-neutral-500">
-                    Legendas, metadados e informações secundárias utilizam um tamanho menor para criar hierarquia sem perder a legibilidade.
-                </p>
-            </div>
+        <div
+          class="space-y-8 border-t border-neutral-200 dark:border-neutral-800 pt-8"
+        >
+          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+            <span class="text-xs font-mono text-neutral-400">H1 / 60-80px</span>
+            <h1
+              class="text-[60px] md:text-[80px] leading-[1.1] tracking-[-2px] font-medium"
+            >
+              Tipografia Digital
+            </h1>
+          </div>
+          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+            <span class="text-xs font-mono text-neutral-400">H2 / 30-40px</span>
+            <h2
+              class="text-[30px] md:text-[40px] leading-[1.2] tracking-[-1px] font-medium"
+            >
+              Subtítulo da Seção
+            </h2>
+          </div>
+          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+            <span class="text-xs font-mono text-neutral-400"
+              >Body / 16-18px</span
+            >
+            <p class="text-lg leading-relaxed max-w-2xl">
+              O corpo do texto é definido para garantir uma leitura confortável,
+              com altura de linha generosa e espaçamento adequado. A fonte
+              sans-serif traz modernidade, enquanto a serifada é usada para
+              momentos de pausa e reflexão.
+            </p>
+          </div>
+          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
+            <span class="text-xs font-mono text-neutral-400"
+              >Small / 12-14px</span
+            >
+            <p class="text-sm text-neutral-500">
+              Legendas, metadados e informações secundárias utilizam um tamanho
+              menor para criar hierarquia sem perder a legibilidade.
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Cores -->
       <div class="space-y-8 md:col-span-2" id="cores">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+        <h2
+          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+        >
           Cores
         </h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
           <div class="space-y-3">
-            <div class="aspect-square rounded-full bg-redo-orange w-full max-w-[160px]"></div>
+            <div
+              class="aspect-square bg-neutral-50 border border-neutral-200 w-full max-w-[160px]"
+            >
+            </div>
             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Orange</p>
-                <p class="text-xs font-mono text-neutral-500">#FA9819</p>
+              <p class="font-medium text-neutral-900 dark:text-white">
+                Neutral 50
+              </p>
+              <p class="text-xs font-mono text-neutral-500">Background</p>
             </div>
           </div>
           <div class="space-y-3">
-             <div class="aspect-square rounded-full bg-redo-navy w-full max-w-[160px]"></div>
-             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Navy</p>
-                <p class="text-xs font-mono text-neutral-500">#1E3D59</p>
+            <div class="aspect-square bg-neutral-900 w-full max-w-[160px]">
+            </div>
+            <div>
+              <p class="font-medium text-neutral-900 dark:text-white">
+                Neutral 900
+              </p>
+              <p class="text-xs font-mono text-neutral-500">Text / Dark Bg</p>
             </div>
           </div>
           <div class="space-y-3">
-             <div class="aspect-square rounded-full bg-redo-blue-tint w-full max-w-[160px]"></div>
-             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Blue Tint</p>
-                <p class="text-xs font-mono text-neutral-500">#B6C9CF</p>
+            <div class="aspect-square bg-neutral-500 w-full max-w-[160px]">
             </div>
-          </div>
-           <div class="space-y-3">
-             <div class="aspect-square rounded-full bg-redo-baby-blue w-full max-w-[160px]"></div>
-             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Baby Blue</p>
-                <p class="text-xs font-mono text-neutral-500">#C6EBF7</p>
-            </div>
-          </div>
-          <div class="space-y-3">
-             <div class="aspect-square rounded-full bg-redo-caption w-full max-w-[160px]"></div>
-             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Caption</p>
-                <p class="text-xs font-mono text-neutral-500">#48749E</p>
-            </div>
-          </div>
-           <div class="space-y-3">
-             <div class="aspect-square rounded-full bg-redo-off-blue border border-neutral-200 w-full max-w-[160px]"></div>
-             <div>
-                <p class="font-medium text-neutral-900 dark:text-white">Off-Blue</p>
-                <p class="text-xs font-mono text-neutral-500">#E8EBEF</p>
+            <div>
+              <p class="font-medium text-neutral-900 dark:text-white">
+                Neutral 500
+              </p>
+              <p class="text-xs font-mono text-neutral-500">Secondary Text</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Footer Info -->
-      <div class="space-y-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div
+        class="space-y-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
         <div class="space-y-4" id="licenca">
-            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+          <h2
+            class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          >
             Licença
-            </h2>
-            <p class="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          </h2>
+          <p
+            class="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
+          >
             Conteúdo sob licença <a
-                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                target="_blank"
-                class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
-                >CC BY-NC-SA 4.0</a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+              class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+              >CC BY-NC-SA 4.0</a
             >. Código no <a
-                href="https://github.com/luanmaitan/maitan"
-                target="_blank"
-                class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
-                >GitHub</a
+              href="https://github.com/luanmaitan/maitan"
+              target="_blank"
+              class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+              >GitHub</a
             >.
-            </p>
+          </p>
         </div>
-        
+
         <div class="space-y-4">
-            <h2 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+          <h2
+            class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
+          >
             Histórico
-            </h2>
-            <p class="text-base text-neutral-600 dark:text-neutral-400 mb-2">
-                Acompanhe a evolução do projeto através do changelog.
-            </p>
-            <a
+          </h2>
+          <p class="text-base text-neutral-600 dark:text-neutral-400 mb-2">
+            Acompanhe a evolução do projeto através do changelog.
+          </p>
+          <a
             href="/colophon/changelog"
             class="inline-flex items-center gap-2 text-base font-medium text-neutral-900 dark:text-white hover:text-primary transition-colors group"
-            >
+          >
             Ver Changelog
             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="group-hover:translate-x-1 transition-transform"
-                ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="group-hover:translate-x-1 transition-transform"
+              ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
             >
-            </a>
+          </a>
         </div>
       </div>
-
     </div>
   </div>
 </Layout>
