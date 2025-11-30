@@ -35,10 +35,15 @@ export default {
         // Headings: Tight leading for impact
         'h1': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '500' }], // ~60px
         'h2': ['1.875rem', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '500' }], // ~30px
+        'h3': ['1.5rem', { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '500' }], // ~24px
         
         // Body: Relaxed leading for better readability (Swiss/Engineering Style best practice)
         'body': ['1rem', { lineHeight: '1.6', letterSpacing: '-0.01em', fontWeight: '400' }], // 16px
+        
+        // Utility sizes
         'small': ['0.875rem', { lineHeight: '1.5', letterSpacing: '-0.01em' }], // 14px
+        'label': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.02em', fontWeight: '500', textTransform: 'uppercase' }], // 12px
+        'display': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.01em' }], // 12px regular
       },
       keyframes: {
         "accordion-down": {
