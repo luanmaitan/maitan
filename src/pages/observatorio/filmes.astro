@@ -1,7 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 
-const RSS_URL = 'https://letterboxd.com/maitan/rss/';
+const RSS_URL = "https://letterboxd.com/maitan/rss/";
 // Using rss2json to avoid CORS/User-Agent blocking issues with direct RSS fetching
 const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
 
@@ -9,7 +9,7 @@ async function getMovies() {
   try {
     const response = await fetch(PROXY_URL);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
+
     const data = await response.json();
 
     if (!data.items || !Array.isArray(data.items)) {
@@ -18,33 +18,40 @@ async function getMovies() {
 
     // Get TMDB data for better covers (simulated/extracted from description)
     const movies = data.items.map((item: any) => {
-        // Extract rating
-        const ratingMatch = item.description && item.description.match(/Stars: ([\d.]+) of 5/);
-        const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
-        const stars = "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
+      // Extract rating
+      const ratingMatch =
+        item.description && item.description.match(/Stars: ([\d.]+) of 5/);
+      const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
+      const stars =
+        "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
 
-        // Extract original letterboxd poster to fallback
-        // rss2json extracts images into 'thumbnail' or we parse description
-        // Letterboxd RSS description contains HTML with img src
-        const posterMatch = item.description && item.description.match(/src="([^"]+)"/);
-        let poster = posterMatch ? posterMatch[1] : (item.thumbnail || "");
+      // Extract original letterboxd poster to fallback
+      // rss2json extracts images into 'thumbnail' or we parse description
+      // Letterboxd RSS description contains HTML with img src
+      const posterMatch =
+        item.description && item.description.match(/src="([^"]+)"/);
+      let poster = posterMatch ? posterMatch[1] : item.thumbnail || "";
 
-        // Fix poster resolution if needed (Letterboxd RSS usually gives small thumbs, but we can try to replace /0- with /0-600-0-900-crop if predictable, but let's stick to what is given first)
+      // Fix poster resolution if needed (Letterboxd RSS usually gives small thumbs, but we can try to replace /0- with /0-600-0-900-crop if predictable, but let's stick to what is given first)
 
-        const date = new Date(item.pubDate); 
+      const date = new Date(item.pubDate);
 
-        return {
-          title: item.title ? item.title.replace(/ \(.*\)$/, "") : "Sem título", // Remove year from title
-          link: item.link,
-          rating: rating,
-          stars: stars,
-          date: date,
-          dateString: date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace(' de ', ' ').replace('.', '').toUpperCase(),
-          year: date.getFullYear(),
-          poster: poster,
-          rewatch: item.description && item.description.includes('Rewatched')
-        };
-      });
+      return {
+        title: item.title ? item.title.replace(/ \(.*\)$/, "") : "Sem título", // Remove year from title
+        link: item.link,
+        rating: rating,
+        stars: stars,
+        date: date,
+        dateString: date
+          .toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })
+          .replace(" de ", " ")
+          .replace(".", "")
+          .toUpperCase(),
+        year: date.getFullYear(),
+        poster: poster,
+        rewatch: item.description && item.description.includes("Rewatched"),
+      };
+    });
 
     return movies;
   } catch (error) {
@@ -58,84 +65,135 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Filmes">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
-            ← voltar
-        </a>
+  <div
+    slot="sidebar"
+    class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
+  >
+    <nav
+      class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto"
+    >
+      <a
+        href="/observatorio"
+        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0"
+      >
+        ← voltar
+      </a>
 
-        {[
-            { name: 'livros', href: '/observatorio/livros', count: '—' },
-            { name: 'filmes', href: '/observatorio/filmes', count: movies.length },
-            { name: 'citações', href: '/observatorio/citacoes', count: '—' },
-            { name: 'links', href: '/observatorio/links', count: '—' },
+      {
+        [
+          { name: "livros", href: "/observatorio/livros", count: "—" },
+          {
+            name: "filmes",
+            href: "/observatorio/filmes",
+            count: movies.length,
+          },
+          { name: "citações", href: "/observatorio/citacoes", count: "—" },
+          { name: "links", href: "/observatorio/links", count: "—" },
         ].map((item, i) => {
-            const isActive = currentPath === item.href;
-            return (
+          const isActive = currentPath === item.href;
+          return (
             <a
-                href={item.href}
-                class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
+              href={item.href}
+              class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
             >
-                <span class:list={[
-                    "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
-                    isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                ]}>
-                    <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(i + 1).padStart(2, '0')}</span>
-                    {item.name}
+              <span
+                class:list={[
+                  "text-[15px] font-bold lowercase leading-[18px] tracking-tight",
+                  isActive
+                    ? "text-black dark:text-white"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white",
+                ]}
+              >
+                <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0 hidden lg:block">
-                    {item.count !== '—' ? String(item.count).padStart(2, '0') : '—'}
-                </span>
+                {item.name}
+              </span>
+              <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0 hidden lg:block">
+                {item.count !== "—" ? String(item.count).padStart(2, "0") : "—"}
+              </span>
             </a>
-        )})}
+          );
+        })
+      }
     </nav>
   </div>
 
   <section class="space-y-8">
     <header class="hidden lg:block">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+      <h1
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+      >
         filmes
       </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-        Registro dos filmes assistidos, avaliações e estatísticas. Sincronizado com <a href="https://letterboxd.com/luanmaitan/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Letterboxd</a>.
+      <p
+        class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+      >
+        Registro dos filmes assistidos, avaliações e estatísticas. Sincronizado
+        com <a
+          href="https://letterboxd.com/luanmaitan/"
+          target="_blank"
+          class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+          >Letterboxd</a
+        >.
       </p>
     </header>
     <header class="lg:hidden">
-        <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2">filmes</h1>
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Registro dos filmes assistidos, avaliações e estatísticas.</p>
+      <h1
+        class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2"
+      >
+        filmes
+      </h1>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        Registro dos filmes assistidos, avaliações e estatísticas.
+      </p>
     </header>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-      {movies.length === 0 ? (
-        <div class="col-span-full py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-          <p class="text-neutral-400 dark:text-neutral-500 italic">
-            Nenhum filme encontrado recentemente.
-          </p>
-        </div>
-      ) : (
-        movies.map((movie: any, index: number) => (
-          <a href={movie.link} target="_blank" class="group block relative aspect-[2/3] bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-            <div class="absolute top-2 right-2 z-10 text-[10px] font-mono text-white/80 drop-shadow-md">
-                {String(index + 1).padStart(2, '0')}
-            </div>
-            <img 
-                src={movie.poster} 
-                alt={`Poster de ${movie.title}`} 
+      {
+        movies.length === 0 ? (
+          <div class="col-span-full py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+            <p class="text-neutral-400 dark:text-neutral-500 italic">
+              Nenhum filme encontrado recentemente.
+            </p>
+          </div>
+        ) : (
+          movies.map((movie: any, index: number) => (
+            <a
+              href={movie.link}
+              target="_blank"
+              class="group block relative aspect-[2/3] bg-neutral-100 dark:bg-neutral-800 overflow-hidden"
+            >
+              <div class="absolute top-2 right-2 z-10 text-[10px] font-mono text-white/80 drop-shadow-md">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <img
+                src={movie.poster}
+                alt={`Poster de ${movie.title}`}
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                 loading="lazy"
-            />
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                <span class="text-yellow-400 text-xs tracking-widest mb-1">{movie.stars}</span>
-                <h3 class="text-white font-medium leading-tight text-sm line-clamp-2">{movie.title}</h3>
+              />
+
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <span class="text-yellow-400 text-xs tracking-widest mb-1">
+                  {movie.stars}
+                </span>
+                <h3 class="text-white font-bold leading-tight text-sm line-clamp-2 tracking-tight">
+                  {movie.title}
+                </h3>
                 <div class="flex justify-between items-center mt-2">
-                    <span class="text-neutral-400 text-[10px]">{movie.dateString}</span>
-                    {movie.rewatch && <span class="text-neutral-400 text-[10px]">↺</span>}
+                  <span class="text-neutral-400 text-[10px]">
+                    {movie.dateString}
+                  </span>
+                  {movie.rewatch && (
+                    <span class="text-neutral-400 text-[10px]">↺</span>
+                  )}
                 </div>
-            </div>
-          </a>
-        ))
-      )}
+              </div>
+            </a>
+          ))
+        )
+      }
     </div>
   </section>
 </Layout>

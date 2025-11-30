@@ -2,78 +2,71 @@
 import Layout from "../layouts/Layout.astro";
 
 const portfolioItems = [
-  // Livros (Vertical - Aspect 2/3)
-  {
-    title: "Coleção Clássicos",
-    category: "livro",
-    role: "edição",
-    image: "/portfolio/livro-1.jpg", // Placeholder path
-    aspect: "vertical" 
-  },
-  {
-    title: "Romance Contemporâneo",
-    category: "livro",
-    role: "revisão",
-    image: "/portfolio/livro-2.jpg",
-    aspect: "vertical"
-  },
-  // Revistas (Vertical or Square depending on design, let's use Vertical for consistency with print)
-  {
-    title: "Revista Acadêmica #42",
-    category: "revista",
-    role: "coordenação",
-    image: "/portfolio/revista-1.jpg",
-    aspect: "vertical"
-  },
-  // Web (Horizontal - Aspect Video)
-  {
-    title: "Portal de Notícias",
-    category: "web",
-    role: "webdesign",
-    image: "/portfolio/web-1.jpg",
-    aspect: "horizontal"
-  },
-  {
-    title: "Landing Page Institucional",
-    category: "web",
-    role: "desenvolvimento",
-    image: "/portfolio/web-2.jpg",
-    aspect: "horizontal"
-  },
-  // Vídeo (Horizontal)
-  {
-    title: "Documentário Curta",
-    category: "vídeo",
-    role: "edição de vídeo",
-    image: "/portfolio/video-1.jpg",
-    aspect: "horizontal"
-  },
-  // Design (Square or Variable, let's try Square for visual variety)
-  {
-    title: "Identidade Visual",
-    category: "design",
-    role: "design gráfico",
-    image: "/portfolio/design-1.jpg",
-    aspect: "square"
-  },
-  // Áudio (Square - Album art style)
-  {
-    title: "Podcast Episódio 1",
-    category: "áudio",
-    role: "tratamento de áudio",
-    image: "/portfolio/audio-1.jpg",
-    aspect: "square"
-  }
+    // Livros (Vertical - Aspect 2/3)
+    {
+        title: "Coleção Clássicos",
+        category: "livro",
+        role: "edição",
+        image: "/portfolio/livro-1.jpg", // Placeholder path
+        aspect: "vertical",
+    },
+    {
+        title: "Romance Contemporâneo",
+        category: "livro",
+        role: "revisão",
+        image: "/portfolio/livro-2.jpg",
+        aspect: "vertical",
+    },
+    // Revistas (Vertical or Square depending on design, let's use Vertical for consistency with print)
+    {
+        title: "Revista Acadêmica #42",
+        category: "revista",
+        role: "coordenação",
+        image: "/portfolio/revista-1.jpg",
+        aspect: "vertical",
+    },
+    // Web (Horizontal - Aspect Video)
+    {
+        title: "Portal de Notícias",
+        category: "web",
+        role: "webdesign",
+        image: "/portfolio/web-1.jpg",
+        aspect: "horizontal",
+    },
+    {
+        title: "Landing Page Institucional",
+        category: "web",
+        role: "desenvolvimento",
+        image: "/portfolio/web-2.jpg",
+        aspect: "horizontal",
+    },
+    // Vídeo (Horizontal)
+    {
+        title: "Documentário Curta",
+        category: "vídeo",
+        role: "edição de vídeo",
+        image: "/portfolio/video-1.jpg",
+        aspect: "horizontal",
+    },
+    // Design (Square or Variable, let's try Square for visual variety)
+    {
+        title: "Identidade Visual",
+        category: "design",
+        role: "design gráfico",
+        image: "/portfolio/design-1.jpg",
+        aspect: "square",
+    },
+    // Áudio (Square - Album art style)
+    {
+        title: "Podcast Episódio 1",
+        category: "áudio",
+        role: "tratamento de áudio",
+        image: "/portfolio/audio-1.jpg",
+        aspect: "square",
+    },
 ];
 
-const productFilters = [
-    "livro",
-    "revista",
-    "web",
-    "vídeo",
-    "áudio",
-    "design"
-];
+const productFilters = ["livro", "revista", "web", "vídeo", "áudio", "design"];
 
 const roleFilters = [
     "edição",
@@ -81,45 +74,78 @@ const roleFilters = [
     "coordenação",
     "webdesign",
     "desenvolvimento",
-    "design gráfico"
+    "design gráfico",
 ];
 
 // Helper to get aspect ratio classes
 const getAspectClass = (aspect) => {
-    switch(aspect) {
-        case 'vertical': return 'aspect-[2/3]';
-        case 'horizontal': return 'aspect-video';
-        case 'square': return 'aspect-square';
-        default: return 'aspect-square';
+    switch (aspect) {
+        case "vertical":
+            return "aspect-[2/3]";
+        case "horizontal":
+            return "aspect-video";
+        case "square":
+            return "aspect-square";
+        default:
+            return "aspect-square";
     }
-}
+};
 ---
 
 <Layout title="Maitan Hub | Portfólio">
-    <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-        <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
-            <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-8 w-full md:w-auto">
-                <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0 whitespace-nowrap">
+    <div
+        slot="sidebar"
+        class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
+    >
+        <div
+            class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full"
+        >
+            <nav
+                class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-8 w-full md:w-auto"
+            >
+                <a
+                    href="/"
+                    class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0 whitespace-nowrap"
+                >
                     ← voltar
                 </a>
-                
-                <div class="flex flex-col gap-2 w-full md:w-auto overflow-hidden">
-                    <div class="flex md:items-center gap-2 md:gap-6 flex-col md:flex-row lg:flex-col lg:gap-2">
-                        <a href="#" data-filter="all" class="filter-btn text-[15px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
+
+                <div
+                    class="flex flex-col gap-2 w-full md:w-auto overflow-hidden"
+                >
+                    <div
+                        class="flex md:items-center gap-2 md:gap-6 flex-col md:flex-row lg:flex-col lg:gap-2"
+                    >
+                        <a
+                            href="#"
+                            data-filter="all"
+                            class="filter-btn text-[15px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
+                        >
                             todos
                         </a>
 
                         <!-- Product Filters (Sidebar) -->
                         <div class="flex flex-col gap-1 mt-2 md:mt-0 lg:mt-2">
-                            <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1 hidden lg:block">
+                            <span
+                                class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1 hidden lg:block"
+                            >
                                 Por Tipo
                             </span>
-                            <div class="flex flex-wrap md:flex-nowrap gap-x-4 gap-y-2 md:gap-4 lg:flex-col lg:gap-1">
-                                {productFilters.map((filter) => (
-                                    <a href={`#${filter}`} data-filter={filter} data-type="category" class="filter-btn text-[15px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap">
-                                        {filter}
-                                    </a>
-                                ))}
+                            <div
+                                class="flex flex-wrap md:flex-nowrap gap-x-4 gap-y-2 md:gap-4 lg:flex-col lg:gap-1"
+                            >
+                                {
+                                    productFilters.map((filter) => (
+                                        <a
+                                            href={`#${filter}`}
+                                            data-filter={filter}
+                                            data-type="category"
+                                            class="filter-btn text-[15px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                                        >
+                                            {filter}
+                                        </a>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -131,56 +157,82 @@ const getAspectClass = (aspect) => {
     <section class="space-y-12">
         <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div class="space-y-8">
-                <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+                <h1
+                    class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+                >
                     portfólio
                 </h1>
-                
+
                 <!-- Role Filters (Main Content) -->
                 <div class="flex flex-wrap gap-x-4 gap-y-2">
-                    <a href="#" data-filter="all" class="filter-btn text-[13px] font-medium bg-neutral-900 text-white dark:bg-white dark:text-black border border-neutral-900 dark:border-white px-3 py-1 rounded-full transition-colors lowercase">
+                    <a
+                        href="#"
+                        data-filter="all"
+                        class="filter-btn text-[13px] font-medium bg-neutral-900 text-white dark:bg-white dark:text-black border border-neutral-900 dark:border-white px-3 py-1 rounded-full transition-colors lowercase"
+                    >
                         todos
                     </a>
-                    {roleFilters.map((filter) => (
-                        <a href={`#${filter}`} data-filter={filter} data-type="role" class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase border border-neutral-200 dark:border-neutral-800 px-3 py-1 rounded-full hover:border-neutral-400 dark:hover:border-neutral-600">
-                            {filter}
-                        </a>
-                    ))}
+                    {
+                        roleFilters.map((filter) => (
+                            <a
+                                href={`#${filter}`}
+                                data-filter={filter}
+                                data-type="role"
+                                class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase border border-neutral-200 dark:border-neutral-800 px-3 py-1 rounded-full hover:border-neutral-400 dark:hover:border-neutral-600"
+                            >
+                                {filter}
+                            </a>
+                        ))
+                    }
                 </div>
             </div>
 
-            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+            >
                 Trabalhos selecionados de edição, design e desenvolvimento.
             </p>
         </header>
 
         <!-- Masonry Grid Wrapper -->
         <div class="masonry-grid" id="portfolio-grid">
-            {portfolioItems.map((item) => (
-                <div class="masonry-item mb-8 break-inside-avoid" data-category={item.category} data-role={item.role}>
-                    <div class="group cursor-pointer">
-                        <div
-                            class={`w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-3 overflow-hidden relative border border-neutral-200 dark:border-neutral-800 ${getAspectClass(item.aspect)}`}
-                        >
-                            <div class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic">
-                                {/* Placeholder for missing image */}
-                                {item.title}
+            {
+                portfolioItems.map((item) => (
+                    <div
+                        class="masonry-item mb-8 break-inside-avoid"
+                        data-category={item.category}
+                        data-role={item.role}
+                    >
+                        <div class="group cursor-pointer">
+                            <div
+                                class={`w-full bg-neutral-100 dark:bg-neutral-800 rounded-none mb-3 overflow-hidden relative border border-neutral-200 dark:border-neutral-800 ${getAspectClass(item.aspect)}`}
+                            >
+                                <div class="absolute inset-0 flex items-center justify-center text-neutral-400 dark:text-neutral-600 italic">
+                                    {/* Placeholder for missing image */}
+                                    {item.title}
+                                </div>
+                                {/* Uncomment when real images are available */}
+                                {/* <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" /> */}
                             </div>
-                            {/* Uncomment when real images are available */}
-                            {/* <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" /> */}
-                        </div>
-                        <h3
-                            class="text-[16px] font-medium text-neutral-900 dark:text-neutral-100 lowercase leading-tight group-hover:text-redo-orange transition-colors"
-                        >
-                            {item.title}
-                        </h3>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">{item.category}</span>
-                            <span class="text-neutral-300 dark:text-neutral-700">•</span>
-                            <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">{item.role}</span>
+                            <h3 class="text-[16px] font-bold text-neutral-900 dark:text-neutral-100 lowercase leading-tight group-hover:text-redo-orange transition-colors tracking-tight">
+                                {" "}
+                                {item.title}
+                            </h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">
+                                    {item.category}
+                                </span>
+                                <span class="text-neutral-300 dark:text-neutral-700">
+                                    •
+                                </span>
+                                <span class="text-xs text-neutral-500 dark:text-neutral-400 lowercase">
+                                    {item.role}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            }
         </div>
     </section>
 </Layout>
@@ -203,65 +255,109 @@ const getAspectClass = (aspect) => {
 </style>
 
 <script>
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.masonry-item');
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".masonry-item");
 
     function filterPortfolio(filterValue, filterType) {
-        items.forEach(item => {
+        items.forEach((item) => {
             const itemCategory = (item as HTMLElement).dataset.category;
             const itemRole = (item as HTMLElement).dataset.role;
-            
+
             let match = false;
-            if (filterValue === 'all') {
+            if (filterValue === "all") {
                 match = true;
-            } else if (filterType === 'category') {
+            } else if (filterType === "category") {
                 match = itemCategory === filterValue;
-            } else if (filterType === 'role') {
+            } else if (filterType === "role") {
                 // Simple string match for now, allows partial matches if roles are lists later
                 match = itemRole?.includes(filterValue) ?? false;
             } else {
                 // Fallback checks both if type not specified (from hash maybe)
-                match = itemCategory === filterValue || (itemRole?.includes(filterValue) ?? false);
+                match =
+                    itemCategory === filterValue ||
+                    (itemRole?.includes(filterValue) ?? false);
             }
 
-            (item as HTMLElement).style.display = match ? 'block' : 'none';
+            (item as HTMLElement).style.display = match ? "block" : "none";
         });
 
-        filterBtns.forEach(btn => {
+        filterBtns.forEach((btn) => {
             const btnFilter = (btn as HTMLElement).dataset.filter;
             // Different styling for sidebar vs main content filters
-            const isPill = btn.classList.contains('rounded-full');
+            const isPill = btn.classList.contains("rounded-full");
 
             if (btnFilter === filterValue) {
                 if (isPill) {
-                    btn.classList.add('bg-neutral-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'border-neutral-900', 'dark:border-white');
-                    btn.classList.remove('text-neutral-500', 'hover:text-black', 'dark:text-neutral-400', 'dark:hover:text-white');
+                    btn.classList.add(
+                        "bg-neutral-900",
+                        "text-white",
+                        "dark:bg-white",
+                        "dark:text-black",
+                        "border-neutral-900",
+                        "dark:border-white",
+                    );
+                    btn.classList.remove(
+                        "text-neutral-500",
+                        "hover:text-black",
+                        "dark:text-neutral-400",
+                        "dark:hover:text-white",
+                    );
                 } else {
-                    btn.classList.remove('text-neutral-500', 'dark:text-neutral-400');
-                    btn.classList.add('text-black', 'dark:text-white', 'font-medium');
+                    btn.classList.remove(
+                        "text-neutral-500",
+                        "dark:text-neutral-400",
+                    );
+                    btn.classList.add(
+                        "text-black",
+                        "dark:text-white",
+                        "font-medium",
+                    );
                 }
             } else {
                 if (isPill) {
-                    btn.classList.remove('bg-neutral-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'border-neutral-900', 'dark:border-white');
-                    btn.classList.add('text-neutral-500', 'hover:text-black', 'dark:text-neutral-400', 'dark:hover:text-white');
+                    btn.classList.remove(
+                        "bg-neutral-900",
+                        "text-white",
+                        "dark:bg-white",
+                        "dark:text-black",
+                        "border-neutral-900",
+                        "dark:border-white",
+                    );
+                    btn.classList.add(
+                        "text-neutral-500",
+                        "hover:text-black",
+                        "dark:text-neutral-400",
+                        "dark:hover:text-white",
+                    );
                 } else {
-                    btn.classList.add('text-neutral-500', 'dark:text-neutral-400');
-                    btn.classList.remove('text-black', 'dark:text-white', 'font-medium');
+                    btn.classList.add(
+                        "text-neutral-500",
+                        "dark:text-neutral-400",
+                    );
+                    btn.classList.remove(
+                        "text-black",
+                        "dark:text-white",
+                        "font-medium",
+                    );
                 }
             }
         });
     }
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
             const target = e.currentTarget as HTMLElement;
             const filter = target.dataset.filter;
             const type = target.dataset.type;
-            
+
             if (filter) {
                 filterPortfolio(filter, type);
-                history.replaceState(null, '', filter === 'all' ? ' ' : `#${filter}`);
+                history.replaceState(
+                    null,
+                    "",
+                    filter === "all" ? " " : `#${filter}`,
+                );
             }
         });
     });
@@ -269,7 +365,16 @@ const getAspectClass = (aspect) => {
     const initialHash = window.location.hash.slice(1);
     if (initialHash) {
         // Try to detect if hash is a role or category
-        const isRole = Array.from(document.querySelectorAll('[data-type="role"]')).some(el => (el as HTMLElement).dataset.filter === decodeURIComponent(initialHash));
-        filterPortfolio(decodeURIComponent(initialHash), isRole ? 'role' : 'category');
+        const isRole = Array.from(
+            document.querySelectorAll('[data-type="role"]'),
+        ).some(
+            (el) =>
+                (el as HTMLElement).dataset.filter ===
+                decodeURIComponent(initialHash),
+        );
+        filterPortfolio(
+            decodeURIComponent(initialHash),
+            isRole ? "role" : "category",
+        );
     }
 </script>

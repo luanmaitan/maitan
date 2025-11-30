@@ -86,7 +86,7 @@ const currentPath = Astro.url.pathname;
                 class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
             >
                 <span class:list={[
-                    "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
+                    "text-[15px] font-bold lowercase leading-[18px] tracking-tight",
                     isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
                 ]}>
                     <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(i + 1).padStart(2, '0')}</span>
@@ -102,7 +102,7 @@ const currentPath = Astro.url.pathname;
 
   <section class="space-y-8">
     <header class="hidden lg:block">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+      <h1 class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase">
         livros
       </h1>
       <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
@@ -147,7 +147,7 @@ const currentPath = Astro.url.pathname;
 
                 <!-- Title -->
                 <div class="flex-grow min-w-0 pr-4">
-                    <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 truncate lowercase">
+                    <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-200 truncate lowercase tracking-tight">
                     {book.title}
                     </h3>
                     <p class="text-xs text-neutral-500 dark:text-neutral-400 md:hidden">

@@ -3,64 +3,92 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Maitan Hub | Projetos">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
-      <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
+  <div
+    slot="sidebar"
+    class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
+  >
+    <nav
+      class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto"
+    >
+      <a
+        href="/"
+        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0"
+      >
         ← voltar
       </a>
-      
-      {[
-        { name: 'vigília', href: '/projetos/vigilia' },
-        { name: 'labirinto', href: '/projetos/labirinto' },
-        { name: 'floresta', href: '/projetos/floresta' },
-      ].map((item) => {
-        return (
-        <a
-            href={item.href}
-            class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
-        >
-            <span class="text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors">
+
+      {
+        [
+          { name: "vigília", href: "/projetos/vigilia" },
+          { name: "labirinto", href: "/projetos/labirinto" },
+          { name: "floresta", href: "/projetos/floresta" },
+        ].map((item) => {
+          return (
+            <a
+              href={item.href}
+              class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
+            >
+              <span class="text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors">
                 {item.name}
-            </span>
-        </a>
-      )})}
+              </span>
+            </a>
+          );
+        })
+      }
     </nav>
   </div>
 
   <section class="space-y-12">
     <header>
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+      <h1
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+      >
         projetos
       </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+      <p
+        class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+      >
         Iniciativas e experimentos em andamento.
       </p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {[
-        { title: 'vigília', href: '/projetos/vigilia', description: 'Canal de conteúdo e reflexões.' },
-        { title: 'labirinto', href: '/projetos/labirinto', description: 'Projeto musical e sonoro.' },
-        { title: 'floresta', href: '/projetos/floresta', description: 'Projeto ecológico e ambiental.' },
-      ].map((project) => (
-        <a
-          href={project.href}
-          class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
-        >
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-medium group-hover:text-neutral-900 dark:group-hover:text-white transition-colors lowercase">
-              {project.title}
-            </h2>
-            <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
-              →
-            </span>
-          </div>
-          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-            {project.description}
-          </p>
-        </a>
-      ))}
+      {
+        [
+          {
+            title: "vigília",
+            href: "/projetos/vigilia",
+            description: "Canal de conteúdo e reflexões.",
+          },
+          {
+            title: "labirinto",
+            href: "/projetos/labirinto",
+            description: "Projeto musical e sonoro.",
+          },
+          {
+            title: "floresta",
+            href: "/projetos/floresta",
+            description: "Projeto ecológico e ambiental.",
+          },
+        ].map((project) => (
+          <a
+            href={project.href}
+            class="group block p-6 rounded-none border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all hover:shadow-sm bg-white dark:bg-neutral-900/50"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-bold group-hover:text-neutral-900 dark:group-hover:text-white transition-colors lowercase tracking-tight">
+                {project.title}
+              </h2>
+              <span class="text-neutral-400 group-hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+                →
+              </span>
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              {project.description}
+            </p>
+          </a>
+        ))
+      }
     </div>
   </section>
 </Layout>
-

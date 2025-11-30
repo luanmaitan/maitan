@@ -7,7 +7,7 @@ let allTags: Record<string, number> = {};
 
 try {
   links = await getRaindrops(0); // 0 = All items
-  
+
   // Extract tags
   links.forEach((link: any) => {
     if (link.tags) {
@@ -25,180 +25,228 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Links">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
-        <!-- Back Link Only (removed navigation menu items as requested) -->
-        <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase whitespace-nowrap">
-            ← voltar
-        </a>
+  <div
+    slot="sidebar"
+    class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
+  >
+    <div
+      class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full"
+    >
+      <!-- Back Link Only (removed navigation menu items as requested) -->
+      <a
+        href="/observatorio"
+        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+      >
+        ← voltar
+      </a>
 
-        <!-- Filters (Tags) -->
-        {tags.length > 0 && (
-            <div class="flex flex-col gap-2 w-full md:w-auto overflow-hidden">
-                <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
-                    Filtros
-                </span>
-                <div class="flex flex-wrap gap-x-4 gap-y-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap pb-2 md:pb-0">
-                    <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
-                        todos
-                    </a>
-                    {tags.map(([tag, count]) => (
-                        <a href={`#${tag}`} data-tag={tag} class="filter-tag group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap">
-                            {tag}
-                            <span class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5">
-                                {String(count).padStart(2, '0')}
-                            </span>
-                        </a>
-                    ))}
-                </div>
+      <!-- Filters (Tags) -->
+      {
+        tags.length > 0 && (
+          <div class="flex flex-col gap-2 w-full md:w-auto overflow-hidden">
+            <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
+              Filtros
+            </span>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 md:flex-nowrap md:overflow-x-auto lg:flex-wrap pb-2 md:pb-0">
+              <a
+                href="#"
+                data-tag="all"
+                class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
+              >
+                todos
+              </a>
+              {tags.map(([tag, count]) => (
+                <a
+                  href={`#${tag}`}
+                  data-tag={tag}
+                  class="filter-tag group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                >
+                  {tag}
+                  <span class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5">
+                    {String(count).padStart(2, "0")}
+                  </span>
+                </a>
+              ))}
             </div>
-        )}
+          </div>
+        )
+      }
     </div>
   </div>
 
   <section class="space-y-12">
     <header class="hidden lg:block">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+      <h1
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+      >
         links
       </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-        Curadoria de links, artigos e recursos interessantes da web. Sincronizado com <a href="https://raindrop.io/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Raindrop.io</a>.
+      <p
+        class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+      >
+        Curadoria de links, artigos e recursos interessantes da web.
+        Sincronizado com <a
+          href="https://raindrop.io/"
+          target="_blank"
+          class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+          >Raindrop.io</a
+        >.
       </p>
     </header>
     <header class="lg:hidden">
-        <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2">links</h1>
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Curadoria de links, artigos e recursos interessantes da web.</p>
+      <h1
+        class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2"
+      >
+        links
+      </h1>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        Curadoria de links, artigos e recursos interessantes da web.
+      </p>
     </header>
 
-    {links.length === 0 ? (
+    {
+      links.length === 0 ? (
         <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-            <p class="text-neutral-400 dark:text-neutral-500 italic">
+          <p class="text-neutral-400 dark:text-neutral-500 italic">
             Nenhum link encontrado.
-            </p>
+          </p>
         </div>
-    ) : (
+      ) : (
         /* Masonry Layout using CSS Columns */
         <div class="masonry-grid gap-4 w-full">
-            {links.map((link: any, index: number) => (
-                <article 
-                    class="link-item w-full group relative flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg transition-all duration-300 hover:shadow-md border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 break-inside-avoid mb-4"
-                    data-tags={link.tags ? link.tags.join(',') : ''}
+          {links.map((link: any, index: number) => (
+            <article
+              class="link-item w-full group relative flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg transition-all duration-300 hover:shadow-md border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 break-inside-avoid mb-4"
+              data-tags={link.tags ? link.tags.join(",") : ""}
+            >
+              <div class="absolute top-3 right-3 text-[10px] font-mono text-neutral-300 dark:text-neutral-600 z-10">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              {link.cover && (
+                <div class="w-full aspect-video rounded-md overflow-hidden bg-neutral-200 dark:bg-neutral-700 mb-1">
+                  <img
+                    src={link.cover}
+                    alt={`Cover for ${link.title}`}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              <div class="flex flex-col gap-1">
+                <a
+                  href={link.link}
+                  target="_blank"
+                  class="text-[16px] font-bold text-neutral-900 dark:text-white hover:text-redo-orange dark:hover:text-redo-orange transition-colors lowercase leading-[1.3] decoration-1 hover:underline underline-offset-4 pr-6 break-words hyphens-auto tracking-tight"
                 >
-                    <div class="absolute top-3 right-3 text-[10px] font-mono text-neutral-300 dark:text-neutral-600 z-10">
-                        {String(index + 1).padStart(2, '0')}
-                    </div>
+                  {link.title}
+                </a>
+                <div class="flex items-center justify-between mt-1">
+                  <span class="text-[9px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-900 px-1.5 py-0.5 rounded-sm border border-neutral-100 dark:border-neutral-800 truncate max-w-[120px]">
+                    {link.domain}
+                  </span>
+                  <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 whitespace-nowrap ml-2">
+                    {new Date(link.created).toLocaleDateString("pt-BR", {
+                      year: "2-digit",
+                      month: "short",
+                      day: "2-digit",
+                    })}
+                  </span>
+                </div>
+              </div>
 
-                    {link.cover && (
-                        <div class="w-full aspect-video rounded-md overflow-hidden bg-neutral-200 dark:bg-neutral-700 mb-1">
-                            <img 
-                                src={link.cover} 
-                                alt={`Cover for ${link.title}`}
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                loading="lazy"
-                            />
-                        </div>
-                    )}
+              {link.excerpt && (
+                <p class="text-[13px] text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3 break-words">
+                  {link.excerpt}
+                </p>
+              )}
 
-                    <div class="flex flex-col gap-1">
-                        <a href={link.link} target="_blank" class="text-[16px] font-medium text-neutral-900 dark:text-white hover:text-redo-orange dark:hover:text-redo-orange transition-colors lowercase leading-[1.3] decoration-1 hover:underline underline-offset-4 pr-6 break-words hyphens-auto">
-                            {link.title}
-                        </a>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-[9px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-900 px-1.5 py-0.5 rounded-sm border border-neutral-100 dark:border-neutral-800 truncate max-w-[120px]">
-                                {link.domain}
-                            </span>
-                            <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-600 whitespace-nowrap ml-2">
-                                {new Date(link.created).toLocaleDateString('pt-BR', { year: '2-digit', month: 'short', day: '2-digit' })}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    {link.excerpt && (
-                        <p class="text-[13px] text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3 break-words">
-                            {link.excerpt}
-                        </p>
-                    )}
-                    
-                    {link.tags && link.tags.length > 0 && (
-                        <div class="flex flex-wrap gap-1.5 mt-1">
-                            {link.tags.map((tag: string) => (
-                                <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-                </article>
-            ))}
+              {link.tags && link.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  {link.tags.map((tag: string) => (
+                    <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))}
         </div>
-    )}
+      )
+    }
   </section>
 </Layout>
 
 <style>
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1rem;
+    width: 100%;
+  }
+  @media (min-width: 640px) {
     .masonry-grid {
-        column-count: 1;
-        column-gap: 1rem;
-        width: 100%;
+      column-count: 2;
     }
-    @media (min-width: 640px) {
-        .masonry-grid {
-            column-count: 2;
-        }
+  }
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 3;
     }
-    @media (min-width: 1024px) {
-        .masonry-grid {
-            column-count: 3;
-        }
+  }
+  @media (min-width: 1280px) {
+    .masonry-grid {
+      column-count: 4;
     }
-    @media (min-width: 1280px) {
-        .masonry-grid {
-            column-count: 4;
-        }
-    }
+  }
 </style>
 
 <script>
   // Filter Logic
-  const filterTags = document.querySelectorAll('.filter-tag');
-  const linkItems = document.querySelectorAll('.link-item');
+  const filterTags = document.querySelectorAll(".filter-tag");
+  const linkItems = document.querySelectorAll(".link-item");
 
   function filterLinks(selectedTag) {
-    linkItems.forEach(item => {
+    linkItems.forEach((item) => {
       const htmlItem = item as HTMLElement;
-      const itemTags = htmlItem.dataset.tags?.split(',') || [];
-      
+      const itemTags = htmlItem.dataset.tags?.split(",") || [];
+
       // For Masonry to work well with filtering:
-      if (selectedTag === 'all' || itemTags.includes(selectedTag)) {
+      if (selectedTag === "all" || itemTags.includes(selectedTag)) {
         // Reset to default display (which for article is block/flex based on classes)
         // Setting it to empty string allows CSS classes to take over
-        htmlItem.style.display = ''; 
+        htmlItem.style.display = "";
       } else {
-        htmlItem.style.display = 'none';
+        htmlItem.style.display = "none";
       }
     });
 
     // Update active state
-    filterTags.forEach(tag => {
+    filterTags.forEach((tag) => {
       const tagValue = (tag as HTMLElement).dataset.tag;
       if (tagValue === selectedTag) {
-        tag.classList.remove('text-neutral-500', 'dark:text-neutral-400');
-        tag.classList.add('text-black', 'dark:text-white', 'font-medium');
+        tag.classList.remove("text-neutral-500", "dark:text-neutral-400");
+        tag.classList.add("text-black", "dark:text-white", "font-medium");
       } else {
-        tag.classList.add('text-neutral-500', 'dark:text-neutral-400');
-        tag.classList.remove('text-black', 'dark:text-white', 'font-medium');
+        tag.classList.add("text-neutral-500", "dark:text-neutral-400");
+        tag.classList.remove("text-black", "dark:text-white", "font-medium");
       }
     });
   }
 
-  filterTags.forEach(tag => {
-    tag.addEventListener('click', (e) => {
+  filterTags.forEach((tag) => {
+    tag.addEventListener("click", (e) => {
       e.preventDefault();
       const selectedTag = (e.currentTarget as HTMLElement).dataset.tag;
       if (selectedTag) {
         filterLinks(selectedTag);
         // Update URL hash without scrolling
-        history.replaceState(null, '', selectedTag === 'all' ? ' ' : `#${selectedTag}`);
+        history.replaceState(
+          null,
+          "",
+          selectedTag === "all" ? " " : `#${selectedTag}`,
+        );
       }
     });
   });

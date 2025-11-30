@@ -1,113 +1,236 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Luan Maitan | Políticas">
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <nav class="flex flex-col gap-2">
-      <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
-        ← voltar ao início
-      </a>
-    </nav>
-    <nav class="flex flex-col gap-1">
-        <a href="#conteudo" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
-            Conteúdo
-            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
-        </a>
-        <a href="#links" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
-            Links Externos
-            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
-        </a>
-        <a href="#direitos" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
-            Direitos Autorais
-            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
-        </a>
-        <a href="#privacidade" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
-            Privacidade
-            <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
-        </a>
-    </nav>
-  </div>
+    <div slot="sidebar" class="flex flex-col gap-8">
+        <nav class="flex flex-col gap-2">
+            <a
+                href="/"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
+            >
+                ← voltar ao início
+            </a>
+        </nav>
+        <nav class="flex flex-col gap-1">
+            <a
+                href="#conteudo"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
+            >
+                Conteúdo
+                <sup
+                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
+                    >↓</sup
+                >
+            </a>
+            <a
+                href="#links"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
+            >
+                Links Externos
+                <sup
+                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
+                    >↓</sup
+                >
+            </a>
+            <a
+                href="#direitos"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
+            >
+                Direitos Autorais
+                <sup
+                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
+                    >↓</sup
+                >
+            </a>
+            <a
+                href="#privacidade"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
+            >
+                Privacidade
+                <sup
+                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
+                    >↓</sup
+                >
+            </a>
+        </nav>
+    </div>
 
-  <section class="space-y-16">
-    <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">
-        políticas
-      </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-        Transparência sobre como este site funciona e como seus dados são tratados.
-      </p>
-    </header>
+    <section class="space-y-16">
+        <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <h1
+                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white lowercase"
+            >
+                políticas
+            </h1>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+            >
+                Transparência sobre como este site funciona e como seus dados
+                são tratados.
+            </p>
+        </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-neutral-200 dark:border-neutral-800 pb-12">
-        <!-- Editor -->
-        <div class="space-y-4">
-            <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Editor</h4>
-            <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                <li>Luan Maitan</li>
-                <li><a href="mailto:luan.maitan@hotmail.com" class="hover:text-black dark:hover:text-white transition-colors">luan.maitan@hotmail.com</a></li>
-                <li><a href="https://maitan.org" class="hover:text-black dark:hover:text-white transition-colors">maitan.org</a></li>
-            </ul>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-neutral-200 dark:border-neutral-800 pb-12"
+        >
+            <!-- Editor -->
+            <div class="space-y-4">
+                <h4
+                    class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2"
+                >
+                    Editor
+                </h4>
+                <ul
+                    class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                >
+                    <li>Luan Maitan</li>
+                    <li>
+                        <a
+                            href="mailto:luan.maitan@hotmail.com"
+                            class="hover:text-black dark:hover:text-white transition-colors"
+                            >luan.maitan@hotmail.com</a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://maitan.org"
+                            class="hover:text-black dark:hover:text-white transition-colors"
+                            >maitan.org</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="space-y-4">
+                <h4
+                    class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2"
+                >
+                    Contato
+                </h4>
+                <ul
+                    class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                >
+                    <li>São Paulo, SP</li>
+                    <li>Brasil</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Contact -->
-        <div class="space-y-4">
-            <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">Contato</h4>
-            <ul class="space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                <li>São Paulo, SP</li>
-                <li>Brasil</li>
-            </ul>
+        <!-- Liability for content -->
+        <div class="space-y-4" id="conteudo">
+            <h4
+                class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
+            >
+                Conteúdo
+            </h4>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl"
+            >
+                O conteúdo deste site é criado com cuidado e dedicação. No
+                entanto, não garanto a precisão, integridade ou atualização
+                constante das informações apresentadas. Como editor, sou
+                responsável pelo conteúdo autoral aqui publicado, de acordo com
+                a legislação brasileira vigente. Não me responsabilizo por
+                interpretações equivocadas ou pelo uso indevido das informações
+                aqui contidas.
+            </p>
         </div>
-    </div>
 
-    <!-- Liability for content -->
-    <div class="space-y-4" id="conteudo">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Conteúdo</h4>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
-            O conteúdo deste site é criado com cuidado e dedicação. No entanto, não garanto a precisão, integridade ou atualização constante das informações apresentadas. Como editor, sou responsável pelo conteúdo autoral aqui publicado, de acordo com a legislação brasileira vigente. Não me responsabilizo por interpretações equivocadas ou pelo uso indevido das informações aqui contidas.
-        </p>
-    </div>
+        <!-- Liability for links -->
+        <div class="space-y-4" id="links">
+            <h4
+                class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
+            >
+                Links Externos
+            </h4>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl"
+            >
+                Este site contém links para páginas externas de terceiros, sobre
+                as quais não tenho controle. Portanto, não assumo
+                responsabilidade pelo conteúdo desses sites. A responsabilidade
+                pelo conteúdo das páginas vinculadas é sempre do respectivo
+                provedor ou operador. Se eu tomar conhecimento de violações
+                legais em links externos, eles serão removidos imediatamente.
+            </p>
+        </div>
 
-    <!-- Liability for links -->
-    <div class="space-y-4" id="links">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Links Externos</h4>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
-            Este site contém links para páginas externas de terceiros, sobre as quais não tenho controle. Portanto, não assumo responsabilidade pelo conteúdo desses sites. A responsabilidade pelo conteúdo das páginas vinculadas é sempre do respectivo provedor ou operador. Se eu tomar conhecimento de violações legais em links externos, eles serão removidos imediatamente.
-        </p>
-    </div>
+        <!-- Copyright -->
+        <div class="space-y-4" id="direitos">
+            <h4
+                class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
+            >
+                Direitos Autorais
+            </h4>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl"
+            >
+                O conteúdo original deste site (textos, imagens, código) está
+                licenciado sob a licença <a
+                    href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                    target="_blank"
+                    class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors"
+                    >Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+                    International (CC BY-NC-SA 4.0)</a
+                >, salvo indicação em contrário.
+            </p>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2"
+            >
+                Isso significa que você é livre para compartilhar e adaptar o
+                material, desde que:
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>Atribua os créditos devidos a Luan Maitan;</li>
+                    <li>Não utilize o material para fins comerciais;</li>
+                    <li>
+                        Se alterar ou criar a partir deste material, distribua
+                        sua contribuição sob a mesma licença.
+                    </li>
+                </ul>
+            </p>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2"
+            >
+                Conteúdos de terceiros citados ou utilizados são devidamente
+                creditados e respeitam os direitos de seus respectivos autores.
+            </p>
+        </div>
 
-    <!-- Copyright -->
-    <div class="space-y-4" id="direitos">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Direitos Autorais</h4>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
-            O conteúdo original deste site (textos, imagens, código) está licenciado sob a licença <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2 hover:text-black dark:hover:text-white transition-colors">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>, salvo indicação em contrário.
-        </p>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2">
-            Isso significa que você é livre para compartilhar e adaptar o material, desde que:
-            <ul class="list-disc pl-5 mt-2 space-y-1">
-                <li>Atribua os créditos devidos a Luan Maitan;</li>
-                <li>Não utilize o material para fins comerciais;</li>
-                <li>Se alterar ou criar a partir deste material, distribua sua contribuição sob a mesma licença.</li>
-            </ul>
-        </p>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2">
-            Conteúdos de terceiros citados ou utilizados são devidamente creditados e respeitam os direitos de seus respectivos autores.
-        </p>
-    </div>
-
-    <!-- Privacy -->
-    <div class="space-y-4" id="privacidade">
-        <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6">Privacidade (LGPD)</h4>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">
-            Em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), informo que este site preza pela sua privacidade.
-        </p>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2">
-            <strong>Coleta de Dados:</strong> A navegação neste site é majoritariamente anônima. Utilizo o <a href="https://vercel.com/analytics" target="_blank" class="hover:text-black dark:hover:text-white transition-colors">Vercel Analytics</a> para entender métricas básicas de acesso (país de origem, páginas mais visitadas, velocidade de carregamento) de forma agregada e sem identificar individualmente os visitantes. Não utilizo cookies de rastreamento publicitário (ad-trackers) nem vendo dados para terceiros.
-        </p>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2">
-            <strong>Contato:</strong> Caso você entre em contato por e-mail, seu endereço e o conteúdo da mensagem serão tratados com confidencialidade e utilizados apenas para responder à sua solicitação.
-        </p>
-    </div>
-
-  </section>
+        <!-- Privacy -->
+        <div class="space-y-4" id="privacidade">
+            <h4
+                class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-6"
+            >
+                Privacidade (LGPD)
+            </h4>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl"
+            >
+                Em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei
+                nº 13.709/2018), informo que este site preza pela sua
+                privacidade.
+            </p>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2"
+            >
+                <strong>Coleta de Dados:</strong> A navegação neste site é majoritariamente
+                anônima. Utilizo o <a
+                    href="https://vercel.com/analytics"
+                    target="_blank"
+                    class="hover:text-black dark:hover:text-white transition-colors"
+                    >Vercel Analytics</a
+                > para entender métricas básicas de acesso (país de origem, páginas
+                mais visitadas, velocidade de carregamento) de forma agregada e sem
+                identificar individualmente os visitantes. Não utilizo cookies de
+                rastreamento publicitário (ad-trackers) nem vendo dados para terceiros.
+            </p>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-2"
+            >
+                <strong>Contato:</strong> Caso você entre em contato por e-mail,
+                seu endereço e o conteúdo da mensagem serão tratados com confidencialidade
+                e utilizados apenas para responder à sua solicitação.
+            </p>
+        </div>
+    </section>
 </Layout>

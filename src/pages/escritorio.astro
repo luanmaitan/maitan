@@ -8,30 +8,45 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Escritório">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
-        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
-            ← voltar
-        </a>
-    </nav>
-  </div>
-
-  <section class="space-y-12">
-    <header>
-        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
-            escritório
-        </h1>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-            Um jardim digital. Notas, ideias em estágio inicial e conexões mentais.
-            <br>
-            <span class="text-sm text-neutral-400 italic mt-2 block">(Em construção: integração com Obsidian em breve)</span>
-        </p>
-    </header>
-
-    <div class="py-12 border-y border-neutral-100 dark:border-neutral-800">
-        <p class="text-neutral-400 dark:text-neutral-500 italic">
-            O jardim está sendo plantado.
-        </p>
+    <div
+        slot="sidebar"
+        class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
+    >
+        <nav
+            class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto"
+        >
+            <a
+                href="/"
+                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0"
+            >
+                ← voltar
+            </a>
+        </nav>
     </div>
-  </section>
+
+    <section class="space-y-12">
+        <header>
+            <h1
+                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+            >
+                escritório
+            </h1>
+            <p
+                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+            >
+                Um jardim digital. Notas, ideias em estágio inicial e conexões
+                mentais.
+                <br />
+                <span class="text-sm text-neutral-400 italic mt-2 block"
+                    >(Em construção: integração com Obsidian em breve)</span
+                >
+            </p>
+        </header>
+
+        <div class="py-12 border-y border-neutral-100 dark:border-neutral-800">
+            <p class="text-neutral-400 dark:text-neutral-500 italic">
+                O jardim está sendo plantado.
+            </p>
+        </div>
+    </section>
 </Layout>
