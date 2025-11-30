@@ -3,6 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 
 const updates = [
   {
+    version: "0.1.6",
+    id: "v-0-1-6",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "consistência tipográfica e refinamentos de layout",
+    description:
+      "aplicação consistente dos pesos da família geist (black e bold) em todas as páginas para reforçar o estilo swiss/engineering. refinamento completo da página colophon com descrições pessoais, ícones de stack e nova seção de componentes. reestruturação da página de currículo com foco em ações e biografia. layout full-width para a página de links e ajustes de estilo na sidebar.",
+    tags: ["typography", "layout", "colophon", "curriculum", "swiss style"],
+  },
+  {
     version: "0.1.5",
     id: "v-0-1-5",
     date: new Date()

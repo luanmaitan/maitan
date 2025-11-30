@@ -14,9 +14,10 @@ import { navigation } from "../lib/navigation";
 interface Props {
     title: string;
     sidebarLayout?: boolean;
+    fullWidth?: boolean;
 }
 
-const { title, sidebarLayout = true } = Astro.props;
+const { title, sidebarLayout = true, fullWidth = false } = Astro.props;
 const hasSidebar = Astro.slots.has("sidebar");
 
 // Dynamic counts for subpages
@@ -122,10 +123,10 @@ const currentPath = Astro.url.pathname;
                                     >
                                         <span
                                             class:list={[
-                                                "text-[15px] font-bold lowercase transition-colors tracking-tight",
+                                                "text-[15px] lowercase transition-colors tracking-tight",
                                                 isActive
-                                                    ? "text-black dark:text-white"
-                                                    : "text-neutral-500 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white",
+                                                    ? "font-bold text-black dark:text-white"
+                                                    : "font-medium text-neutral-900 dark:text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-white",
                                             ]}
                                         >
                                             {item.name}
@@ -238,7 +239,8 @@ const currentPath = Astro.url.pathname;
         <!-- Main Content -->
         <main
             class:list={[
-                "flex-1 w-full max-w-5xl mx-auto px-6 py-8 lg:p-16 lg:ml-[280px]",
+                "flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[280px]",
+                fullWidth ? "max-w-full" : "max-w-5xl",
                 "pt-24 md:pt-20 lg:pt-16", // Reduced padding on tablet since nav is now inline
                 hasSidebar ? "md:pt-40 lg:pt-16" : "",
             ]}

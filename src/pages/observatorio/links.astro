@@ -24,7 +24,7 @@ const tags = Object.entries(allTags).sort((a, b) => b[1] - a[1]);
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title="Maitan Hub | Links">
+<Layout title="Maitan Hub | Links" fullWidth={true}>
   <div
     slot="sidebar"
     class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
