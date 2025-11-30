@@ -10,10 +10,10 @@ export default defineConfig({
   adapter: vercel(),
   markdown: {
     remarkPlugins: [
-        [wikiLinkPlugin, { 
-            hrefTemplate: (permalink) => `/${permalink}`, // Link directly to slug
-            aliasDivider: '|' // Support [[Link|Text]] syntax
-        }]
+      [wikiLinkPlugin, {
+        hrefTemplate: (permalink) => `/escritorio/${permalink}`, // Link to escritorio slug
+        aliasDivider: '|' // Support [[Link|Text]] syntax
+      }]
     ],
     shikiConfig: {
       theme: 'css-variables', // Allows CSS styling of code blocks

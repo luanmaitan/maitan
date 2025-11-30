@@ -1,33 +1,113 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 const projects = [
   { name: "hedra", href: "https://hedra.com.br", image: "/projects/hedra.jpg" },
-  { name: "vigília", href: "/projetos/vigilia", image: "/projects/vigilia.png" },
-  { name: "labirinto", href: "/projetos/labirinto", image: "/projects/labirinto.png" },
-  { name: "floresta", href: "/projetos/floresta", image: "/projects/floresta.png" },
+  {
+    name: "vigília",
+    href: "/projetos/vigilia",
+    image: "/projects/vigilia.png",
+  },
+  {
+    name: "labirinto",
+    href: "/projetos/labirinto",
+    image: "/projects/labirinto.png",
+  },
+  {
+    name: "floresta",
+    href: "/projetos/floresta",
+    image: "/projects/floresta.png",
+  },
 ];
 
 const socialLinks = [
-  { name: "bluesky", href: "https://bsky.app/profile/luanmaitan.bsky.social", icon: "/icons/bluesky.svg" },
+  {
+    name: "bluesky",
+    href: "https://bsky.app/profile/luanmaitan.bsky.social",
+    icon: "/icons/bluesky.svg",
+  },
   { name: "discord", href: "https://discord.com", icon: "/icons/discord.svg" },
-  { name: "email", href: "mailto:luan.maitan@hotmail.com", icon: "/icons/gmail.svg" },
-  { name: "facebook", href: "https://facebook.com/luanmaitan", icon: "/icons/facebook.svg" },
-  { name: "github", href: "https://github.com/luanmaitan", icon: "/icons/github.svg" },
-  { name: "goodreads", href: "https://goodreads.com/luanmaitan", icon: "/icons/goodreads.svg" },
-  { name: "instagram", href: "https://instagram.com/luanmaitan", icon: "/icons/instagram.svg" },
-  { name: "letterboxd", href: "https://letterboxd.com/maitan", icon: "/icons/letterboxd.svg" },
-  { name: "linkedin", href: "https://linkedin.com/in/luanmaitan", icon: "/icons/inspire.svg" },
-  { name: "literal", href: "https://literal.club/luanmaitan", icon: "/icons/literal.svg" },
-  { name: "mastodon", href: "https://mastodon.social/@luanmaitan", icon: "/icons/mastodon.svg" },
-  { name: "pinterest", href: "https://pinterest.com/luanmaitan", icon: "/icons/pinterest.svg" },
+  {
+    name: "email",
+    href: "mailto:luan.maitan@hotmail.com",
+    icon: "/icons/gmail.svg",
+  },
+  {
+    name: "facebook",
+    href: "https://facebook.com/luanmaitan",
+    icon: "/icons/facebook.svg",
+  },
+  {
+    name: "github",
+    href: "https://github.com/luanmaitan",
+    icon: "/icons/github.svg",
+  },
+  {
+    name: "goodreads",
+    href: "https://goodreads.com/luanmaitan",
+    icon: "/icons/goodreads.svg",
+  },
+  {
+    name: "instagram",
+    href: "https://instagram.com/luanmaitan",
+    icon: "/icons/instagram.svg",
+  },
+  {
+    name: "letterboxd",
+    href: "https://letterboxd.com/maitan",
+    icon: "/icons/letterboxd.svg",
+  },
+  {
+    name: "linkedin",
+    href: "https://linkedin.com/in/luanmaitan",
+    icon: "/icons/inspire.svg",
+  },
+  {
+    name: "literal",
+    href: "https://literal.club/luanmaitan",
+    icon: "/icons/literal.svg",
+  },
+  {
+    name: "mastodon",
+    href: "https://mastodon.social/@luanmaitan",
+    icon: "/icons/mastodon.svg",
+  },
+  {
+    name: "pinterest",
+    href: "https://pinterest.com/luanmaitan",
+    icon: "/icons/pinterest.svg",
+  },
   { name: "rss", href: "/rss.xml", icon: "/icons/rss.svg" },
-  { name: "soundcloud", href: "https://soundcloud.com/luanmaitan", icon: "/icons/soundcloud.svg" },
-  { name: "spotify", href: "https://open.spotify.com/user/luanmaitan", icon: "/icons/spotify.svg" },
-  { name: "substack", href: "https://luanmaitan.substack.com", icon: "/icons/substack.svg" },
-  { name: "threads", href: "https://threads.net/@luanmaitan", icon: "/icons/threads.svg" },
-  { name: "x/twitter", href: "https://twitter.com/luanmaitan", icon: "/icons/x.svg" },
-  { name: "youtube", href: "https://youtube.com/luanmaitan", icon: "/icons/youtube.svg" },
+  {
+    name: "soundcloud",
+    href: "https://soundcloud.com/luanmaitan",
+    icon: "/icons/soundcloud.svg",
+  },
+  {
+    name: "spotify",
+    href: "https://open.spotify.com/user/luanmaitan",
+    icon: "/icons/spotify.svg",
+  },
+  {
+    name: "substack",
+    href: "https://luanmaitan.substack.com",
+    icon: "/icons/substack.svg",
+  },
+  {
+    name: "threads",
+    href: "https://threads.net/@luanmaitan",
+    icon: "/icons/threads.svg",
+  },
+  {
+    name: "x/twitter",
+    href: "https://twitter.com/luanmaitan",
+    icon: "/icons/x.svg",
+  },
+  {
+    name: "youtube",
+    href: "https://youtube.com/luanmaitan",
+    icon: "/icons/youtube.svg",
+  },
 ];
 
 const openTabs = [
@@ -51,109 +131,153 @@ const openTabs = [
   "tidsoptimismo",
   "taxação de super-ricos",
   "pl da devastação",
-  "millenials"
+  "millenials",
 ];
 ---
 
 <Layout title="Maitan Hub" sidebarLayout={false}>
   <!-- Main Content -->
-  <div class="space-y-24"> 
-    
+  <div class="space-y-24">
     <!-- Section 1: Intro (Redo Layout) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <!-- Left: Title -->
-        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8">
-          tipografia digital
-        </h1>
-        
-        <!-- Right: Description -->
-        <div class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-xl space-y-4">
-          <p>
-            olá! criei esse site para explorar interfaces, exercitar admiração e compartilhar perspectivas. sou um editor de livros, a princípio, e me atrevi a editar tudo o que pode ser editado.
-          </p>
-          <p>
-            se tiver curiosidade, tenho reunido alguns trabalhos em <a href="/portfolio" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">portfólio</a>, e você também pode visualizar meu <a href="/curriculo" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">currículo</a>. se realmente estiver curioso e quiser saber de onde eu vim, pode ler meu <a href="/sobre-mim" class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2">testemunho</a>.
-          </p>
-          <p>
-            todos os dias eu cuido de plantas.
-          </p>
-        </div>
+      <!-- Left: Title -->
+      <h1
+        class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase sticky top-8"
+      >
+        tipografia digital
+      </h1>
+
+      <!-- Right: Description -->
+      <div
+        class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 max-w-xl space-y-4"
+      >
+        <p>
+          olá! criei esse site para explorar interfaces, exercitar admiração e
+          compartilhar perspectivas. sou um editor de livros, a princípio, e me
+          atrevi a editar tudo o que pode ser editado.
+        </p>
+        <p>
+          se tiver curiosidade, tenho reunido alguns trabalhos em <a
+            href="/portfolio"
+            class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
+            >portfólio</a
+          >, e você também pode visualizar meu <a
+            href="/curriculo"
+            class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
+            >currículo</a
+          >. se realmente estiver curioso e quiser saber de onde eu vim, pode
+          ler meu <a
+            href="/sobre-mim"
+            class="text-black dark:text-white underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-2"
+            >testemunho</a
+          >.
+        </p>
+        <p>todos os dias eu cuido de plantas.</p>
+      </div>
     </div>
 
     <!-- Section 2: Abas Abertas (Moved Up) -->
     <div id="abas-abertas">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
+      <h2
+        class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3"
+      >
         abas abertas
       </h2>
       <div class="w-full">
-        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
+        <p
+          class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl"
+        >
           o que está no meu radar nesse momento:
         </p>
-        
+
         <div class="flex flex-wrap gap-3">
-          {openTabs.map((tab) => (
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
-              {tab}
-            </span>
-          ))}
+          {
+            openTabs.map((tab) => (
+              <span class="inline-flex items-center px-3 py-1.5 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
+                {tab}
+              </span>
+            ))
+          }
         </div>
       </div>
     </div>
 
     <!-- Section 3: Agora / Projects -->
     <div id="agora">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
+      <h2
+        class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3"
+      >
         agora
       </h2>
       <div class="w-full space-y-12">
-        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
+        <p
+          class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl"
+        >
           nesse momento, me dedico aos seguintes projetos:
         </p>
-        
+
         <!-- Projects grid -->
         <div class="flex flex-wrap gap-x-12 gap-y-6 justify-start">
-          {projects.map((project) => (
-            <a href={project.href} class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors">
-              <div class="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
-                 <img src={project.image} alt={project.name} class="w-full h-full object-cover" />
-              </div>
-              <span class="text-[18px] font-medium text-black dark:text-white lowercase tracking-[-0.3px]">
-                {project.name}
-              </span>
-            </a>
-          ))}
+          {
+            projects.map((project) => (
+              <a
+                href={project.href}
+                class="group flex flex-row items-center text-left gap-4 p-4 -ml-4 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
+              >
+                <div class="w-12 h-12 bg-neutral-200 dark:bg-neutral-800 overflow-hidden flex-shrink-0 border border-neutral-100 dark:border-neutral-700 group-hover:border-neutral-300 dark:group-hover:border-neutral-600 transition-colors">
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <span class="text-[18px] font-medium text-black dark:text-white lowercase tracking-[-0.3px]">
+                  {project.name}
+                </span>
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
 
     <!-- Section 4: Por aí / Socials -->
     <div id="por-ai" class="scroll-mt-32">
-      <h2 class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3">
+      <h2
+        class="text-[30px] leading-[1.2] tracking-[-0.6px] font-medium text-black dark:text-white lowercase mb-3"
+      >
         por aí
       </h2>
       <div class="w-full">
-        <p class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl">
+        <p
+          class="text-[15px] leading-[1.5] text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl"
+        >
           você também pode me acompanhar pelas redes:
         </p>
-        
+
         <div class="flex flex-wrap gap-x-8 gap-y-4">
-          {socialLinks.map((link) => (
-            <a 
-              href={link.href} 
-              target="_blank"
-              class="flex items-center gap-2 text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white lowercase transition-colors group"
-            >
-              {link.icon ? (
-                <img src={link.icon} alt="" class="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity dark:invert" />
-              ) : (
-                <span class="w-4 h-4 block bg-neutral-300 dark:bg-neutral-600 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></span>
-              )}
-              {link.name}
-            </a>
-          ))}
+          {
+            socialLinks.map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                class="flex items-center gap-2 text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white lowercase transition-colors group"
+              >
+                {link.icon ? (
+                  <img
+                    src={link.icon}
+                    alt=""
+                    class="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity dark:invert"
+                  />
+                ) : (
+                  <span class="w-4 h-4 block bg-neutral-300 dark:bg-neutral-600 opacity-60 group-hover:opacity-100 transition-opacity" />
+                )}
+                {link.name}
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
-
   </div>
 </Layout>

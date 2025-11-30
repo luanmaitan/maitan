@@ -1,150 +1,235 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 
 const updates = [
   {
     version: "0.1.5",
     id: "v-0-1-5",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "refinamentos de ui, busca e funcionalidades",
-    description: "implementação de busca fuzzy com fuse.js (desktop e mobile overlay). nova página de clima com previsão detalhada. portfólio com grid masonry responsivo e filtros por tipo e função. correção no sistema de citações migrando para content collections. ajustes finos de layout responsivo para tablet (menu, footer, sidebar).",
-    tags: ["search", "weather", "portfolio", "responsive", "fix"]
+    description:
+      "implementação de busca fuzzy com fuse.js (desktop e mobile overlay). nova página de clima com previsão detalhada. portfólio com grid masonry responsivo e filtros por tipo e função. correção no sistema de citações migrando para content collections. ajustes finos de layout responsivo para tablet (menu, footer, sidebar).",
+    tags: ["search", "weather", "portfolio", "responsive", "fix"],
   },
   {
     version: "0.1.4",
     id: "v-0-1-4",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "refinamentos finais na home e redes sociais",
-    description: "ajuste de layout na página inicial: 'tipografia digital' consolidado como título principal na barra lateral, e seções 'agora' e 'por aí' integradas ao fluxo de conteúdo principal. expansão da lista de redes sociais com ícones (twitter atualizado para x, adição de soundcloud, youtube, github, etc).",
-    tags: ["home", "layout", "socials", "icons"]
+    description:
+      "ajuste de layout na página inicial: 'tipografia digital' consolidado como título principal na barra lateral, e seções 'agora' e 'por aí' integradas ao fluxo de conteúdo principal. expansão da lista de redes sociais com ícones (twitter atualizado para x, adição de soundcloud, youtube, github, etc).",
+    tags: ["home", "layout", "socials", "icons"],
   },
   {
     version: "0.1.3",
     id: "v-0-1-3",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "refinamentos finais",
-    description: "reestruturação da página inicial para um layout mais descritivo com seções de 'tipografia digital', 'agora' e 'por aí'. criação da página 'sobre mim' (testemunho) e adição de ícones nas redes sociais. ajustes de navegação interna e tipografia.",
-    tags: ["home", "content", "about me", "icons"]
+    description:
+      "reestruturação da página inicial para um layout mais descritivo com seções de 'tipografia digital', 'agora' e 'por aí'. criação da página 'sobre mim' (testemunho) e adição de ícones nas redes sociais. ajustes de navegação interna e tipografia.",
+    tags: ["home", "content", "about me", "icons"],
   },
   {
     version: "0.1.2",
     id: "v-0-1-2",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "refatoração da home e consistência geral",
-    description: "finalização da refatoração completa do site. a página inicial agora apresenta uma estrutura clara com introdução, projetos e redes sociais. criação da página de currículo dedicada. padronização total de tipografia, layouts de duas colunas e menus laterais com contagem dinâmica em todas as seções.",
-    tags: ["home", "layout", "consistency", "refactor"]
+    description:
+      "finalização da refatoração completa do site. a página inicial agora apresenta uma estrutura clara com introdução, projetos e redes sociais. criação da página de currículo dedicada. padronização total de tipografia, layouts de duas colunas e menus laterais com contagem dinâmica em todas as seções.",
+    tags: ["home", "layout", "consistency", "refactor"],
   },
   {
     version: "0.1.1",
     id: "v-0-1-1",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "refinamento de sidebar e footer",
-    description: "ajuste fino no layout do sidebar desktop: reposicionamento do toggle de tema para o cabeçalho, reorganização dos links secundários (colophon, políticas, cc) com divisória própria, e fixação do widget de clima/relógio no rodapé com tipografia escura.",
-    tags: ["ui", "layout", "sidebar", "footer"]
+    description:
+      "ajuste fino no layout do sidebar desktop: reposicionamento do toggle de tema para o cabeçalho, reorganização dos links secundários (colophon, políticas, cc) com divisória própria, e fixação do widget de clima/relógio no rodapé com tipografia escura.",
+    tags: ["ui", "layout", "sidebar", "footer"],
   },
   {
     version: "0.1.0",
     id: "v-0-1-0",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "design system redo & refatoração",
-    description: "adoção completa do estilo visual do redo design system. implementação de layout de coluna dupla em todas as subpáginas (escritório, observatório, colophon), títulos em caixa baixa com tipografia display (60px) e contagem dinâmica nos submenus laterais. navegação e estrutura unificadas.",
-    tags: ["design system", "ui", "redo", "refactor", "layout"]
+    description:
+      "adoção completa do estilo visual do redo design system. implementação de layout de coluna dupla em todas as subpáginas (escritório, observatório, colophon), títulos em caixa baixa com tipografia display (60px) e contagem dinâmica nos submenus laterais. navegação e estrutura unificadas.",
+    tags: ["design system", "ui", "redo", "refactor", "layout"],
   },
   {
     version: "0.0.5",
     id: "v-0-0-5",
-    date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase().replace('.', ''),
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
     title: "reestruturação de navegação",
-    description: "nova arquitetura de navegação com sidebar fixa em desktop (250px), header de duas linhas em tablet e menu expansível em mobile. contagem dinâmica de itens no menu principal.",
-    tags: ["navigation", "ux", "structure"]
+    description:
+      "nova arquitetura de navegação com sidebar fixa em desktop (250px), header de duas linhas em tablet e menu expansível em mobile. contagem dinâmica de itens no menu principal.",
+    tags: ["navigation", "ux", "structure"],
   },
   {
     version: "0.0.4",
     id: "v-0-0-4",
     date: "25 NOV 2025",
     title: "estrutura do escritório e páginas de projetos",
-    description: "criação da estrutura completa do escritório com 6 categorias (ensaios, dramaturgia, poesia, autoficções, impressões, traduções) e páginas individuais para cada categoria. criação de 3 posts provisórios de ensaios. implementação de páginas individuais para cada projeto (vigília, labirinto, floresta) com links para suas plataformas. atualização do colophon com documentação completa de todas as apis, serviços e bibliotecas utilizadas.",
-    tags: ["feature", "content", "structure", "documentation"]
+    description:
+      "criação da estrutura completa do escritório com 6 categorias (ensaios, dramaturgia, poesia, autoficções, impressões, traduções) e páginas individuais para cada categoria. criação de 3 posts provisórios de ensaios. implementação de páginas individuais para cada projeto (vigília, labirinto, floresta) com links para suas plataformas. atualização do colophon com documentação completa de todas as apis, serviços e bibliotecas utilizadas.",
+    tags: ["feature", "content", "structure", "documentation"],
   },
   {
     version: "0.0.3",
     id: "v-0-0-3",
     date: "25 NOV 2025",
     title: "sistema de calendário e citações",
-    description: "implementação completa do sistema de calendário com fullcalendar, incluindo visualização mensal, filtros por categorias e tags, e integração na homepage. criação do sistema de citações com leitura automática de arquivos markdown, extração de autor e fonte, e atribuição automática de tags. calendário ancorado no dia atual e widget de horário no footer agora leva à página inicial.",
-    tags: ["feature", "calendar", "citations", "markdown"]
+    description:
+      "implementação completa do sistema de calendário com fullcalendar, incluindo visualização mensal, filtros por categorias e tags, e integração na homepage. criação do sistema de citações com leitura automática de arquivos markdown, extração de autor e fonte, e atribuição automática de tags. calendário ancorado no dia atual e widget de horário no footer agora leva à página inicial.",
+    tags: ["feature", "calendar", "citations", "markdown"],
   },
   {
     version: "0.0.2",
     id: "v-0-0-2",
     date: "21 NOV 2025",
     title: "refinamentos de ui e conteúdo",
-    description: "ajustes visuais no modo escuro, redesenho do rodapé com ícones minimalistas, criação das páginas de sobre e políticas, e reorganização da navegação.",
-    tags: ["ui", "content", "dark mode"]
+    description:
+      "ajustes visuais no modo escuro, redesenho do rodapé com ícones minimalistas, criação das páginas de sobre e políticas, e reorganização da navegação.",
+    tags: ["ui", "content", "dark mode"],
   },
   {
     version: "0.0.1",
     id: "v-0-0-1",
     date: "21 NOV 2025",
     title: "estrutura inicial",
-    description: "configuração do projeto com astro, tailwindcss e svelte. implementação do layout responsivo, sistema de temas e páginas fundamentais.",
-    tags: ["system", "dev"]
-  }
+    description:
+      "configuração do projeto com astro, tailwindcss e svelte. implementação do layout responsivo, sistema de temas e páginas fundamentais.",
+    tags: ["system", "dev"],
+  },
 ];
 ---
 
 <Layout title="Maitan Hub | Changelog">
   <div slot="sidebar" class="flex flex-col gap-8">
     <nav class="flex flex-col gap-2">
-      <a href="/colophon" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4">
+      <a
+        href="/colophon"
+        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
+      >
         ← voltar
       </a>
-      
-      <div class="flex flex-col gap-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-hide">
-          {updates.map((update) => (
-              <a href={`#${update.id}`} class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between">
-                  {update.version}
-                  <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">↓</sup>
-              </a>
-          ))}
+
+      <div
+        class="flex flex-col gap-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-hide"
+      >
+        {
+          updates.map((update) => (
+            <a
+              href={`#${update.id}`}
+              class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
+            >
+              {update.version}
+              <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">
+                ↓
+              </sup>
+            </a>
+          ))
+        }
       </div>
     </nav>
   </div>
 
   <section class="space-y-16">
     <header>
-        <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
-          changelog
-        </h1>
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-          O registro vivo da evolução deste jardim digital. Aqui documento as mudanças estruturais, novos experimentos e atualizações significativas.
-        </p>
+      <h1
+        class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase"
+      >
+        changelog
+      </h1>
+      <p
+        class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
+      >
+        O registro vivo da evolução deste jardim digital. Aqui documento as
+        mudanças estruturais, novos experimentos e atualizações significativas.
+      </p>
     </header>
 
     <div class="space-y-12">
-        {updates.map((update) => (
-        <div class="space-y-4 scroll-mt-32" id={update.id}>
+      {
+        updates.map((update) => (
+          <div class="space-y-4 scroll-mt-32" id={update.id}>
             <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-2">
-                {update.version}
+              {update.version}
             </h4>
-            
+
             <div>
-                <h3 class="text-xl font-medium text-neutral-900 dark:text-white mb-1 lowercase">{update.title}</h3>
-                <span class="text-sm text-neutral-500 dark:text-neutral-500 font-mono block mb-4">{update.date}</span>
-                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-3xl lowercase">{update.description}</p>
-                
-                {update.tags && (
-                    <div class="flex gap-3 flex-wrap">
-                    {update.tags.map((tag) => (
-                        <span class="text-[13px] lowercase text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-default">
-                            {tag}
-                        </span>
-                    ))}
-                    </div>
-                )}
+              <h3 class="text-xl font-medium text-neutral-900 dark:text-white mb-1 lowercase">
+                {update.title}
+              </h3>
+              <span class="text-sm text-neutral-500 dark:text-neutral-500 font-mono block mb-4">
+                {update.date}
+              </span>
+              <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-3xl lowercase">
+                {update.description}
+              </p>
+
+              {update.tags && (
+                <div class="flex gap-3 flex-wrap">
+                  {update.tags.map((tag) => (
+                    <span class="text-[13px] lowercase text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-default">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-        </div>
-        ))}
+          </div>
+        ))
+      }
     </div>
   </section>
 </Layout>

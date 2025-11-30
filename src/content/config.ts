@@ -5,9 +5,9 @@ const escritorio = defineCollection({
     // Type-check frontmatter using a schema
     schema: z.object({
         title: z.string(),
-        description: z.string(),
-        // Transform string to Date object
-        pubDate: z.coerce.date(),
+        description: z.string().optional(),
+        // Transform string to Date object, default to current date if missing
+        pubDate: z.coerce.date().default(() => new Date()),
         updatedDate: z.coerce.date().optional(),
         tags: z.array(z.string()).optional(),
         category: z.enum(['ensaios', 'dramaturgia', 'poesia', 'autoficções', 'impressões', 'traduções']).optional(),
