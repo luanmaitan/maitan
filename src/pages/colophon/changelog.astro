@@ -3,6 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 
 const updates = [
   {
+    version: "0.1.7",
+    id: "v-0-1-7",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "implementação do design system e refinamento visual",
+    description:
+      "aplicação completa do novo design system com tipografia display (inter) e editorial (georgia). refatoração da sidebar para layout suíço com widgets de clima e relógio empilhados. criação da página dedicada ao design system e simplificação do colophon. ajustes de layout na home e remoção de bordas em componentes de ui.",
+    tags: ["design system", "ui", "layout", "colophon", "sidebar"],
+  },
+  {
     version: "0.1.6",
     id: "v-0-1-6",
     date: new Date()

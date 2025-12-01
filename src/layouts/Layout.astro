@@ -1,6 +1,6 @@
 ---
 // src/layouts/Layout.astro
-import "../styles/global.css"; // Import global styles explicitly
+import "../styles/global.css";
 import "@fontsource/geist-sans";
 import "@fontsource/geist-mono";
 import "@fontsource/hedvig-letters-serif";
@@ -48,7 +48,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="pt-br" class="bg-white text-black antialiased scroll-smooth">
+<html lang="pt-br" class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content="Luan Maitan - Jardim Digital" />
@@ -78,192 +78,140 @@ const currentPath = Astro.url.pathname;
             window.localStorage.setItem("theme", theme);
         </script>
     </head>
-    <body
-        class="font-sans bg-white dark:bg-neutral-900 text-black dark:text-white transition-colors duration-300 flex flex-col min-h-screen lg:flex-row"
-    >
-        <!-- Desktop Sidebar (Swiss/Engineering Style: Solid, Bordered, No Blur) -->
-        <aside
-            class="hidden lg:flex fixed top-0 left-0 h-screen w-[280px] flex-col border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 z-50 transition-colors duration-300"
-        >
-            <!-- 1. Header -->
-            <div
-                class="relative shrink-0 w-full p-6 border-b border-neutral-200 dark:border-neutral-800"
-            >
-                <div class="flex justify-between items-center">
-                    <a
-                        href="/"
-                        class="flex items-center gap-2 text-lg font-black text-black dark:text-white leading-none lowercase tracking-tighter"
-                    >
-                        luan maitan
-                    </a>
+    <body>
+        <div class="maitan-layout">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="brand flex justify-between items-center">
+                    <a href="/">luan maitan</a>
                     <ThemeToggle client:load />
                 </div>
-            </div>
 
-            <!-- 2. Navigation / Content -->
-            <div class="relative shrink-0 w-full flex-1 overflow-y-auto p-6">
-                {
-                    hasSidebar ? (
-                        // Subpage Sidebar Content
-                        <div class="flex flex-col gap-4 animate-in slide-in-from-left-4 fade-in duration-300">
-                            <slot name="sidebar" />
-                        </div>
-                    ) : (
-                        // Main Navigation
-                        <nav class="space-y-1">
-                            {navigationWithCounts.map((item) => {
+                <nav class="nav-menu">
+                    {
+                        hasSidebar ? (
+                            <div class="flex flex-col gap-4 animate-in slide-in-from-left-4 fade-in duration-300">
+                                <slot name="sidebar" />
+                            </div>
+                        ) : (
+                            navigationWithCounts.map((item) => {
                                 const isActive = currentPath.startsWith(
                                     item.href,
                                 );
                                 return (
                                     <a
                                         href={item.href}
-                                        class="group flex justify-between items-center py-2 px-2 -mx-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                                        aria-label={`Go to ${item.name}`}
+                                        class={`nav-item ${isActive ? "active" : ""}`}
                                     >
-                                        <span
-                                            class:list={[
-                                                "text-[15px] lowercase transition-colors tracking-tight",
-                                                isActive
-                                                    ? "font-bold text-black dark:text-white"
-                                                    : "font-medium text-neutral-900 dark:text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-white",
-                                            ]}
-                                        >
+                                        <span class="nav-text">
                                             {item.name}
                                         </span>
-
-                                        <span class="text-xs font-mono text-neutral-400 group-hover:text-neutral-600 dark:text-neutral-600 dark:group-hover:text-neutral-500 transition-colors">
+                                        <sup class="nav-count">
                                             {String(item.count).padStart(
                                                 2,
                                                 "0",
                                             )}
-                                        </span>
+                                        </sup>
                                     </a>
                                 );
-                            })}
-                        </nav>
-                    )
-                }
-            </div>
+                            })
+                        )
+                    }
+                </nav>
 
-            <!-- 3. Footer -->
-            <div
-                class="relative shrink-0 w-full p-6 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900"
-            >
-                <div class="mb-6">
-                    <Search client:load variant="desktop" />
-                </div>
-
-                <div class="flex flex-col gap-1 mb-6">
-                    <a
-                        href="/policy"
-                        class="text-xs text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase"
-                        >políticas</a
-                    >
-                    <a
-                        href="/colophon"
-                        class="text-xs text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase"
-                        >colophon</a
-                    >
-                    <a
-                        href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                        target="_blank"
-                        class="text-xs text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase"
-                        >cc by-nc-sa</a
-                    >
-                </div>
-
-                <div class="text-black dark:text-white text-sm font-medium">
-                    <FooterInfo client:load />
-                </div>
-            </div>
-        </aside>
-
-        <!-- Tablet/Mobile Header (Visible on < lg) -->
-        <header
-            class="lg:hidden fixed top-0 left-0 w-full bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-50 transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
-        >
-            <!-- Row 1: Logo + Divider + Nav (Tablet) + Controls -->
-            <div class="px-6 py-4 flex justify-between items-center relative">
-                <div class="flex items-center gap-6">
-                    <a
-                        href="/"
-                        class="text-lg font-bold text-black dark:text-white leading-none lowercase tracking-tight"
-                    >
-                        luan maitan
-                    </a>
-
-                    <!-- Vertical Divider (Tablet Only) -->
+                <div class="sidebar-footer">
+                    <div class="mb-6">
+                        <Search client:load variant="desktop" />
+                    </div>
+                    <div class="flex flex-col gap-1 colophon">
+                        <a
+                            href="/colophon"
+                            class="hover:text-black dark:hover:text-white transition-colors"
+                            >colophon</a
+                        >
+                    </div>
                     <div
-                        class="hidden md:block h-6 w-px bg-neutral-200 dark:bg-neutral-800"
+                        class="mt-4 text-black dark:text-white text-sm font-medium"
                     >
-                    </div>
-
-                    <!-- Navigation (Tablet Only) -->
-                    <div class="hidden md:flex items-center gap-6">
-                        {
-                            navigationWithCounts.map((item) => (
-                                <a
-                                    href={item.href}
-                                    class="relative group text-[15px] font-medium text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
-                                >
-                                    {item.name}
-                                    <sup class="text-[9px] text-neutral-400 ml-0.5 absolute -top-1 -right-2">
-                                        {String(item.count).padStart(2, "0")}
-                                    </sup>
-                                </a>
-                            ))
-                        }
+                        <FooterInfo client:load />
                     </div>
                 </div>
+            </aside>
 
-                <div class="flex items-center gap-4">
-                    <Search client:load variant="mobile" />
-                    <ThemeToggle client:load />
-                    <div class="md:hidden">
-                        <MobileMenu client:load currentPath={currentPath} />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 2: Subpage Sidebar Content (Tablet Only) -->
-            {
-                hasSidebar && (
-                    <div class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 items-center">
-                        <slot name="sidebar" />
-                    </div>
-                )
-            }
-        </header>
-
-        <!-- Main Content -->
-        <main
-            class:list={[
-                "flex-1 w-full mx-auto px-6 py-8 lg:p-16 lg:ml-[280px]",
-                fullWidth ? "max-w-full" : "max-w-5xl",
-                "pt-24 md:pt-20 lg:pt-16", // Reduced padding on tablet since nav is now inline
-                hasSidebar ? "md:pt-40 lg:pt-16" : "",
-            ]}
-        >
-            <!-- Mobile Sidebar Slot (for very small screens if needed) -->
-            <div
-                class="md:hidden mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4 empty:hidden"
+            <!-- MOBILE HEADER (Visible < 1000px) -->
+            <header
+                class="fixed top-0 left-0 w-full bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm z-50 border-b border-neutral-200 dark:border-neutral-800 min-[1001px]:hidden"
             >
+                <div
+                    class="px-6 py-4 flex justify-between items-center relative"
+                >
+                    <div class="flex items-center gap-6">
+                        <a
+                            href="/"
+                            class="text-lg font-bold text-black dark:text-white leading-none lowercase tracking-tight"
+                        >
+                            luan maitan
+                        </a>
+                        <!-- Tablet Nav -->
+                        <div class="hidden md:flex items-center gap-6">
+                            {
+                                navigationWithCounts.map((item) => (
+                                    <a
+                                        href={item.href}
+                                        class="text-[15px] font-medium text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
+                                    >
+                                        {item.name}
+                                        <sup class="text-[9px] text-neutral-400 ml-0.5">
+                                            {String(item.count).padStart(
+                                                2,
+                                                "0",
+                                            )}
+                                        </sup>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <Search client:load variant="mobile" />
+                        <ThemeToggle client:load />
+                        <div class="md:hidden">
+                            <MobileMenu client:load currentPath={currentPath} />
+                        </div>
+                    </div>
+                </div>
+                <!-- Subpage Sidebar Content (Tablet Only) -->
                 {
                     hasSidebar && (
-                        <div class="flex flex-col gap-4">
+                        <div class="hidden md:flex px-6 py-3 gap-6 overflow-x-auto border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 items-center">
                             <slot name="sidebar" />
                         </div>
                     )
                 }
-            </div>
+            </header>
 
-            <slot />
-        </main>
+            <!-- CONTENT AREA -->
+            <main class="content-area mt-20 min-[1001px]:mt-0">
+                <!-- Mobile Sidebar Slot -->
+                <div
+                    class="md:hidden mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4 empty:hidden"
+                >
+                    {
+                        hasSidebar && (
+                            <div class="flex flex-col gap-4">
+                                <slot name="sidebar" />
+                            </div>
+                        )
+                    }
+                </div>
 
-        <!-- Footer (Mobile Only) -->
+                <slot />
+            </main>
+        </div>
+
+        <!-- MOBILE FOOTER -->
         <footer
-            class="lg:hidden w-full border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-6 mt-auto"
+            class="min-[1001px]:hidden w-full border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-6 mt-auto"
         >
             <div
                 class="flex justify-between items-center text-black dark:text-white"
@@ -271,7 +219,6 @@ const currentPath = Astro.url.pathname;
                 <div class="flex items-center">
                     <FooterInfo client:load />
                 </div>
-
                 <div class="flex gap-4 text-xs font-mono">
                     <a
                         href="/colophon"
@@ -281,41 +228,7 @@ const currentPath = Astro.url.pathname;
                 </div>
             </div>
         </footer>
+
         <SpeedInsights />
     </body>
 </html>
-
-<style is:global>
-    /* Redo Design System Typography */
-
-    /* Serif for editorial content */
-    .prose {
-        font-family: "Hedvig Letters Serif", serif;
-    }
-
-    /* Sans for UI */
-    body {
-        font-family: "Geist Sans", sans-serif;
-        /* Base font size and line height controlled by Tailwind config 'body' now */
-    }
-
-    /* Mono for code */
-    code,
-    pre {
-        font-family: "Geist Mono", monospace;
-    }
-
-    /* Focus Styles */
-    :focus-visible {
-        outline: 2px solid #fa9819; /* Redo Orange */
-        outline-offset: 2px;
-    }
-
-    /* Link Styles (underline) */
-    a {
-        text-decoration-thickness: 1px;
-    }
-    a:hover {
-        text-decoration-thickness: 2px;
-    }
-</style>

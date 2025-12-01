@@ -92,7 +92,7 @@ const getAspectClass = (aspect) => {
 };
 ---
 
-<Layout title="Maitan Hub | Portfólio">
+<Layout title="Maitan Hub | Portfólio" fullWidth={true}>
     <div
         slot="sidebar"
         class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8"
@@ -250,6 +250,11 @@ const getAspectClass = (aspect) => {
     @media (min-width: 1024px) {
         .masonry-grid {
             column-count: 3;
+        }
+    }
+    @media (min-width: 1280px) {
+        .masonry-grid {
+            column-count: 4;
         }
     }
 </style>

@@ -1,0 +1,130 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Design System">
+    <header class="article-header">
+        <span class="category-link">sistema</span>
+        <div class="meta-date">v.1.0.2</div>
+        <h1 class="display-title">design system <br />showcase</h1>
+    </header>
+
+    <div class="article-grid">
+        <article class="text-column">
+            <div class="section-divider">§</div>
+            <h2 class="section-title">01. tipografia</h2>
+
+            <p class="body-text first-paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. O <em
+                    >horror vacui</em
+                > é substituído pelo silêncio. Sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip.
+            </p>
+
+            <p class="body-text">
+                Este é um parágrafo padrão com um <span class="highlight"
+                    >destaque tipográfico</span
+                > e um <a href="#" style="text-decoration: underline;"
+                    >link no corpo do texto</a
+                >. Duis aute irure dolor in reprehenderit in voluptate velit
+                esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+
+            <figure class="swiss-quote">
+                <blockquote>
+                    O design não é apenas o que parece e o que se sente. O
+                    design é como funciona.
+                </blockquote>
+                <figcaption>— Steve Jobs (Apócrifo)</figcaption>
+            </figure>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">02. código e sintaxe</h2>
+
+            <div class="code-ide">
+                <div class="ide-header">
+                    <span class="dot red"></span><span class="dot yellow"
+                    ></span><span class="dot green"></span>
+                    <span class="filename">exemplo.js</span>
+                    <button class="copy-btn">copiar</button>
+                </div>
+                <pre><code><span class="token selector">function</span> <span class="token func">iniciarSistema</span>() &#123;
+  <span class="token selector">const</span> <span class="token prop">estado</span> = <span class="token str">"ativo"</span>;
+  <span class="token comment">// O silêncio é calculado</span>
+  <span class="token selector">return</span> <span class="token num">42</span>;
+&#125;</code></pre>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">03. figuras e legendas</h2>
+
+            <figure class="figure-wide">
+                <div class="img-wrapper">
+                    <img
+                        src="https://images.unsplash.com/photo-1516961642265-531546e84af2?q=80&w=1000&auto=format&fit=crop"
+                        alt="Arte Abstrata"
+                    />
+                </div>
+                <figcaption class="caption-side">
+                    <span class="fig-num">FIG. 1</span> — Exemplo de imagem com breakout
+                    (120% de largura) e legenda lateral, preservando a mancha gráfica.
+                </figcaption>
+            </figure>
+
+            <h3 class="subsection-title">taxonomia semântica</h3>
+            <div class="tags-cloud">
+                <span class="tag tag-sulfur">conceito puro</span>
+                <span class="tag tag-sulfur">ideia</span>
+                <span class="tag tag-vermilion">crítico</span>
+                <span class="tag tag-gray">histórico</span>
+                <span class="tag tag-lavender">tecnologia</span>
+                <span class="tag tag-lavender">frontend</span>
+            </div>
+
+            <h3 class="subsection-title">lista de projetos</h3>
+            <div class="project-list">
+                <a href="#" class="project-link">
+                    <span class="p-icon bg-ink">a</span>
+                    <span class="p-info">
+                        <span class="p-name">antigravity</span>
+                        <span class="p-desc">sistema de design</span>
+                    </span>
+                </a>
+                <a href="#" class="project-link">
+                    <span class="p-icon bg-vermilion">p</span>
+                    <span class="p-info">
+                        <span class="p-name">paradoxo</span>
+                        <span class="p-desc">estudo de caso</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="action-area">
+                <p class="mono-label">AÇÕES:</p>
+                <div class="button-group">
+                    <button class="btn-primary">ação principal</button>
+                    <button class="btn-ghost">secundária</button>
+                </div>
+            </div>
+        </article>
+
+        <aside class="marginalia-col">
+            <div class="sidenote" style="top: 250px;">
+                <span class="note-label">NOTA 01</span>
+                <p>
+                    A capitular ajuda a ancorar o início do texto, criando um
+                    ponto focal pesado.
+                </p>
+            </div>
+
+            <div class="sidenote" style="top: 600px;">
+                <span class="note-label">OBSERVAÇÃO</span>
+                <p>
+                    As caixas de código simulam um ambiente de IDE, com cores
+                    semânticas para facilitar a leitura técnica.
+                </p>
+            </div>
+        </aside>
+    </div>
+</Layout>

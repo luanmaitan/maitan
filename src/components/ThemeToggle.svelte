@@ -32,7 +32,7 @@
 
 <button
     on:click={toggleTheme}
-    class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-black dark:text-white"
+    class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-black dark:text-white border-none"
     aria-label="Alternar tema"
 >
     {#if theme === "light"}

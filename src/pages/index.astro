@@ -125,13 +125,11 @@ const openTabs = [
   "herdeiros de escravistas",
   "marketing editorial",
   "indie web",
-  "ozempic",
   "beterraba",
   "white savior",
   "tidsoptimismo",
   "taxação de super-ricos",
   "pl da devastação",
-  "millenials",
 ];
 ---
 
@@ -191,13 +189,7 @@ const openTabs = [
         </p>
 
         <div class="flex flex-wrap gap-3">
-          {
-            openTabs.map((tab) => (
-              <span class="inline-flex items-center px-3 py-1.5 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 lowercase">
-                {tab}
-              </span>
-            ))
-          }
+          {openTabs.map((tab) => <span class="tag tag-gray">{tab}</span>)}
         </div>
       </div>
     </div>

@@ -4,382 +4,60 @@ import Layout from "../../layouts/Layout.astro";
 
 <Layout title="Maitan Hub | Colophon" sidebarLayout={false}>
   <!-- Sidebar Menu (Anchors) -->
-  <div slot="sidebar" class="w-full">
-    <nav class="flex flex-col gap-4">
-      <a
-        href="/"
-        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
+  <div slot="sidebar">
+    <a href="/" class="nav-item mb-4">
+      <span class="nav-text">← voltar</span>
+    </a>
+    <div class="flex flex-col gap-2">
+      <a href="/colophon/design-system" class="nav-item"
+        ><span class="nav-text">design system</span></a
       >
-        ← voltar
-      </a>
-      <div class="flex flex-col gap-2">
-        <a
-          href="#stack"
-          class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
-          >Stack</a
-        >
-        <a
-          href="#design-system"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Design System</a
-        >
-        <a
-          href="#tipografia"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Tipografia</a
-        >
-        <a
-          href="#sizing"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Escala</a
-        >
-        <a
-          href="#cores"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Cores</a
-        >
-        <a
-          href="#licenca"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Licença</a
-        >
-      </div>
-    </nav>
+      <a href="/policy" class="nav-item"
+        ><span class="nav-text">políticas</span></a
+      >
+      <a href="#licenca" class="nav-item"
+        ><span class="nav-text">licença</span></a
+      >
+      <a href="#historico" class="nav-item"
+        ><span class="nav-text">histórico</span></a
+      >
+    </div>
   </div>
 
-  <div class="w-full py-16">
-    <header class="mb-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-      <h1
-        class="text-[80px] leading-[0.9] tracking-tighter font-black text-black dark:text-white lowercase"
-      >
-        colophon
-      </h1>
-      <p
-        class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed font-serif max-w-xl"
-      >
+  <header class="article-header">
+    <span class="category-link">bastidores</span>
+    <h1 class="display-title">colophon</h1>
+    <div class="meta-date">Atualizado em Novembro 2025</div>
+  </header>
+
+  <div class="article-grid">
+    <div class="text-column">
+      <p class="body-text first-paragraph">
         Os bastidores deste jardim digital. Ferramentas, escolhas e a filosofia
-        por trás de cada pixel.
+        por trás de cada pixel. Este site é um exercício contínuo de redução e
+        estrutura.
       </p>
-    </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24">
-      <!-- Stack -->
-      <div class="space-y-8" id="stack">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-500"
-        >
-          Stack
-        </h2>
-        <ul class="space-y-6 text-lg text-neutral-800 dark:text-neutral-200">
-          <li class="flex items-start gap-4">
-            <div
-              class="w-6 h-6 shrink-0 mt-1 flex items-center justify-center text-black dark:text-white"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="w-5 h-5"
-                ><rect width="18" height="18" x="3" y="3" rx="2"></rect><path
-                  d="M3 9h18"></path><path d="M9 21V9"></path></svg
-              >
-            </div>
-            <div>
-              <span class="font-bold block text-black dark:text-white"
-                >Swiss Style</span
-              >
-              <span class="text-base text-neutral-500 dark:text-neutral-400"
-                >Estética e filosofia de design.</span
-              >
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <div
-              class="w-6 h-6 shrink-0 mt-1 flex items-center justify-center text-black dark:text-white"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"
-                ><path
-                  d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.856-2.826 4.681-11.937 4.681-11.937a3.246 3.246 0 0 1 6.4 0s3.825 9.11 4.68 11.937c.494 1.628.148 3.874-1.038 4.944-2.874 2.592-5.51 2.592-5.51 2.592l-1.333-3.06h-3.4l-1.334 3.06s-2.635 0-5.508-2.592zm7.04-7.446l-1.6-3.822-1.6 3.822h3.2z"
-                ></path></svg
-              >
-            </div>
-            <div>
-              <span class="font-bold block text-black dark:text-white"
-                >Astro 5.0</span
-              >
-              <span class="text-base text-neutral-500 dark:text-neutral-400"
-                >Gerador de site estático.</span
-              >
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <div
-              class="w-6 h-6 shrink-0 mt-1 flex items-center justify-center text-black dark:text-white"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"
-                ><path
-                  d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"
-                ></path></svg
-              >
-            </div>
-            <div>
-              <span class="font-bold block text-black dark:text-white"
-                >TailwindCSS</span
-              >
-              <span class="text-base text-neutral-500 dark:text-neutral-400"
-                >Estilização e sistema de design.</span
-              >
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <div
-              class="w-6 h-6 shrink-0 mt-1 flex items-center justify-center text-black dark:text-white"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"
-                ><path
-                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56c1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96z"
-                ></path></svg
-              >
-            </div>
-            <div>
-              <span class="font-bold block text-black dark:text-white"
-                >Svelte</span
-              >
-              <span class="text-base text-neutral-500 dark:text-neutral-400"
-                >Interatividade e componentes.</span
-              >
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <div
-              class="w-6 h-6 shrink-0 mt-1 flex items-center justify-center text-black dark:text-white"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"
-                ><path d="M24 22.525H0l12-21.05 12 21.05z"></path></svg
-              >
-            </div>
-            <div>
-              <span class="font-bold block text-black dark:text-white"
-                >Vercel</span
-              >
-              <span class="text-base text-neutral-500 dark:text-neutral-400"
-                >Hospedagem e deploy.</span
-              >
-            </div>
-          </li>
-        </ul>
-      </div>
+      <div class="section-divider">***</div>
 
-      <!-- Design System -->
-      <div class="space-y-8" id="design-system">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Design System
-        </h2>
-        <p
-          class="text-lg text-neutral-800 dark:text-neutral-200 leading-relaxed"
-        >
-          A busca pela clareza. Este site é um exercício contínuo de redução e
-          estrutura, inspirado pelo Estilo Tipográfico Internacional. A grade é
-          a lei, a tipografia é a voz, e o espaço em branco é o respiro
-          necessário.
-        </p>
-
-        <!-- Components Showcase -->
-        <div class="pt-8 space-y-6">
-          <h3 class="text-xs font-mono text-neutral-400 uppercase">
-            Componentes
-          </h3>
-          <div class="flex flex-wrap gap-4">
-            <button
-              class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-sm hover:opacity-80 transition-opacity"
-            >
-              Primary Button
-            </button>
-            <button
-              class="px-4 py-2 border border-neutral-200 dark:border-neutral-800 text-black dark:text-white font-medium text-sm rounded-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
-            >
-              Secondary
-            </button>
-            <span
-              class="px-2 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-mono rounded-sm"
-            >
-              Tag
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tipografia -->
-      <div class="space-y-8 md:col-span-2" id="tipografia">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Tipografia
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div class="space-y-4">
-            <p
-              class="text-5xl font-sans font-medium text-neutral-900 dark:text-neutral-100 leading-none tracking-tight"
-            >
-              Geist Sans
-            </p>
-            <p
-              class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed"
-            >
-              A espinha dorsal. Uma neo-grotesque que desaparece quando você lê,
-              mas mantém a personalidade quando você precisa de impacto.
-            </p>
-          </div>
-          <div class="space-y-4">
-            <p
-              class="text-5xl font-serif text-neutral-900 dark:text-neutral-100 leading-none"
-            >
-              Hedvig Letters
-            </p>
-            <p
-              class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed"
-            >
-              O contraponto. Uma serifa que traz o calor do impresso para a
-              tela, usada para textos longos e momentos de pausa.
-            </p>
-          </div>
-          <div class="space-y-4 md:col-span-2">
-            <p
-              class="text-3xl font-mono font-medium text-neutral-900 dark:text-neutral-100"
-            >
-              Geist Mono
-            </p>
-            <p
-              class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed"
-            >
-              A precisão técnica. Para código, dados e metadados. Alinhamento
-              perfeito, caractere por caractere.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Escala (Sizing) -->
-      <div class="space-y-8 md:col-span-2" id="sizing">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Escala Tipográfica
-        </h2>
-        <div
-          class="space-y-8 border-t border-neutral-200 dark:border-neutral-800 pt-8"
-        >
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400">H1 / 60-80px</span>
-            <h1
-              class="text-[40px] md:text-[60px] leading-[1] tracking-tighter font-black"
-            >
-              Título Principal
-            </h1>
-          </div>
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400">H2 / 30-40px</span>
-            <h2
-              class="text-[30px] md:text-[40px] leading-[1.1] tracking-tight font-bold"
-            >
-              Subtítulo da Seção
-            </h2>
-          </div>
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400">H3 / 24-30px</span>
-            <h3
-              class="text-[24px] md:text-[30px] leading-[1.2] tracking-tight font-bold"
-            >
-              Título de Terceiro Nível
-            </h3>
-          </div>
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400">H4 / 18-20px</span>
-            <h4
-              class="text-[18px] md:text-[20px] leading-[1.3] tracking-tight font-bold"
-            >
-              Título de Quarto Nível
-            </h4>
-          </div>
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400">Body / 16px</span>
-            <p class="text-base leading-relaxed max-w-2xl font-serif">
-              O corpo do texto é onde a leitura acontece. Uma altura de linha
-              confortável e um comprimento de linha controlado (max-width)
-              garantem que os olhos não se cansem. A serifa ajuda a guiar o
-              fluxo de leitura.
-            </p>
-          </div>
-          <div class="grid grid-cols-[100px_1fr] items-baseline gap-8">
-            <span class="text-xs font-mono text-neutral-400"
-              >Small / 12-14px</span
-            >
-            <p class="text-sm text-neutral-500">
-              Legendas e detalhes auxiliares. Pequenos, mas legíveis.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cores -->
-      <div class="space-y-8 md:col-span-2" id="cores">
-        <h2
-          class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-        >
-          Cores
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-          <div class="space-y-3">
-            <div
-              class="aspect-square bg-neutral-50 border border-neutral-200 w-full max-w-[160px]"
-            >
-            </div>
-            <div>
-              <p class="font-medium text-neutral-900 dark:text-white">
-                Neutral 50
-              </p>
-              <p class="text-xs font-mono text-neutral-500">Background</p>
-            </div>
-          </div>
-          <div class="space-y-3">
-            <div class="aspect-square bg-neutral-900 w-full max-w-[160px]">
-            </div>
-            <div>
-              <p class="font-medium text-neutral-900 dark:text-white">
-                Neutral 900
-              </p>
-              <p class="text-xs font-mono text-neutral-500">Text / Dark Bg</p>
-            </div>
-          </div>
-          <div class="space-y-3">
-            <div class="aspect-square bg-neutral-500 w-full max-w-[160px]">
-            </div>
-            <div>
-              <p class="font-medium text-neutral-900 dark:text-white">
-                Neutral 500
-              </p>
-              <p class="text-xs font-mono text-neutral-500">Secondary Text</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p class="body-text">
+        Para detalhes visuais e componentes, consulte o <a
+          href="/colophon/design-system"
+          class="underline hover:text-vermilion transition-colors"
+          >Design System</a
+        >. Para questões legais e de privacidade, veja nossas <a
+          href="/policy"
+          class="underline hover:text-vermilion transition-colors">Políticas</a
+        >.
+      </p>
 
       <!-- Footer Info -->
       <div
-        class="space-y-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8"
+        class="space-y-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 mt-16"
       >
         <div class="space-y-4" id="licenca">
-          <h2
-            class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-          >
-            Licença
-          </h2>
-          <p
-            class="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed"
-          >
+          <h2 class="section-title" style="font-size: 1.2rem;">Licença</h2>
+          <p class="body-text" style="font-size: 1rem;">
             Conteúdo sob licença <a
               href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
               target="_blank"
@@ -394,13 +72,9 @@ import Layout from "../../layouts/Layout.astro";
           </p>
         </div>
 
-        <div class="space-y-4">
-          <h2
-            class="text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-          >
-            Histórico
-          </h2>
-          <p class="text-base text-neutral-600 dark:text-neutral-400 mb-2">
+        <div class="space-y-4" id="historico">
+          <h2 class="section-title" style="font-size: 1.2rem;">Histórico</h2>
+          <p class="body-text" style="font-size: 1rem;">
             Acompanhe a evolução do projeto através do changelog.
           </p>
           <a
@@ -425,5 +99,23 @@ import Layout from "../../layouts/Layout.astro";
         </div>
       </div>
     </div>
+
+    <!-- Marginalia -->
+    <div class="marginalia-col">
+      <div class="sidenote" style="top: 0;">
+        <span class="note-label">Navegação</span>
+        Explore o <a href="/colophon/design-system" class="underline"
+          >Design System</a
+        > completo.
+      </div>
+
+      <div class="sidenote" style="top: 150px;">
+        <span class="note-label">Legal</span>
+        Leia nossas <a href="/policy" class="underline"
+          >Políticas de Privacidade</a
+        >.
+      </div>
+    </div>
   </div>
 </Layout>
+```
