@@ -3,6 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 
 const updates = [
   {
+    version: "0.1.8",
+    id: "v-0-1-8",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "automação de conteúdo e componentes mdx",
+    description:
+      "implementação de script de sincronização automática (sync.js) para espelhar conteúdo do obsidian em tempo real durante o desenvolvimento. criação de componentes mdx personalizados (sidenote, swissquote, figurewide, codeide) para enriquecer a escrita no obsidian. configuração de execução paralela com npm-run-all para melhor fluxo de trabalho.",
+    tags: ["devops", "automation", "mdx", "obsidian", "components"],
+  },
+  {
     version: "0.1.7",
     id: "v-0-1-7",
     date: new Date()

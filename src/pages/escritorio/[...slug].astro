@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Sidenote from "../../components/mdx/Sidenote.astro";
+import SwissQuote from "../../components/mdx/SwissQuote.astro";
+import FigureWide from "../../components/mdx/FigureWide.astro";
+import CodeIDE from "../../components/mdx/CodeIDE.astro";
 
 export const prerender = true;
 
@@ -100,7 +104,9 @@ function getReadingTime(content: string) {
         <div
             class="prose prose-neutral dark:prose-invert font-serif max-w-none prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-none"
         >
-            <Content />
+            <Content
+                components={{ Sidenote, SwissQuote, FigureWide, CodeIDE }}
+            />
         </div>
     </article>
 </Layout>

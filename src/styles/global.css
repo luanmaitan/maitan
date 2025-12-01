@@ -201,6 +201,7 @@ a {
 /* Texto */
 .text-column {
   max-width: 62ch;
+  position: relative;
 }
 
 .body-text {

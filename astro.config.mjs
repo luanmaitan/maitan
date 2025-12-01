@@ -5,6 +5,8 @@ import svelte from '@astrojs/svelte';
 import vercel from '@astrojs/vercel';
 import wikiLinkPlugin from 'remark-wiki-link';
 
+import mdx from '@astrojs/mdx';
+
 export default defineConfig({
   output: 'static', // Changed to static for better performance (Digital Garden best practice)
   adapter: vercel(),
@@ -19,10 +21,7 @@ export default defineConfig({
       theme: 'css-variables', // Allows CSS styling of code blocks
     }
   },
-  integrations: [
-    tailwind({
-      applyBaseStyles: false, // We control this in global.css
-    }),
-    svelte()
-  ]
+  integrations: [tailwind({
+    applyBaseStyles: false, // We control this in global.css
+  }), svelte(), mdx()]
 });

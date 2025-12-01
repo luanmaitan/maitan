@@ -1,0 +1,78 @@
+---
+// src/components/mdx/CodeIDE.astro
+const { filename = "script.js" } = Astro.props;
+---
+
+<div class="code-ide-component">
+    <div class="ide-header">
+        <div class="dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+        </div>
+        <span class="filename">{filename}</span>
+        <span class="fake-btn">copiar</span>
+    </div>
+    <div class="code-content">
+        <slot />
+    </div>
+</div>
+
+<style>
+    .code-ide-component {
+        background: #1e1e1e;
+        border-radius: 6px;
+        margin: 2rem 0;
+        overflow: hidden;
+        font-family: var(--f-mono);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .ide-header {
+        background: #2d2d2d;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #333;
+    }
+
+    .dots {
+        display: flex;
+        gap: 6px;
+    }
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+    .red {
+        background: #ff5f56;
+    }
+    .yellow {
+        background: #ffbd2e;
+    }
+    .green {
+        background: #27c93f;
+    }
+
+    .filename {
+        color: #999;
+        font-size: 0.75rem;
+        margin-left: 12px;
+        flex-grow: 1;
+    }
+    .fake-btn {
+        color: #555;
+        font-size: 0.7rem;
+        border: 1px solid #444;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    /* Ajuste para o código gerado pelo Markdown dentro do slot */
+    .code-content :global(pre) {
+        margin: 0 !important;
+        padding: 20px !important;
+        background: transparent !important;
+    }
+</style>

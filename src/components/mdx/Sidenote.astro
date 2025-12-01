@@ -1,0 +1,29 @@
+---
+const { label = "NOTA" } = Astro.props;
+---
+
+<aside class="marginalia-inline">
+    <span class="note-label">{label}</span>
+    <slot />
+</aside>
+
+<style>
+    /* CSS especial para fazer a nota 'pular' para a coluna da direita */
+    .marginalia-inline {
+        /* Em mobile, fica no meio do texto. Em desktop, grid position */
+        border-left: 2px solid var(--c-vermilion);
+        padding-left: 10px;
+        font-family: var(--f-ui);
+        font-size: 0.8rem;
+        color: var(--c-gray);
+        margin: 20px 0;
+    }
+
+    @media (min-width: 1000px) {
+        .marginalia-inline {
+            position: absolute;
+            right: -240px; /* Joga para a coluna da direita */
+            width: 200px;
+        }
+    }
+</style>
