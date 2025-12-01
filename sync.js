@@ -10,9 +10,11 @@ const TARGET = './src/content/escritorio'; // Ajustado para sua pasta correta
 
 // Verifica se o caminho foi definido
 if (!SOURCE) {
-    console.error('\x1b[31m%s\x1b[0m', '❌ ERRO: Defina OBSIDIAN_PATH no arquivo .env');
-    process.exit(1);
+    console.log('\x1b[33m%s\x1b[0m', '⚠️  OBSIDIAN_PATH não definido no .env. Pulando sincronização.');
+    process.exit(0);
 }
+
+const isWatch = process.argv.includes('--watch');
 
 // Verifica se a pasta de destino existe, se não, cria
 fs.ensureDirSync(TARGET);
@@ -22,7 +24,7 @@ console.log('\x1b[36m%s\x1b[0m', `📂 Sincronizando para: ${TARGET}`);
 
 // 2. Inicializa o Observador
 const watcher = chokidar.watch(SOURCE, {
-    persistent: true,
+    persistent: isWatch,
     ignoreInitial: false, // Copia arquivos já existentes ao iniciar
     awaitWriteFinish: {
         stabilityThreshold: 2000, // Espera 2s após você parar de digitar para copiar (evita cópias corrompidas)
@@ -36,7 +38,13 @@ watcher
     .on('add', filePath => copyFile(filePath))
     .on('change', filePath => copyFile(filePath))
     .on('unlink', filePath => removeFile(filePath))
-    .on('error', error => console.error(`Erro no observador: ${error}`));
+    .on('error', error => console.error(`Erro no observador: ${error}`))
+    .on('ready', () => {
+        if (!isWatch) {
+            console.log('\x1b[32m%s\x1b[0m', '✨ Sincronização inicial concluída.');
+            watcher.close();
+        }
+    });
 
 // Funções Auxiliares
 async function copyFile(filePath) {
