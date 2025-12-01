@@ -3,6 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 
 const updates = [
   {
+    version: "0.1.9",
+    id: "v-0-1-9",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "integração do escritório e listagem de notas",
+    description:
+      "atualização da página principal do escritório para listar automaticamente todas as notas sincronizadas do obsidian. implementação de injeção automática de frontmatter no script de sincronização para evitar erros de build. adição de menu de categorias na sidebar do escritório.",
+    tags: ["feature", "escritorio", "sync", "ux"],
+  },
+  {
     version: "0.1.8",
     id: "v-0-1-8",
     date: new Date()

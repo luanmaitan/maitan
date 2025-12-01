@@ -21,6 +21,32 @@ const currentPath = Astro.url.pathname;
             >
                 ← voltar
             </a>
+
+            <div class="flex flex-col gap-1 mt-4">
+                <p
+                    class="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-2"
+                >
+                    Categorias
+                </p>
+                <a href="/escritorio/ensaios" class="nav-item"
+                    ><span class="nav-text">ensaios</span></a
+                >
+                <a href="/escritorio/dramaturgia" class="nav-item"
+                    ><span class="nav-text">dramaturgia</span></a
+                >
+                <a href="/escritorio/poesia" class="nav-item"
+                    ><span class="nav-text">poesia</span></a
+                >
+                <a href="/escritorio/autoficcoes" class="nav-item"
+                    ><span class="nav-text">autoficções</span></a
+                >
+                <a href="/escritorio/impressoes" class="nav-item"
+                    ><span class="nav-text">impressões</span></a
+                >
+                <a href="/escritorio/traducoes" class="nav-item"
+                    ><span class="nav-text">traduções</span></a
+                >
+            </div>
         </nav>
     </div>
 
@@ -36,17 +62,59 @@ const currentPath = Astro.url.pathname;
             >
                 Um jardim digital. Notas, ideias em estágio inicial e conexões
                 mentais.
-                <br />
-                <span class="text-sm text-neutral-400 italic mt-2 block"
-                    >(Em construção: integração com Obsidian em breve)</span
-                >
             </p>
         </header>
 
-        <div class="py-12 border-y border-neutral-100 dark:border-neutral-800">
-            <p class="text-neutral-400 dark:text-neutral-500 italic">
-                O jardim está sendo plantado.
-            </p>
+        <div class="space-y-12">
+            {
+                allContent.length > 0 ? (
+                    allContent
+                        .sort(
+                            (a, b) =>
+                                b.data.pubDate.valueOf() -
+                                a.data.pubDate.valueOf(),
+                        )
+                        .map((note, index) => (
+                            <div class="grid grid-cols-1 md:grid-cols-[40px_120px_1fr] gap-4 md:gap-8 group relative">
+                                <div class="hidden md:block text-xs font-mono text-neutral-300 dark:text-neutral-600 pt-1.5 text-right">
+                                    {String(index + 1).padStart(2, "0")}
+                                </div>
+
+                                <div class="text-xs font-mono text-neutral-400 dark:text-neutral-500 pt-1.5 uppercase tracking-wider">
+                                    {note.data.pubDate
+                                        .toLocaleDateString("pt-BR", {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                        })
+                                        .replace(".", "")
+                                        .toUpperCase()}
+                                </div>
+
+                                <div class="space-y-2">
+                                    <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        <a
+                                            href={`/escritorio/${note.slug}`}
+                                            class="block lowercase"
+                                        >
+                                            {note.data.title}
+                                        </a>
+                                    </h3>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] uppercase tracking-wider text-neutral-500 border border-neutral-200 dark:border-neutral-700 px-1.5 py-0.5 rounded-sm">
+                                            {note.data.category ||
+                                                "sem categoria"}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                ) : (
+                    <p class="text-neutral-500 dark:text-neutral-400 italic">
+                        O jardim está sendo plantado.
+                    </p>
+                )
+            }
         </div>
     </section>
 </Layout>

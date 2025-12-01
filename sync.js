@@ -49,7 +49,31 @@ async function copyFile(filePath) {
     const destination = path.join(TARGET, relativePath);
 
     try {
-        await fs.copy(filePath, destination);
+        // Se for arquivo Markdown, processa o Frontmatter
+        if (filePath.endsWith('.md')) {
+            let content = await fs.readFile(filePath, 'utf8');
+
+            // Verifica se tem frontmatter (--- no início)
+            if (!content.trim().startsWith('---')) {
+                const fileName = path.basename(filePath, '.md');
+                const defaultFrontmatter = `---
+title: "${fileName}"
+pubDate: ${new Date().toISOString()}
+tags: []
+category: "ensaios"
+---
+
+`;
+                content = defaultFrontmatter + content;
+                console.log('\x1b[33m%s\x1b[0m', `⚠️  Frontmatter adicionado: ${relativePath}`);
+            }
+
+            await fs.outputFile(destination, content);
+        } else {
+            // Outros arquivos (imagens, etc) apenas copia
+            await fs.copy(filePath, destination);
+        }
+
         // Mensagem verde de sucesso
         console.log('\x1b[32m%s\x1b[0m', `✨ Sincronizado: ${relativePath}`);
     } catch (err) {
