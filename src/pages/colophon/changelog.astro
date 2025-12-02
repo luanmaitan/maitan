@@ -4,6 +4,22 @@ import PageNav from "../../components/PageNav.astro";
 
 const updates = [
   {
+    version: "0.2.1",
+    id: "v-0-2-1",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "refinamento de filtros e simplificação da home",
+    description:
+      "ajuste fino nos filtros do portfólio com adição de rótulos e padronização visual. simplificação temporária da página inicial ocultando seções em desenvolvimento.",
+    tags: ["ui", "portfolio", "home", "refactor"],
+  },
+  {
     version: "0.2.0",
     id: "v-0-2-0",
     date: new Date()

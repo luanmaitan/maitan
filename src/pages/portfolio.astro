@@ -78,7 +78,7 @@ const roleFilters = [
 ];
 
 // Helper to get aspect ratio classes
-const getAspectClass = (aspect) => {
+const getAspectClass = (aspect: string) => {
     switch (aspect) {
         case "vertical":
             return "aspect-[2/3]";
@@ -90,6 +90,15 @@ const getAspectClass = (aspect) => {
             return "aspect-square";
     }
 };
+
+// Calculate counts
+const productCounts: Record<string, number> = {};
+const roleCounts: Record<string, number> = {};
+
+portfolioItems.forEach((item) => {
+    productCounts[item.category] = (productCounts[item.category] || 0) + 1;
+    roleCounts[item.role] = (roleCounts[item.role] || 0) + 1;
+});
 ---
 
 <Layout title="Maitan Hub | Portfólio" fullWidth={true}>
@@ -104,13 +113,17 @@ const getAspectClass = (aspect) => {
             </h1>
 
             <!-- Filters (Main Content) -->
-            <div class="space-y-6">
+            <div class="flex flex-col gap-2">
                 <!-- Product Filters -->
-                <div class="flex flex-wrap gap-x-6 gap-y-2">
+                <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                    <span
+                        class="text-[11px] font-medium text-neutral-400 dark:text-neutral-600 uppercase tracking-wider mr-2"
+                        >tipo</span
+                    >
                     <a
                         href="#"
                         data-filter="all"
-                        class="filter-btn text-[15px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
+                        class="filter-btn text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
                     >
                         todos
                     </a>
@@ -120,27 +133,47 @@ const getAspectClass = (aspect) => {
                                 href={`#${filter}`}
                                 data-filter={filter}
                                 data-type="category"
-                                class="filter-btn text-[15px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                                class="filter-btn group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                             >
                                 {filter}
+                                <span class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5">
+                                    {String(
+                                        productCounts[filter] || 0,
+                                    ).padStart(2, "0")}
+                                </span>
                             </a>
                         ))
                     }
                 </div>
 
                 <!-- Role Filters -->
-                <div
-                    class="flex flex-wrap gap-x-4 gap-y-2 pt-4 border-t border-neutral-200 dark:border-neutral-800"
-                >
+                <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                    <span
+                        class="text-[11px] font-medium text-neutral-400 dark:text-neutral-600 uppercase tracking-wider mr-2"
+                        >trabalho</span
+                    >
+                    <a
+                        href="#"
+                        data-filter="all"
+                        class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                    >
+                        todos
+                    </a>
                     {
                         roleFilters.map((filter) => (
                             <a
                                 href={`#${filter}`}
                                 data-filter={filter}
                                 data-type="role"
-                                class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase border border-neutral-200 dark:border-neutral-800 px-3 py-1 rounded-full hover:border-neutral-400 dark:hover:border-neutral-600"
+                                class="filter-btn group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                             >
                                 {filter}
+                                <span class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5">
+                                    {String(roleCounts[filter] || 0).padStart(
+                                        2,
+                                        "0",
+                                    )}
+                                </span>
                             </a>
                         ))
                     }
@@ -213,11 +246,14 @@ const getAspectClass = (aspect) => {
     }
 </style>
 
-<script>
+<script lang="ts">
     const filterBtns = document.querySelectorAll(".filter-btn");
     const items = document.querySelectorAll(".masonry-item");
 
-    function filterPortfolio(filterValue, filterType) {
+    function filterPortfolio(
+        filterValue: string,
+        filterType: string | undefined,
+    ) {
         items.forEach((item) => {
             const itemCategory = (item as HTMLElement).dataset.category;
             const itemRole = (item as HTMLElement).dataset.role;
@@ -242,63 +278,31 @@ const getAspectClass = (aspect) => {
 
         filterBtns.forEach((btn) => {
             const btnFilter = (btn as HTMLElement).dataset.filter;
-            // Different styling for sidebar vs main content filters
-            const isPill = btn.classList.contains("rounded-full");
 
             if (btnFilter === filterValue) {
-                if (isPill) {
-                    btn.classList.add(
-                        "bg-neutral-900",
-                        "text-white",
-                        "dark:bg-white",
-                        "dark:text-black",
-                        "border-neutral-900",
-                        "dark:border-white",
-                    );
-                    btn.classList.remove(
-                        "text-neutral-500",
-                        "hover:text-black",
-                        "dark:text-neutral-400",
-                        "dark:hover:text-white",
-                    );
-                } else {
-                    btn.classList.remove(
-                        "text-neutral-500",
-                        "dark:text-neutral-400",
-                    );
-                    btn.classList.add(
-                        "text-black",
-                        "dark:text-white",
-                        "font-medium",
-                    );
-                }
+                btn.classList.remove(
+                    "text-neutral-500",
+                    "dark:text-neutral-400",
+                    "hover:text-black",
+                    "dark:hover:text-white",
+                );
+                btn.classList.add(
+                    "text-black",
+                    "dark:text-white",
+                    "font-medium",
+                );
             } else {
-                if (isPill) {
-                    btn.classList.remove(
-                        "bg-neutral-900",
-                        "text-white",
-                        "dark:bg-white",
-                        "dark:text-black",
-                        "border-neutral-900",
-                        "dark:border-white",
-                    );
-                    btn.classList.add(
-                        "text-neutral-500",
-                        "hover:text-black",
-                        "dark:text-neutral-400",
-                        "dark:hover:text-white",
-                    );
-                } else {
-                    btn.classList.add(
-                        "text-neutral-500",
-                        "dark:text-neutral-400",
-                    );
-                    btn.classList.remove(
-                        "text-black",
-                        "dark:text-white",
-                        "font-medium",
-                    );
-                }
+                btn.classList.add(
+                    "text-neutral-500",
+                    "dark:text-neutral-400",
+                    "hover:text-black",
+                    "dark:hover:text-white",
+                );
+                btn.classList.remove(
+                    "text-black",
+                    "dark:text-white",
+                    "font-medium",
+                );
             }
         });
     }
