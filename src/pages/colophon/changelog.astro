@@ -4,6 +4,22 @@ import PageNav from "../../components/PageNav.astro";
 
 const updates = [
   {
+    version: "0.2.3",
+    id: "v-0-2-3",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "correções de responsividade mobile",
+    description:
+      "resolução de problemas críticos de escala e layout em dispositivos móveis. implementação de viewport scale correto para evitar zoom out indesejado. ajuste no grid da página de links para coluna única em telas pequenas e adaptação da toolbar do calendário para evitar quebra de layout.",
+    tags: ["ui", "fix", "mobile", "responsive"],
+  },
+  {
     version: "0.2.2",
     id: "v-0-2-2",
     date: new Date()

@@ -52,7 +52,7 @@ const currentPath = Astro.url.pathname;
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content="Luan Maitan - Jardim Digital" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
@@ -186,17 +186,16 @@ const currentPath = Astro.url.pathname;
             <!-- CONTENT AREA -->
             <main class="content-area mt-20 min-[1001px]:mt-0">
                 <!-- Mobile Sidebar Slot -->
-                <div
-                    class="md:hidden mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4 empty:hidden"
-                >
-                    {
-                        hasSidebar && (
+                <!-- Mobile Sidebar Slot -->
+                {
+                    hasSidebar && (
+                        <div class="md:hidden mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4">
                             <div class="flex flex-col gap-4">
                                 <slot name="sidebar" />
                             </div>
-                        )
-                    }
-                </div>
+                        </div>
+                    )
+                }
 
                 <slot />
             </main>

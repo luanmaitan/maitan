@@ -313,4 +313,24 @@ const formattedEvents = events.map(formatEventForCalendar);
     .dark :global(.fc-theme-standard th) {
         border-color: rgb(38 38 38) !important;
     }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 640px) {
+        :global(.fc-header-toolbar) {
+            flex-direction: column;
+            gap: 1rem !important;
+            align-items: flex-start !important;
+        }
+
+        :global(.fc-toolbar-chunk) {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Center the title chunk */
+        :global(.fc-toolbar-chunk:nth-child(2)) {
+            justify-content: center;
+        }
+    }
 </style>
