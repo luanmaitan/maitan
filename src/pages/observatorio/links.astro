@@ -49,8 +49,8 @@ const currentPath = Astro.url.pathname;
     <!-- Filters (Tags) Moved Here -->
     {
       tags.length > 0 && (
-        <div class="flex flex-col gap-2 w-full mb-8">
-          <div class="flex flex-wrap gap-x-4 gap-y-2">
+        <div class="flex flex-col gap-2 w-full mb-8 max-w-full overflow-hidden">
+          <div class="flex flex-wrap gap-x-4 gap-y-2 w-full">
             <a
               href="#"
               data-tag="all"
@@ -152,23 +152,24 @@ const currentPath = Astro.url.pathname;
 
 <style>
   .masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
+    column-count: 2;
+    column-gap: 0.75rem;
     width: 100%;
   }
   @media (min-width: 640px) {
     .masonry-grid {
-      column-count: 2;
+      column-count: 3;
+      column-gap: 1rem;
     }
   }
   @media (min-width: 1024px) {
     .masonry-grid {
-      column-count: 3;
+      column-count: 4;
     }
   }
   @media (min-width: 1280px) {
     .masonry-grid {
-      column-count: 4;
+      column-count: 5;
     }
   }
 </style>

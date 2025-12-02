@@ -1,6 +1,6 @@
 ---
 title: "3 livros sobre poetica"
-pubDate: 2025-12-02T03:41:08.434Z
+pubDate: 2025-12-02T04:05:28.710Z
 tags: []
 category: "ensaios"
 ---

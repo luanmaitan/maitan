@@ -4,6 +4,22 @@ import PageNav from "../../components/PageNav.astro";
 
 const updates = [
   {
+    version: "0.2.2",
+    id: "v-0-2-2",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "ajustes de responsividade e correções",
+    description:
+      "correção na lógica de filtros combinados do portfólio e ajustes finos na responsividade do grid de links para melhor adaptação em diferentes telas.",
+    tags: ["ui", "fix", "responsive"],
+  },
+  {
     version: "0.2.1",
     id: "v-0-2-1",
     date: new Date()

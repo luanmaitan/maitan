@@ -123,6 +123,7 @@ portfolioItems.forEach((item) => {
                     <a
                         href="#"
                         data-filter="all"
+                        data-type="category"
                         class="filter-btn text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
                     >
                         todos
@@ -155,6 +156,7 @@ portfolioItems.forEach((item) => {
                     <a
                         href="#"
                         data-filter="all"
+                        data-type="role"
                         class="filter-btn text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                     >
                         todos
@@ -221,6 +223,13 @@ portfolioItems.forEach((item) => {
                 ))
             }
         </div>
+
+        <div
+            id="no-results-msg"
+            class="hidden text-center py-12 text-neutral-500 dark:text-neutral-400 italic"
+        >
+            nenhum projeto encontrado com essa combinação de filtros.
+        </div>
     </section>
 </Layout>
 
@@ -246,98 +255,154 @@ portfolioItems.forEach((item) => {
     }
 </style>
 
-<script lang="ts">
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    const items = document.querySelectorAll(".masonry-item");
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const items = document.querySelectorAll(".masonry-item");
+        const noResultsMsg = document.getElementById("no-results-msg");
 
-    function filterPortfolio(
-        filterValue: string,
-        filterType: string | undefined,
-    ) {
-        items.forEach((item) => {
-            const itemCategory = (item as HTMLElement).dataset.category;
-            const itemRole = (item as HTMLElement).dataset.role;
+        let activeCategory = "all";
+        let activeRole = "all";
 
-            let match = false;
-            if (filterValue === "all") {
-                match = true;
-            } else if (filterType === "category") {
-                match = itemCategory === filterValue;
-            } else if (filterType === "role") {
-                // Simple string match for now, allows partial matches if roles are lists later
-                match = itemRole?.includes(filterValue) ?? false;
-            } else {
-                // Fallback checks both if type not specified (from hash maybe)
-                match =
-                    itemCategory === filterValue ||
-                    (itemRole?.includes(filterValue) ?? false);
+        function applyFilters() {
+            let visibleCount = 0;
+
+            items.forEach((item) => {
+                const htmlItem = item as HTMLElement;
+                const itemCategory = htmlItem.getAttribute("data-category");
+                const itemRole = htmlItem.getAttribute("data-role");
+
+                const categoryMatch =
+                    activeCategory === "all" || itemCategory === activeCategory;
+                const roleMatch =
+                    activeRole === "all" || itemRole === activeRole;
+
+                if (categoryMatch && roleMatch) {
+                    htmlItem.style.display = "block";
+                    visibleCount++;
+                } else {
+                    htmlItem.style.display = "none";
+                }
+            });
+
+            // Show/Hide No Results Message
+            if (noResultsMsg) {
+                if (visibleCount === 0) {
+                    noResultsMsg.classList.remove("hidden");
+                } else {
+                    noResultsMsg.classList.add("hidden");
+                }
             }
 
-            (item as HTMLElement).style.display = match ? "block" : "none";
-        });
+            updateButtonStates();
+            updateURL();
+        }
+
+        function updateButtonStates() {
+            filterBtns.forEach((btn) => {
+                const htmlBtn = btn as HTMLElement;
+                const btnFilter = htmlBtn.getAttribute("data-filter");
+                const btnType = htmlBtn.getAttribute("data-type");
+
+                let isActive = false;
+                if (btnType === "category") {
+                    isActive = btnFilter === activeCategory;
+                } else if (btnType === "role") {
+                    isActive = btnFilter === activeRole;
+                }
+
+                if (isActive) {
+                    htmlBtn.classList.remove(
+                        "text-neutral-500",
+                        "dark:text-neutral-400",
+                        "hover:text-black",
+                        "dark:hover:text-white",
+                    );
+                    htmlBtn.classList.add(
+                        "text-black",
+                        "dark:text-white",
+                        "font-medium",
+                    );
+                } else {
+                    htmlBtn.classList.add(
+                        "text-neutral-500",
+                        "dark:text-neutral-400",
+                        "hover:text-black",
+                        "dark:hover:text-white",
+                    );
+                    htmlBtn.classList.remove(
+                        "text-black",
+                        "dark:text-white",
+                        "font-medium",
+                    );
+                }
+            });
+        }
+
+        function updateURL() {
+            const url = new URL(window.location.href);
+
+            if (activeCategory === "all") {
+                url.searchParams.delete("category");
+            } else {
+                url.searchParams.set("category", activeCategory);
+            }
+
+            if (activeRole === "all") {
+                url.searchParams.delete("role");
+            } else {
+                url.searchParams.set("role", activeRole);
+            }
+
+            // Clear hash if we are using search params now to avoid confusion
+            url.hash = "";
+
+            history.replaceState(null, "", url.toString());
+        }
 
         filterBtns.forEach((btn) => {
-            const btnFilter = (btn as HTMLElement).dataset.filter;
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const target = e.currentTarget as HTMLElement;
+                const filter = target.getAttribute("data-filter");
+                const type = target.getAttribute("data-type");
 
-            if (btnFilter === filterValue) {
-                btn.classList.remove(
-                    "text-neutral-500",
-                    "dark:text-neutral-400",
-                    "hover:text-black",
-                    "dark:hover:text-white",
-                );
-                btn.classList.add(
-                    "text-black",
-                    "dark:text-white",
-                    "font-medium",
-                );
-            } else {
-                btn.classList.add(
-                    "text-neutral-500",
-                    "dark:text-neutral-400",
-                    "hover:text-black",
-                    "dark:hover:text-white",
-                );
-                btn.classList.remove(
-                    "text-black",
-                    "dark:text-white",
-                    "font-medium",
-                );
-            }
+                if (type === "category") {
+                    activeCategory = filter;
+                } else if (type === "role") {
+                    activeRole = filter;
+                }
+
+                applyFilters();
+            });
         });
-    }
 
-    filterBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const target = e.currentTarget as HTMLElement;
-            const filter = target.dataset.filter;
-            const type = target.dataset.type;
+        // Initialize from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        const roleParam = urlParams.get("role");
 
-            if (filter) {
-                filterPortfolio(filter, type);
-                history.replaceState(
-                    null,
-                    "",
-                    filter === "all" ? " " : `#${filter}`,
-                );
-            }
-        });
+        // Also check hash for backward compatibility or direct links
+        const hash = window.location.hash.slice(1);
+
+        if (categoryParam) activeCategory = categoryParam;
+        if (roleParam) activeRole = roleParam;
+
+        // Fallback to hash if no params but hash exists (simple single filter)
+        if (!categoryParam && !roleParam && hash) {
+            const decodedHash = decodeURIComponent(hash);
+            // Try to guess type based on buttons
+            const matchingBtn = document.querySelector(
+                `.filter-btn[data-filter="${decodedHash}"]`,
+            );
+            const type = matchingBtn
+                ? matchingBtn.getAttribute("data-type")
+                : null;
+
+            if (type === "category") activeCategory = decodedHash;
+            if (type === "role") activeRole = decodedHash;
+        }
+
+        applyFilters();
     });
-
-    const initialHash = window.location.hash.slice(1);
-    if (initialHash) {
-        // Try to detect if hash is a role or category
-        const isRole = Array.from(
-            document.querySelectorAll('[data-type="role"]'),
-        ).some(
-            (el) =>
-                (el as HTMLElement).dataset.filter ===
-                decodeURIComponent(initialHash),
-        );
-        filterPortfolio(
-            decodeURIComponent(initialHash),
-            isRole ? "role" : "category",
-        );
-    }
 </script>

@@ -1,6 +1,6 @@
 ---
 title: "Obsidiana 1"
-pubDate: 2025-12-02T03:41:08.435Z
+pubDate: 2025-12-02T04:05:28.711Z
 tags: []
 category: "ensaios"
 ---
