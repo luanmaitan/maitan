@@ -1,0 +1,25 @@
+---
+interface Props {
+    items: { label: string; href: string; active?: boolean }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="flex flex-wrap gap-x-6 gap-y-2 mb-4">
+    {
+        items.map((item) => (
+            <a
+                href={item.href}
+                class:list={[
+                    "text-[15px] lowercase transition-colors",
+                    item.active
+                        ? "text-black dark:text-white font-medium"
+                        : "text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white",
+                ]}
+            >
+                {item.label}
+            </a>
+        ))
+    }
+</nav>

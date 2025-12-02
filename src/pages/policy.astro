@@ -1,74 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageNav from "../components/PageNav.astro";
 ---
 
 <Layout title="Luan Maitan | Políticas">
-    <div slot="sidebar" class="flex flex-col gap-8">
-        <nav class="flex flex-col gap-2">
-            <a
-                href="/"
-                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
-            >
-                ← voltar ao início
-            </a>
-        </nav>
-        <nav class="flex flex-col gap-1">
-            <a
-                href="#conteudo"
-                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
-            >
-                Conteúdo
-                <sup
-                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
-                    >↓</sup
-                >
-            </a>
-            <a
-                href="#links"
-                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
-            >
-                Links Externos
-                <sup
-                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
-                    >↓</sup
-                >
-            </a>
-            <a
-                href="#direitos"
-                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
-            >
-                Direitos Autorais
-                <sup
-                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
-                    >↓</sup
-                >
-            </a>
-            <a
-                href="#privacidade"
-                class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
-            >
-                Privacidade
-                <sup
-                    class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100"
-                    >↓</sup
-                >
-            </a>
-        </nav>
-    </div>
+    <!-- Sidebar removed -->
 
     <section class="space-y-16">
-        <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <header>
             <h1
-                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white lowercase"
+                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
             >
                 políticas
             </h1>
-            <p
-                class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl"
-            >
-                Transparência sobre como este site funciona e como seus dados
-                são tratados.
-            </p>
+            <PageNav
+                items={[
+                    { label: "conteúdo", href: "#conteudo" },
+                    { label: "links externos", href: "#links" },
+                    { label: "direitos autorais", href: "#direitos" },
+                    { label: "privacidade", href: "#privacidade" },
+                ]}
+            />
         </header>
 
         <div
@@ -89,13 +41,15 @@ import Layout from "../layouts/Layout.astro";
                         <a
                             href="mailto:luan.maitan@hotmail.com"
                             class="hover:text-black dark:hover:text-white transition-colors"
-                            >luan.maitan@hotmail.com</a>
+                            >luan.maitan@hotmail.com</a
+                        >
                     </li>
                     <li>
                         <a
                             href="https://maitan.org"
                             class="hover:text-black dark:hover:text-white transition-colors"
-                            >maitan.org</a>
+                            >maitan.org</a
+                        >
                     </li>
                 </ul>
             </div>

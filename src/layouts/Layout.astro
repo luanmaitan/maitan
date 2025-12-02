@@ -123,17 +123,10 @@ const currentPath = Astro.url.pathname;
                     <div class="mb-6">
                         <Search client:load variant="desktop" />
                     </div>
-                    <div class="flex flex-col gap-1 colophon">
-                        <a
-                            href="/colophon"
-                            class="hover:text-black dark:hover:text-white transition-colors"
-                            >colophon</a
-                        >
-                    </div>
                     <div
                         class="mt-4 text-black dark:text-white text-sm font-medium"
                     >
-                        <FooterInfo client:load />
+                        <FooterInfo client:load showColophon={true} />
                     </div>
                 </div>
             </aside>
@@ -161,7 +154,7 @@ const currentPath = Astro.url.pathname;
                                         class="text-[15px] font-medium text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white whitespace-nowrap transition-colors lowercase"
                                     >
                                         {item.name}
-                                        <sup class="text-[9px] text-neutral-400 ml-0.5">
+                                        <sup class="text-[9px] text-[var(--c-vermilion)] ml-0.5">
                                             {String(item.count).padStart(
                                                 2,
                                                 "0",
@@ -217,7 +210,7 @@ const currentPath = Astro.url.pathname;
                 class="flex justify-between items-center text-black dark:text-white"
             >
                 <div class="flex items-center">
-                    <FooterInfo client:load />
+                    <FooterInfo client:load orientation="horizontal" />
                 </div>
                 <div class="flex gap-4 text-xs font-mono">
                     <a

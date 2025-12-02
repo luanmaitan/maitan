@@ -1,6 +1,9 @@
 <script>
     import { onMount, onDestroy } from "svelte";
 
+    export let orientation = "vertical"; // "vertical" | "horizontal"
+    export let showColophon = false;
+
     let timeString = "";
     let weatherTemp = "";
     let interval;
@@ -37,7 +40,9 @@
     });
 </script>
 
-<div class="flex flex-col items-start gap-2 text-xs font-mono">
+<div
+    class={`flex ${orientation === "horizontal" ? "flex-row items-center gap-4" : "flex-col items-start gap-2"} text-xs font-mono`}
+>
     <!-- Clock -->
     <a
         href="/calendario"
@@ -61,7 +66,45 @@
     </a>
 
     <!-- Weather -->
-    {#if weatherTemp}
+    {#if orientation === "vertical" && showColophon}
+        <div class="flex items-center gap-1">
+            {#if weatherTemp}
+                <a
+                    href="/clima"
+                    class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer text-black dark:text-white"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path
+                            d="M17.5 19c0-1.7-1.3-3-3-3h-11c-1.7 0-3 1.3-3 3s1.3 3 3 3h11c1.7 0 3-1.3 3-3z"
+                        ></path>
+                        <path d="M3.5 16a6 6 0 1 1 11.3-2.5"></path>
+                        <line x1="12" y1="3" x2="12" y2="5"></line>
+                        <line x1="12" y1="9" x2="12" y2="9.01"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="19.78" y1="4.22" x2="18.36" y2="5.64"></line>
+                    </svg>
+                    <span>{weatherTemp}</span>
+                </a>
+                <span class="text-neutral-300 dark:text-neutral-700">•</span>
+            {/if}
+            <a
+                href="/colophon"
+                class="hover:opacity-70 transition-opacity cursor-pointer text-black dark:text-white"
+            >
+                colophon
+            </a>
+        </div>
+    {:else if weatherTemp}
         <a
             href="/clima"
             class="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer text-black dark:text-white"

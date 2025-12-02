@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageNav from "../../components/PageNav.astro";
 import { getCollection } from "astro:content";
 
 const allNotes = await getCollection("escritorio");
@@ -14,64 +15,31 @@ function getReadingTime(content: string) {
   return `${minutes} min de leitura`;
 }
 
-const counts = {
-    'ensaios': allNotes.filter(n => n.data.category === 'ensaios').length,
-    'dramaturgia': allNotes.filter(n => n.data.category === 'dramaturgia').length,
-    'poesia': allNotes.filter(n => n.data.category === 'poesia').length,
-    'autoficcoes': allNotes.filter(n => n.data.category === 'autoficcoes').length,
-    'impressoes': allNotes.filter(n => n.data.category === 'impressoes').length,
-    'traducoes': allNotes.filter(n => n.data.category === 'traducoes').length,
-};
-
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Traduções">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
-      <a href="/escritorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
-        ← voltar
-      </a>
-      
-      {[
-        { name: 'ensaios', href: '/escritorio/ensaios', count: counts.ensaios },
-        { name: 'dramaturgia', href: '/escritorio/dramaturgia', count: counts.dramaturgia },
-        { name: 'poesia', href: '/escritorio/poesia', count: counts.poesia },
-        { name: 'autoficções', href: '/escritorio/autoficcoes', count: counts.autoficcoes },
-        { name: 'impressões', href: '/escritorio/impressoes', count: counts.impressoes },
-        { name: 'traduções', href: '/escritorio/traducoes', count: counts.traducoes },
-      ].map((item) => {
-        const isActive = currentPath === item.href;
-        return (
-        <a
-            href={item.href}
-            class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
-        >
-            <span class:list={[
-                "text-[15px] font-medium lowercase leading-[18px] tracking-[-0.045px]",
-                isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-            ]}>{item.name}</span>
-            <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0">
-                {String(item.count).padStart(2, '0')}
-            </span>
-        </a>
-      )})}
-    </nav>
-  </div>
+  <!-- Sidebar removed -->
 
   <section class="space-y-12">
-    <header class="hidden lg:block">
-      <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase">
+    <header>
+      <h1
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+      >
         traduções
       </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-        Traduções e adaptações de textos.
-      </p>
     </header>
-    <header class="lg:hidden">
-        <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2">traduções</h1>
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Traduções e adaptações de textos.</p>
-    </header>
+
+    <PageNav
+      items={[
+        { label: "ensaios", href: "/escritorio/ensaios" },
+        { label: "dramaturgia", href: "/escritorio/dramaturgia" },
+        { label: "poesia", href: "/escritorio/poesia" },
+        { label: "autoficções", href: "/escritorio/autoficcoes" },
+        { label: "impressões", href: "/escritorio/impressoes" },
+        { label: "traduções", href: "/escritorio/traducoes", active: true },
+      ]}
+    />
 
     <div class="space-y-12">
       {

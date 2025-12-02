@@ -1,33 +1,26 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageNav from "../../components/PageNav.astro";
 ---
 
 <Layout title="Maitan Hub | Colophon" sidebarLayout={false}>
   <!-- Sidebar Menu (Anchors) -->
-  <div slot="sidebar">
-    <a href="/" class="nav-item mb-4">
-      <span class="nav-text">← voltar</span>
-    </a>
-    <div class="flex flex-col gap-2">
-      <a href="/colophon/design-system" class="nav-item"
-        ><span class="nav-text">design system</span></a
-      >
-      <a href="/policy" class="nav-item"
-        ><span class="nav-text">políticas</span></a
-      >
-      <a href="#licenca" class="nav-item"
-        ><span class="nav-text">licença</span></a
-      >
-      <a href="#historico" class="nav-item"
-        ><span class="nav-text">histórico</span></a
-      >
-    </div>
-  </div>
+  <!-- Sidebar removed -->
 
   <header class="article-header">
-    <span class="category-link">bastidores</span>
-    <h1 class="display-title">colophon</h1>
-    <div class="meta-date">Atualizado em Novembro 2025</div>
+    <h1
+      class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+    >
+      colophon
+    </h1>
+    <PageNav
+      items={[
+        { label: "colophon", href: "/colophon", active: true },
+        { label: "design system", href: "/colophon/design-system" },
+        { label: "políticas", href: "/policy" },
+        { label: "changelog", href: "/colophon/changelog" },
+      ]}
+    />
   </header>
 
   <div class="article-grid">

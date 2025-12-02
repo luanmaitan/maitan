@@ -1,16 +1,16 @@
 <script>
     import { slide } from "svelte/transition";
-    import { navigation } from "../lib/navigation"; 
+    import { navigation } from "../lib/navigation";
 
     export let currentPath = "";
 
     // Hardcoded counts for now to match layout logic (client-side limitation)
     // Ideally this would be passed from layout props, but keeping it simple for now
     const counts = {
-        '/escritorio': '06',
-        '/observatorio': '04',
-        '/laboratorio': '01',
-        '/portfolio': '01',
+        "/escritorio": "06",
+        "/observatorio": "04",
+        "/laboratorio": "01",
+        "/portfolio": "01",
     };
 
     let isOpen = false;
@@ -23,7 +23,7 @@
 <div class="md:hidden">
     <button
         on:click={toggle}
-        class="p-2 text-neutral-600 hover:text-neutral-900 focus:outline-none"
+        class="p-2 text-neutral-600 hover:text-neutral-900 focus:outline-none border-none"
         aria-label="Menu"
     >
         {#if isOpen}
@@ -75,47 +75,51 @@
                 {@const isActive = currentPath.startsWith(item.href)}
                 <a
                     href={item.href}
-                    class="flex items-center justify-between text-lg font-medium hover:text-black dark:hover:text-white {isActive ? 'text-black dark:text-white' : 'text-neutral-600 dark:text-neutral-300'}"
+                    class="flex items-center justify-between text-lg font-medium hover:text-black dark:hover:text-white {isActive
+                        ? 'text-black dark:text-white'
+                        : 'text-neutral-600 dark:text-neutral-300'}"
                     on:click={toggle}
                 >
                     <span class="lowercase">{item.name}</span>
-                    <span class="text-sm text-neutral-400 dark:text-neutral-600">{counts[item.href] || '00'}</span>
+                    <span class="text-sm text-neutral-400 dark:text-neutral-600"
+                        >{counts[item.href] || "00"}</span
+                    >
                 </a>
             {/each}
-            
+
             {#if typeof window !== "undefined" && window.location.pathname.startsWith("/observatorio")}
-                    <div
-                        class="flex flex-col gap-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 ml-1"
-                        transition:slide
+                <div
+                    class="flex flex-col gap-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 ml-1"
+                    transition:slide
+                >
+                    <a
+                        href="/observatorio/livros"
+                        class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
+                        on:click={toggle}>livros</a
                     >
-                        <a
-                            href="/observatorio/livros"
-                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
-                            on:click={toggle}>livros</a
-                        >
-                        <a
-                            href="/observatorio/filmes"
-                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
-                            on:click={toggle}>filmes</a
-                        >
-                         <a
-                            href="/observatorio/citacoes"
-                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
-                            on:click={toggle}>citações</a
-                        >
-                        <a
-                            href="/observatorio/links"
-                            class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
-                            on:click={toggle}>links</a
-                        >
-                    </div>
+                    <a
+                        href="/observatorio/filmes"
+                        class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
+                        on:click={toggle}>filmes</a
+                    >
+                    <a
+                        href="/observatorio/citacoes"
+                        class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
+                        on:click={toggle}>citações</a
+                    >
+                    <a
+                        href="/observatorio/links"
+                        class="text-base text-neutral-500 hover:text-black dark:hover:text-white lowercase"
+                        on:click={toggle}>links</a
+                    >
+                </div>
             {/if}
 
             <hr class="border-neutral-200 dark:border-neutral-800" />
-            
+
             <!-- Expanded Mobile Footer Links -->
             <div class="flex flex-col gap-3">
-                 <a
+                <a
                     href="/colophon"
                     class="text-[15px] font-medium text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase"
                     on:click={toggle}>colophon</a

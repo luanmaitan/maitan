@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageNav from "../../components/PageNav.astro";
 import { getQuotes } from "../../lib/citacoes";
 
 let quotes = [];
@@ -7,7 +8,7 @@ let allTags: Record<string, number> = {};
 
 try {
     quotes = await getQuotes();
-    
+
     // Extract tags
     quotes.forEach((quote: any) => {
         if (quote.tags) {
@@ -25,162 +26,166 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Maitan Hub | Citações">
-  <div slot="sidebar" class="w-full flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8">
-    <div class="flex flex-col gap-8 md:flex-row md:items-center md:gap-6 lg:flex-col lg:items-start lg:gap-8 w-full">
-        <nav class="flex flex-col gap-2 md:flex-row md:gap-6 lg:flex-col lg:gap-2 w-full md:w-auto">
-            <a href="/observatorio" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0">
-                ← voltar
-            </a>
-    
-            {[
-                { name: 'livros', href: '/observatorio/livros', count: '—' },
-                { name: 'filmes', href: '/observatorio/filmes', count: '—' },
-                { name: 'citações', href: '/observatorio/citacoes', count: quotes.length },
-                { name: 'links', href: '/observatorio/links', count: '—' },
-            ].map((item, i) => {
-                const isActive = currentPath === item.href;
-                return (
-                <a
-                    href={item.href}
-                    class="group flex flex-col md:flex-row md:items-center md:gap-2 lg:flex-col lg:items-start lg:gap-0"
-                >
-                    <span class:list={[
-                        "text-[15px] font-bold lowercase leading-[18px] tracking-tight",
-                        isActive ? "text-black dark:text-white" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
-                    ]}>
-                        <span class="text-[10px] text-neutral-300 dark:text-neutral-600 mr-1 font-mono">{String(i + 1).padStart(2, '0')}</span>
-                        {item.name}
-                    </span>
-                    <span class="text-[12px] text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 leading-tight mt-1 md:mt-0 md:ml-1 lg:mt-1 lg:ml-0 hidden lg:block">
-                        {item.count !== '—' ? String(item.count).padStart(2, '0') : '—'}
-                    </span>
-                </a>
-            )})}
-        </nav>
+    <!-- Sidebar removed -->
 
-        <!-- Filters (Tags) -->
-        {tags.length > 0 && (
-            <div class="flex flex-col gap-2 w-full">
-                <span class="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 hidden lg:block">
-                    Filtros
-                </span>
-                <!-- Changed flex-nowrap to flex-wrap to allow wrapping -->
-                <div class="flex flex-wrap gap-x-3 gap-y-2 pb-2 md:pb-0">
-                    <a href="#" data-tag="all" class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap">
-                        todos
-                    </a>
-                    {tags.map(([tag, count]) => (
-                        <a href={`#${tag}`} data-tag={tag} class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap">
-                            #{tag} <span class="text-neutral-300 dark:text-neutral-600">({count})</span>
+    <section class="space-y-12">
+        <header>
+            <h1
+                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+            >
+                citações
+            </h1>
+        </header>
+
+        <PageNav
+            items={[
+                { label: "livros", href: "/observatorio/livros" },
+                { label: "filmes", href: "/observatorio/filmes" },
+                {
+                    label: "citações",
+                    href: "/observatorio/citacoes",
+                    active: true,
+                },
+                { label: "links", href: "/observatorio/links" },
+            ]}
+        />
+
+        <!-- Filters (Tags) Moved Here -->
+        {
+            tags.length > 0 && (
+                <div class="flex flex-col gap-2 w-full mb-8">
+                    <div class="flex flex-wrap gap-x-3 gap-y-2">
+                        <a
+                            href="#"
+                            data-tag="all"
+                            class="filter-tag text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
+                        >
+                            todos
                         </a>
+                        {tags.map(([tag, count]) => (
+                            <a
+                                href={`#${tag}`}
+                                data-tag={tag}
+                                class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                            >
+                                #{tag}{" "}
+                                <span class="text-neutral-300 dark:text-neutral-600">
+                                    ({count})
+                                </span>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+
+        {
+            quotes.length === 0 ? (
+                <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
+                    <p class="text-neutral-400 dark:text-neutral-500 italic">
+                        Nenhuma citação encontrada.
+                    </p>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 gap-12">
+                    {quotes.map((quote: any, index: number) => (
+                        <blockquote
+                            class="quote-item relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group"
+                            data-tags={quote.tags ? quote.tags.join(",") : ""}
+                        >
+                            <span class="absolute top-0 right-0 text-xs font-mono text-neutral-200 dark:text-neutral-800">
+                                {String(index + 1).padStart(2, "0")}
+                            </span>
+
+                            <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 leading-relaxed italic mb-4">
+                                "{quote.text}"
+                            </p>
+                            <footer class="flex flex-col gap-1">
+                                <cite class="text-sm font-medium text-neutral-900 dark:text-white not-italic group-hover:text-primary transition-colors">
+                                    {quote.author}
+                                </cite>
+                                {quote.source && (
+                                    <span class="text-xs text-neutral-500 dark:text-neutral-500">
+                                        {quote.source}
+                                    </span>
+                                )}
+                                {quote.tags && quote.tags.length > 0 && (
+                                    <div class="flex gap-2 mt-2">
+                                        {quote.tags.map((tag: string) => (
+                                            <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase">
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </footer>
+                        </blockquote>
                     ))}
                 </div>
-            </div>
-        )}
-    </div>
-  </div>
-
-  <section class="space-y-12">
-    <header class="hidden lg:block">
-      <h1 class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase">
-        citações
-      </h1>
-      <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-        Coleção de trechos memoráveis e pensamentos.
-      </p>
-    </header>
-    <header class="lg:hidden">
-        <h1 class="text-3xl font-medium text-black dark:text-white lowercase leading-tight mb-2">citações</h1>
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Coleção de trechos memoráveis e pensamentos.</p>
-    </header>
-
-    {quotes.length === 0 ? (
-        <div class="py-12 text-center border-y border-neutral-100 dark:border-neutral-800">
-            <p class="text-neutral-400 dark:text-neutral-500 italic">
-            Nenhuma citação encontrada.
-            </p>
-        </div>
-    ) : (
-        <div class="grid grid-cols-1 gap-12">
-            {quotes.map((quote: any, index: number) => (
-                <blockquote 
-                    class="quote-item relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors group"
-                    data-tags={quote.tags ? quote.tags.join(',') : ''}
-                >
-                    <span class="absolute top-0 right-0 text-xs font-mono text-neutral-200 dark:text-neutral-800">
-                        {String(index + 1).padStart(2, '0')}
-                    </span>
-
-                    <p class="text-lg md:text-xl text-neutral-800 dark:text-neutral-300 leading-relaxed italic mb-4">
-                        "{quote.text}"
-                    </p>
-                    <footer class="flex flex-col gap-1">
-                        <cite class="text-sm font-medium text-neutral-900 dark:text-white not-italic group-hover:text-primary transition-colors">
-                            {quote.author}
-                        </cite>
-                        {quote.source && (
-                            <span class="text-xs text-neutral-500 dark:text-neutral-500">
-                                {quote.source}
-                            </span>
-                        )}
-                        {quote.tags && quote.tags.length > 0 && (
-                            <div class="flex gap-2 mt-2">
-                                {quote.tags.map((tag: string) => (
-                                    <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase">#{tag}</span>
-                                ))}
-                            </div>
-                        )}
-                    </footer>
-                </blockquote>
-            ))}
-        </div>
-    )}
-  </section>
+            )
+        }
+    </section>
 </Layout>
 
 <script>
-  // Filter Logic
-  const filterTags = document.querySelectorAll('.filter-tag');
-  const quoteItems = document.querySelectorAll('.quote-item');
+    // Filter Logic
+    const filterTags = document.querySelectorAll(".filter-tag");
+    const quoteItems = document.querySelectorAll(".quote-item");
 
-  function filterQuotes(selectedTag) {
-    quoteItems.forEach(item => {
-      const itemTags = (item as HTMLElement).dataset.tags?.split(',') || [];
-      if (selectedTag === 'all' || itemTags.includes(selectedTag)) {
-        (item as HTMLElement).style.display = 'block';
-      } else {
-        (item as HTMLElement).style.display = 'none';
-      }
+    function filterQuotes(selectedTag) {
+        quoteItems.forEach((item) => {
+            const itemTags =
+                (item as HTMLElement).dataset.tags?.split(",") || [];
+            if (selectedTag === "all" || itemTags.includes(selectedTag)) {
+                (item as HTMLElement).style.display = "block";
+            } else {
+                (item as HTMLElement).style.display = "none";
+            }
+        });
+
+        // Update active state
+        filterTags.forEach((tag) => {
+            const tagValue = (tag as HTMLElement).dataset.tag;
+            if (tagValue === selectedTag) {
+                tag.classList.remove(
+                    "text-neutral-500",
+                    "dark:text-neutral-400",
+                );
+                tag.classList.add(
+                    "text-black",
+                    "dark:text-white",
+                    "font-medium",
+                );
+            } else {
+                tag.classList.add("text-neutral-500", "dark:text-neutral-400");
+                tag.classList.remove(
+                    "text-black",
+                    "dark:text-white",
+                    "font-medium",
+                );
+            }
+        });
+    }
+
+    filterTags.forEach((tag) => {
+        tag.addEventListener("click", (e) => {
+            e.preventDefault();
+            const selectedTag = (e.currentTarget as HTMLElement).dataset.tag;
+            if (selectedTag) {
+                filterQuotes(selectedTag);
+                // Update URL hash without scrolling
+                history.replaceState(
+                    null,
+                    "",
+                    selectedTag === "all" ? " " : `#${selectedTag}`,
+                );
+            }
+        });
     });
 
-    // Update active state
-    filterTags.forEach(tag => {
-      const tagValue = (tag as HTMLElement).dataset.tag;
-      if (tagValue === selectedTag) {
-        tag.classList.remove('text-neutral-500', 'dark:text-neutral-400');
-        tag.classList.add('text-black', 'dark:text-white', 'font-medium');
-      } else {
-        tag.classList.add('text-neutral-500', 'dark:text-neutral-400');
-        tag.classList.remove('text-black', 'dark:text-white', 'font-medium');
-      }
-    });
-  }
-
-  filterTags.forEach(tag => {
-    tag.addEventListener('click', (e) => {
-      e.preventDefault();
-      const selectedTag = (e.currentTarget as HTMLElement).dataset.tag;
-      if (selectedTag) {
-        filterQuotes(selectedTag);
-        // Update URL hash without scrolling
-        history.replaceState(null, '', selectedTag === 'all' ? ' ' : `#${selectedTag}`);
-      }
-    });
-  });
-
-  // Check initial hash
-  const initialHash = window.location.hash.slice(1);
-  if (initialHash) {
-    filterQuotes(decodeURIComponent(initialHash));
-  }
+    // Check initial hash
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        filterQuotes(decodeURIComponent(initialHash));
+    }
 </script>

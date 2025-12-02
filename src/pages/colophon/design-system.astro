@@ -1,12 +1,27 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageNav from "../../components/PageNav.astro";
 ---
 
 <Layout title="Design System">
     <header class="article-header">
-        <span class="category-link">sistema</span>
-        <div class="meta-date">v.1.0.2</div>
-        <h1 class="display-title">design system <br />showcase</h1>
+        <h1
+            class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+        >
+            design system
+        </h1>
+        <PageNav
+            items={[
+                { label: "colophon", href: "/colophon" },
+                {
+                    label: "design system",
+                    href: "/colophon/design-system",
+                    active: true,
+                },
+                { label: "políticas", href: "/policy" },
+                { label: "changelog", href: "/colophon/changelog" },
+            ]}
+        />
     </header>
 
     <div class="article-grid">
@@ -106,6 +121,83 @@ import Layout from "../../layouts/Layout.astro";
                     <button class="btn-primary">ação principal</button>
                     <button class="btn-ghost">secundária</button>
                 </div>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">04. elementos de navegação</h2>
+
+            <p class="body-text">
+                A navegação é dividida em três níveis distintos, cada um com sua
+                função semântica e visual específica.
+            </p>
+
+            <h3 class="subsection-title">submenu de página</h3>
+            <p class="body-text">
+                Utilizado para navegar entre subpáginas de uma mesma seção (ex:
+                Observatório, Escritório). É renderizado pelo componente <code
+                    >PageNav</code
+                > e aparece logo abaixo do título principal.
+            </p>
+            <div class="mb-8">
+                <PageNav
+                    items={[
+                        { label: "item ativo", href: "#", active: true },
+                        { label: "item inativo", href: "#" },
+                        { label: "outro item", href: "#" },
+                    ]}
+                />
+            </div>
+
+            <h3 class="subsection-title">table of contents (toc)</h3>
+            <p class="body-text">
+                Links de âncora para seções dentro da mesma página (ex:
+                Currículo, Políticas). Utiliza o mesmo componente <code
+                    >PageNav</code
+                >, mas com comportamento de scroll suave.
+            </p>
+            <div class="mb-8">
+                <PageNav
+                    items={[
+                        { label: "introdução", href: "#intro" },
+                        { label: "desenvolvimento", href: "#dev" },
+                        { label: "conclusão", href: "#conc" },
+                    ]}
+                />
+            </div>
+
+            <h3 class="subsection-title">filtros dinâmicos</h3>
+            <p class="body-text">
+                Tags ou botões que filtram o conteúdo exibido na página sem
+                recarregá-la (ex: Links, Portfólio). Visualmente distintos,
+                geralmente menores ou com contadores.
+            </p>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 mb-8">
+                <a
+                    href="#"
+                    class="text-[13px] text-black dark:text-white font-medium transition-colors lowercase whitespace-nowrap"
+                >
+                    todos
+                </a>
+                <a
+                    href="#"
+                    class="group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                >
+                    categoria a
+                    <span
+                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5"
+                        >05</span
+                    >
+                </a>
+                <a
+                    href="#"
+                    class="group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
+                >
+                    categoria b
+                    <span
+                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5"
+                        >12</span
+                    >
+                </a>
             </div>
         </article>
 

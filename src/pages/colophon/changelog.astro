@@ -1,7 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageNav from "../../components/PageNav.astro";
 
 const updates = [
+  {
+    version: "0.2.0",
+    id: "v-0-2-0",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "refinamento de interface e padronização",
+    description:
+      "padronização completa dos cabeçalhos (remoção de descrições e divisórias), correção crítica na visibilidade do ícone de busca, integração do link colophon ao widget de clima no rodapé e atualização da documentação de navegação no design system.",
+    tags: ["ui", "design system", "search", "layout", "refactor"],
+  },
   {
     version: "0.1.9",
     id: "v-0-1-9",
@@ -218,63 +235,24 @@ const updates = [
 ---
 
 <Layout title="Maitan Hub | Changelog">
-  <div slot="sidebar" class="flex flex-col gap-8">
-    <nav class="flex flex-col gap-2">
-      <a
-        href="/colophon"
-        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
-      >
-        ← voltar
-      </a>
-
-      <div
-        class="flex flex-col gap-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-hide"
-      >
-        {
-          updates.map((update) => (
-            <a
-              href={`#${update.id}`}
-              class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase relative group flex items-center justify-between"
-            >
-              {update.version}
-              <sup class="text-[10px] text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors ml-0.5 opacity-0 group-hover:opacity-100">
-                ↓
-              </sup>
-            </a>
-          ))
-        }
-      </div>
-    </nav>
-  </div>
+  <!-- Sidebar removed -->
 
   <section class="space-y-16">
     <header>
       <h1
-        class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white mb-4 lowercase"
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
       >
         changelog
       </h1>
-      <ul
-        class="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 text-sm marker:text-neutral-300 dark:marker:text-neutral-700"
-      >
-        <li>
-          <strong>Tipografia:</strong> Adoção da família Geist (Sans e Mono) com
-          uso estratégico de pesos Black e Bold para contraste.
-        </li>
-        <li>
-          <strong>Estrutura:</strong> Remoção de arredondamentos (border-radius:
-          0) e sombras, priorizando bordas sólidas e grades visíveis.
-        </li>
-        <li>
-          <strong>Layout:</strong> Sidebar sólida (sem transparência) com busca reposicionada
-          para o rodapé, criando uma hierarquia mais lógica.
-        </li>
-        <li>
-          <strong>Obsidian:</strong> Configuração otimizada para integração direta
-          com notas do Obsidian (wikilinks e schema flexível).
-        </li>
-      </ul>
     </header>
+    <PageNav
+      items={[
+        { label: "colophon", href: "/colophon" },
+        { label: "design system", href: "/colophon/design-system" },
+        { label: "políticas", href: "/policy" },
+        { label: "changelog", href: "/colophon/changelog", active: true },
+      ]}
+    />
 
     <div class="space-y-12">
       {

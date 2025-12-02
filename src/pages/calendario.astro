@@ -1,6 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getEvents, formatEventForCalendar, CATEGORIES } from '../lib/calendario';
+import Layout from "../layouts/Layout.astro";
+import {
+    getEvents,
+    formatEventForCalendar,
+    CATEGORIES,
+} from "../lib/calendario";
 
 // Carrega eventos
 const events = getEvents();
@@ -8,109 +12,114 @@ const formattedEvents = events.map(formatEventForCalendar);
 ---
 
 <!-- Carrega FullCalendar Global Bundle (solução mais robusta para evitar problemas de bundler client-side) -->
-<script is:inline src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+<script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"
+></script>
 
 <Layout title="Maitan Hub | Calendário">
     <!-- Sidebar Slot: Filtros -->
-    <div slot="sidebar" class="w-full flex flex-col gap-6 md:flex-row md:items-center lg:flex-col lg:items-start">
-        <a href="/" class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4 md:mb-0 hidden lg:block">
-            ← voltar
-        </a>
-        
-        <!-- Filtros -->
-        <div class="flex flex-col gap-6 w-full md:flex-row md:items-center lg:flex-col lg:items-start md:w-auto">
-            <!-- Filtros de Categorias -->
-            <div class="space-y-2 w-full md:w-auto">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 block mb-2 lg:mb-0">Categorias</span>
-                <div class="flex flex-wrap gap-2 md:flex-nowrap lg:flex-wrap">
-                    <button 
+    <!-- Sidebar removed -->
+
+    <!-- Main Content -->
+    <section class="h-full min-h-[700px] flex flex-col gap-8 relative">
+        <header class="space-y-4">
+            <h1
+                class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+            >
+                calendário
+            </h1>
+
+            <!-- Filtros (Moved from Sidebar) -->
+            <div class="pt-4">
+                <div class="flex flex-wrap gap-2 items-center">
+                    <button
                         id="filter-all"
                         class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 border border-transparent bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium filter-btn active whitespace-nowrap"
                         data-category="all"
                     >
                         Todas
                     </button>
-                    {Object.entries(CATEGORIES).map(([key, category]) => (
-                        <button
-                            class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent filter-btn whitespace-nowrap"
-                            data-category={key}
-                            style={`--category-color: ${category.color}`}
-                        >
-                            <span class="w-2 h-2 rounded-full shrink-0" style={`background-color: ${category.color}`}></span>
-                            {category.name}
-                        </button>
-                    ))}
+                    {
+                        Object.entries(CATEGORIES).map(([key, category]) => (
+                            <button
+                                class="px-3 py-1.5 rounded-full text-sm transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 border border-transparent filter-btn whitespace-nowrap"
+                                data-category={key}
+                                style={`--category-color: ${category.color}`}
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full shrink-0"
+                                    style={`background-color: ${category.color}`}
+                                />
+                                {category.name}
+                            </button>
+                        ))
+                    }
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <section class="h-full min-h-[700px] flex flex-col gap-8 relative">
-        <header class="space-y-4">
-            <h1 class="text-[60px] leading-[1.1] tracking-[-0.6px] font-medium text-black dark:text-white lowercase">calendário</h1>
-            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
-                Organize seus eventos, compromissos e atividades em um calendário interativo.
-            </p>
         </header>
 
         <!-- Calendário Wrapper -->
-        <div class="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-sm overflow-hidden shadow-sm">
+        <div
+            class="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-sm overflow-hidden shadow-sm"
+        >
             <div id="calendar" class="p-4 min-h-[600px]"></div>
         </div>
     </section>
 </Layout>
 
 <script define:vars={{ eventsData: formattedEvents }}>
-    document.addEventListener('DOMContentLoaded', () => {
-        const calendarEl = document.getElementById('calendar');
-        
+    document.addEventListener("DOMContentLoaded", () => {
+        const calendarEl = document.getElementById("calendar");
+
         // Verificação de segurança se FullCalendar foi carregado
-        if (typeof FullCalendar === 'undefined') {
-            console.error('FullCalendar not loaded properly.');
-            if (calendarEl) calendarEl.innerHTML = '<div class="p-4 text-red-500">Erro ao carregar calendário. Por favor, recarregue a página.</div>';
+        if (typeof FullCalendar === "undefined") {
+            console.error("FullCalendar not loaded properly.");
+            if (calendarEl)
+                calendarEl.innerHTML =
+                    '<div class="p-4 text-red-500">Erro ao carregar calendário. Por favor, recarregue a página.</div>';
             return;
         }
 
         if (!calendarEl) {
-            console.error('Calendar element not found');
+            console.error("Calendar element not found");
             return;
         }
 
         try {
             const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                initialView: "dayGridMonth",
                 initialDate: new Date(),
-                locale: 'pt-br',
+                locale: "pt-br",
                 headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,multiMonthYear'
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,multiMonthYear",
                 },
                 buttonText: {
-                    today: 'hoje',
-                    month: 'mês',
-                    week: 'semana',
-                    year: 'ano',
-                    list: 'lista'
+                    today: "hoje",
+                    month: "mês",
+                    week: "semana",
+                    year: "ano",
+                    list: "lista",
                 },
                 firstDay: 1, // Segunda-feira
                 events: eventsData,
-                eventClick: function(info) {
+                eventClick: function (info) {
                     const event = info.event;
                     const props = event.extendedProps;
-                    
-                    const category = props.category || 'Geral';
-                    const description = props.description || '';
-                    
+
+                    const category = props.category || "Geral";
+                    const description = props.description || "";
+
                     let details = `\n\nCategoria: ${category}`;
-                    if(description) details += `\n\n${description}`;
-                    
+                    if (description) details += `\n\n${description}`;
+
                     alert(`${event.title}${details}`);
                 },
-                eventDisplay: 'block',
-                height: 'auto',
-                contentHeight: 'auto',
+                eventDisplay: "block",
+                height: "auto",
+                contentHeight: "auto",
                 aspectRatio: 1.8,
                 dayMaxEvents: true,
             });
@@ -118,41 +127,56 @@ const formattedEvents = events.map(formatEventForCalendar);
             calendar.render();
 
             // Filtros
-            const categoryFilters = document.querySelectorAll('.filter-btn');
-            let activeCategory = 'all';
+            const categoryFilters = document.querySelectorAll(".filter-btn");
+            let activeCategory = "all";
 
             function applyFilters() {
                 const allEvents = calendar.getEvents();
-                
-                allEvents.forEach(event => {
+
+                allEvents.forEach((event) => {
                     const props = event.extendedProps;
-                    const eventCategory = props.category || '';
-                    
+                    const eventCategory = props.category || "";
+
                     let show = true;
-                    if (activeCategory !== 'all' && eventCategory !== activeCategory) show = false;
-                    
+                    if (
+                        activeCategory !== "all" &&
+                        eventCategory !== activeCategory
+                    )
+                        show = false;
+
                     if (show) {
-                        event.setProp('display', 'auto');
+                        event.setProp("display", "auto");
                     } else {
-                        event.setProp('display', 'none');
+                        event.setProp("display", "none");
                     }
                 });
             }
 
-            categoryFilters.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    activeCategory = category || 'all';
-                    
-                    categoryFilters.forEach(b => b.classList.remove('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium'));
-                    this.classList.add('active', 'bg-neutral-100', 'dark:bg-neutral-800', 'font-medium');
-                    
+            categoryFilters.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const category = this.getAttribute("data-category");
+                    activeCategory = category || "all";
+
+                    categoryFilters.forEach((b) =>
+                        b.classList.remove(
+                            "active",
+                            "bg-neutral-100",
+                            "dark:bg-neutral-800",
+                            "font-medium",
+                        ),
+                    );
+                    this.classList.add(
+                        "active",
+                        "bg-neutral-100",
+                        "dark:bg-neutral-800",
+                        "font-medium",
+                    );
+
                     applyFilters();
                 });
             });
-
         } catch (e) {
-            console.error('Error initializing calendar:', e);
+            console.error("Error initializing calendar:", e);
         }
     });
 </script>
@@ -163,17 +187,17 @@ const formattedEvents = events.map(formatEventForCalendar);
         font-family: inherit;
         --fc-border-color: rgb(229 229 229);
         --fc-page-bg-color: transparent;
-        --fc-neutral-bg-color: rgba(0,0,0,0.03);
-        --fc-list-event-hover-bg-color: rgba(0,0,0,0.05);
-        --fc-today-bg-color: rgba(0,0,0,0.03); 
+        --fc-neutral-bg-color: rgba(0, 0, 0, 0.03);
+        --fc-list-event-hover-bg-color: rgba(0, 0, 0, 0.05);
+        --fc-today-bg-color: rgba(0, 0, 0, 0.03);
     }
 
     .dark :global(.fc) {
         --fc-border-color: rgb(38 38 38);
         --fc-page-bg-color: transparent;
-        --fc-neutral-bg-color: rgba(255,255,255,0.05);
-        --fc-list-event-hover-bg-color: rgba(255,255,255,0.1);
-        --fc-today-bg-color: rgba(255,255,255,0.05);
+        --fc-neutral-bg-color: rgba(255, 255, 255, 0.05);
+        --fc-list-event-hover-bg-color: rgba(255, 255, 255, 0.1);
+        --fc-today-bg-color: rgba(255, 255, 255, 0.05);
     }
 
     /* Toolbar */
@@ -202,7 +226,7 @@ const formattedEvents = events.map(formatEventForCalendar);
 
     :global(.fc-button:hover) {
         color: rgb(23 23 23) !important;
-        background-color: rgba(0,0,0,0.05) !important;
+        background-color: rgba(0, 0, 0, 0.05) !important;
     }
 
     :global(.fc-button-active) {
@@ -215,7 +239,7 @@ const formattedEvents = events.map(formatEventForCalendar);
     }
     .dark :global(.fc-button:hover) {
         color: white !important;
-        background-color: rgba(255,255,255,0.1) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
     }
     .dark :global(.fc-button-active) {
         background-color: white !important;
@@ -232,7 +256,7 @@ const formattedEvents = events.map(formatEventForCalendar);
         background-color: transparent !important;
         position: relative;
     }
-    
+
     /* Create a marked visual for today */
     :global(.fc-daygrid-day.fc-day-today .fc-daygrid-day-number) {
         background-color: rgb(23 23 23);
@@ -255,7 +279,7 @@ const formattedEvents = events.map(formatEventForCalendar);
     :global(.fc-event) {
         border: none !important;
         border-radius: 2px !important;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         padding: 2px 4px !important;
     }
 
@@ -267,7 +291,7 @@ const formattedEvents = events.map(formatEventForCalendar);
     .dark :global(.fc-col-header-cell) {
         background-color: rgb(23 23 23);
     }
-    
+
     :global(.fc-col-header-cell-cushion) {
         text-transform: lowercase;
         font-weight: 500 !important;
@@ -281,11 +305,11 @@ const formattedEvents = events.map(formatEventForCalendar);
     }
 
     /* Grid lines */
-    :global(.fc-theme-standard td), 
+    :global(.fc-theme-standard td),
     :global(.fc-theme-standard th) {
         border-color: rgb(245 245 245) !important; /* Very light gray */
     }
-    .dark :global(.fc-theme-standard td), 
+    .dark :global(.fc-theme-standard td),
     .dark :global(.fc-theme-standard th) {
         border-color: rgb(38 38 38) !important;
     }

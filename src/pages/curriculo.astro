@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageNav from "../components/PageNav.astro";
 
 const experience = [
   {
@@ -150,56 +151,30 @@ const languages = [
 ---
 
 <Layout title="Maitan Hub | Currículo" sidebarLayout={false}>
-  <div slot="sidebar" class="w-full">
-    <nav class="flex flex-col gap-4">
-      <a
-        href="/"
-        class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 hover:text-black dark:hover:text-white transition-colors lowercase mb-4"
-      >
-        ← voltar
-      </a>
-      <div class="flex flex-col gap-2">
-        <a
-          href="#resumo"
-          class="text-[15px] font-medium tracking-[-0.3px] text-black dark:text-white hover:opacity-70 transition-opacity lowercase"
-          >Resumo</a
-        >
-        <a
-          href="#experiencia"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Experiência</a
-        >
-        <a
-          href="#formacao"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Formação</a
-        >
-        <a
-          href="#projetos"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Projetos</a
-        >
-        <a
-          href="#idiomas"
-          class="text-[15px] font-medium tracking-[-0.3px] text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors lowercase"
-          >Idiomas</a
-        >
-      </div>
-    </nav>
-  </div>
+  <!-- Sidebar removed -->
 
   <div class="max-w-5xl mx-auto py-16 px-6 md:px-12">
     <!-- Header -->
-    <header
-      class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-24"
-      id="resumo"
-    >
+    <header class="mb-24" id="resumo">
       <h1
-        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white lowercase sticky top-8"
+        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
       >
         currículo
       </h1>
-      <div class="flex flex-col items-start gap-4 pt-2">
+
+      <div class="mb-8">
+        <PageNav
+          items={[
+            { label: "resumo", href: "#resumo" },
+            { label: "experiência", href: "#experiencia" },
+            { label: "formação", href: "#formacao" },
+            { label: "projetos", href: "#projetos" },
+            { label: "idiomas", href: "#idiomas" },
+          ]}
+        />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
         <a
           href="/LuanMaitan_CV_2025.pdf"
           target="_blank"
