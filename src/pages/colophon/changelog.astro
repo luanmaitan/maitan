@@ -4,6 +4,22 @@ import PageNav from "../../components/PageNav.astro";
 
 const updates = [
   {
+    version: "0.2.5",
+    id: "v-0-2-5",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "refinamento visual e expansão do design system",
+    description:
+      "remoção de redundâncias na home, refinamento das tags em citações e categorias do escritório. correção de contraste em modo escuro para fontes serifadas. implementação de notas de rodapé responsivas para mobile. expansão significativa da documentação do design system com novos exemplos visuais de cores, tipografia e componentes.",
+    tags: ["ui", "design system", "docs", "refactor"],
+  },
+  {
     version: "0.2.4",
     id: "v-0-2-4",
     date: new Date()

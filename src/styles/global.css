@@ -212,6 +212,10 @@ a {
   color: #222;
 }
 
+.dark .body-text {
+  color: #e5e5e5;
+}
+
 /* CAPITULAR (Caixa Alta) */
 .first-paragraph::first-letter {
   float: left;
@@ -603,7 +607,7 @@ button {
   font-size: 0.7rem;
 }
 
-/* Responsive */
+/* Responsive Marginalia (Footnotes on Mobile/Tablet) */
 @media (max-width: 1000px) {
   .maitan-layout {
     grid-template-columns: 1fr;
@@ -619,10 +623,37 @@ button {
 
   .article-grid {
     grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* Move marginalia to bottom */
   .marginalia-col {
-    display: none;
+    display: block;
+    order: 2;
+    /* Ensure it comes after content */
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--c-light-gray);
+    position: static;
+    /* Reset positioning */
+  }
+
+  .dark .marginalia-col {
+    border-top-color: var(--c-light-gray);
+  }
+
+  .sidenote {
+    position: static !important;
+    /* Override inline styles */
+    width: 100%;
+    margin-bottom: 20px;
+    padding-left: 0;
+  }
+
+  /* Make note label act as a back link target */
+  .note-label::before {
+    content: "↑ ";
   }
 
   .figure-wide {

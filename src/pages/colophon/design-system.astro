@@ -124,7 +124,287 @@ import PageNav from "../../components/PageNav.astro";
             </div>
 
             <div class="section-divider">§</div>
-            <h2 class="section-title">04. elementos de navegação</h2>
+            <h2 class="section-title">04. cores</h2>
+
+            <p class="body-text">
+                A paleta de cores é minimalista e funcional, com cores
+                semânticas para destaque e feedback.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <div class="space-y-2">
+                    <div
+                        class="h-24 bg-black dark:bg-white border border-neutral-200 dark:border-neutral-800"
+                    >
+                    </div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Ink</span>
+                        <span class="text-neutral-500">--c-ink</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-24 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800"
+                    >
+                    </div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Background</span>
+                        <span class="text-neutral-500">--c-bg</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-24 bg-[var(--c-vermilion)]"></div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Vermilion</span>
+                        <span class="text-neutral-500">--c-vermilion</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-24 bg-[var(--c-sulfur)]"></div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Sulfur</span>
+                        <span class="text-neutral-500">--c-sulfur</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-24 bg-[var(--c-lavender)]"></div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Lavender</span>
+                        <span class="text-neutral-500">--c-lavender</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-24 bg-neutral-500"></div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Gray</span>
+                        <span class="text-neutral-500">--c-gray</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-24 bg-neutral-200 dark:bg-neutral-800"></div>
+                    <div class="text-xs font-mono">
+                        <span class="block font-bold">Light Gray</span>
+                        <span class="text-neutral-500">--c-light-gray</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">05. escala tipográfica</h2>
+
+            <div class="space-y-8 mb-12">
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >Display Title (H1)</span
+                    >
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-[60px] leading-[0.95] tracking-tight font-bold text-black dark:text-white lowercase"
+                    >
+                        the quick brown fox
+                    </h1>
+                </div>
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >Section Title (H2)</span
+                    >
+                    <h2
+                        class="text-[30px] leading-[1.1] tracking-tighter font-semibold text-black dark:text-white lowercase"
+                    >
+                        jumps over the lazy dog
+                    </h2>
+                </div>
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >Subsection Title (H3)</span
+                    >
+                    <h3
+                        class="text-xl font-medium text-neutral-900 dark:text-white lowercase"
+                    >
+                        pack my box with five dozen liquor jugs
+                    </h3>
+                </div>
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >Body Text</span
+                    >
+                    <p class="body-text mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
+                    </p>
+                </div>
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >UI Text / Caption</span
+                    >
+                    <p
+                        class="font-sans text-sm text-neutral-600 dark:text-neutral-400"
+                    >
+                        Sphinx of black quartz, judge my vow.
+                    </p>
+                </div>
+                <div
+                    class="border-b border-neutral-200 dark:border-neutral-800 pb-4"
+                >
+                    <span class="text-xs font-mono text-neutral-400 block mb-2"
+                        >Monospace / Code</span
+                    >
+                    <p
+                        class="font-mono text-sm text-neutral-600 dark:text-neutral-400"
+                    >
+                        const designSystem = "consistent";
+                    </p>
+                </div>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">06. espaçamento</h2>
+
+            <div class="space-y-4 mb-12">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-4 h-4 bg-vermilion/20 border border-vermilion"
+                    >
+                    </div>
+                    <span class="font-mono text-sm">0.25rem (4px) - gap-1</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-8 h-8 bg-vermilion/20 border border-vermilion"
+                    >
+                    </div>
+                    <span class="font-mono text-sm">0.5rem (8px) - gap-2</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-16 h-16 bg-vermilion/20 border border-vermilion"
+                    >
+                    </div>
+                    <span class="font-mono text-sm">1rem (16px) - gap-4</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-24 h-24 bg-vermilion/20 border border-vermilion"
+                    >
+                    </div>
+                    <span class="font-mono text-sm">1.5rem (24px) - gap-6</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-32 h-32 bg-vermilion/20 border border-vermilion"
+                    >
+                    </div>
+                    <span class="font-mono text-sm">2rem (32px) - gap-8</span>
+                </div>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">07. elementos de ui</h2>
+
+            <h3 class="subsection-title mb-6">botões</h3>
+            <div class="flex flex-wrap gap-4 mb-12">
+                <button class="btn-primary"> primary action </button>
+                <button class="btn-ghost"> secondary action </button>
+                <button
+                    class="px-3 py-1.5 rounded-full text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 font-medium border border-transparent"
+                >
+                    pill button
+                </button>
+                <button
+                    class="px-3 py-1.5 rounded-full text-sm border border-neutral-200 dark:border-neutral-700 text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
+                >
+                    outline pill
+                </button>
+            </div>
+
+            <h3 class="subsection-title mb-6">inputs & forms</h3>
+            <div class="space-y-4 max-w-md mb-12">
+                <div>
+                    <label
+                        class="block text-xs font-bold uppercase tracking-widest text-neutral-500 mb-2"
+                    >
+                        text input
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="digite algo..."
+                        class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white transition-colors placeholder:text-neutral-400"
+                    />
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-bold uppercase tracking-widest text-neutral-500 mb-2"
+                    >
+                        select
+                    </label>
+                    <select
+                        class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white transition-colors appearance-none rounded-none"
+                    >
+                        <option>opção 1</option>
+                        <option>opção 2</option>
+                        <option>opção 3</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="check1"
+                        class="accent-black dark:accent-white w-4 h-4"
+                        checked
+                    />
+                    <label
+                        for="check1"
+                        class="text-sm text-neutral-700 dark:text-neutral-300"
+                        >checkbox selecionado</label
+                    >
+                </div>
+            </div>
+
+            <h3 class="subsection-title mb-6">cards</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div
+                    class="p-6 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg"
+                >
+                    <h4 class="font-bold text-lg mb-2">card simples</h4>
+                    <p
+                        class="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
+                    >
+                        Um container básico para agrupar conteúdo relacionado.
+                    </p>
+                    <a
+                        href="#"
+                        class="text-xs font-bold uppercase tracking-widest hover:underline"
+                        >ler mais →</a
+                    >
+                </div>
+                <div
+                    class="group relative flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 transition-all"
+                >
+                    <div
+                        class="w-full aspect-video bg-neutral-200 dark:bg-neutral-700 rounded-md mb-1"
+                    >
+                    </div>
+                    <h4 class="font-bold text-base">card de projeto</h4>
+                    <p class="text-xs text-neutral-500">
+                        descrição curta do projeto.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section-divider">§</div>
+            <h2 class="section-title">08. elementos de navegação</h2>
 
             <p class="body-text">
                 A navegação é dividida em três níveis distintos, cada um com sua
@@ -183,9 +463,9 @@ import PageNav from "../../components/PageNav.astro";
                     class="group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                 >
                     categoria a
-                    <span
-                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5"
-                        >05</span
+                    <sup
+                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5"
+                        >05</sup
                     >
                 </a>
                 <a
@@ -193,9 +473,9 @@ import PageNav from "../../components/PageNav.astro";
                     class="group relative flex items-start text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                 >
                     categoria b
-                    <span
-                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5 -mt-0.5"
-                        >12</span
+                    <sup
+                        class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5"
+                        >12</sup
                     >
                 </a>
             </div>
@@ -215,6 +495,15 @@ import PageNav from "../../components/PageNav.astro";
                 <p>
                     As caixas de código simulam um ambiente de IDE, com cores
                     semânticas para facilitar a leitura técnica.
+                </p>
+            </div>
+
+            <div class="sidenote" style="top: 1400px;">
+                <span class="note-label">CORES</span>
+                <p>
+                    O sistema de cores prioriza o contraste e a legibilidade,
+                    com tons de cinza para estrutura e cores vibrantes para
+                    destaque.
                 </p>
             </div>
         </aside>

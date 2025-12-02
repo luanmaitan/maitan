@@ -68,10 +68,10 @@ const currentPath = Astro.url.pathname;
                                 data-tag={tag}
                                 class="filter-tag text-[13px] text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors lowercase whitespace-nowrap"
                             >
-                                #{tag}{" "}
-                                <span class="text-neutral-300 dark:text-neutral-600">
-                                    ({count})
-                                </span>
+                                {tag}
+                                <sup class="text-[9px] text-neutral-300 dark:text-neutral-600 ml-0.5">
+                                    {count}
+                                </sup>
                             </a>
                         ))}
                     </div>
@@ -113,7 +113,7 @@ const currentPath = Astro.url.pathname;
                                     <div class="flex gap-2 mt-2">
                                         {quote.tags.map((tag: string) => (
                                             <span class="text-[10px] text-neutral-400 dark:text-neutral-600 lowercase">
-                                                #{tag}
+                                                {tag}
                                             </span>
                                         ))}
                                     </div>
