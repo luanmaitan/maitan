@@ -4,6 +4,22 @@ import PageNav from "../../components/PageNav.astro";
 
 const updates = [
   {
+    version: "0.2.4",
+    id: "v-0-2-4",
+    date: new Date()
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(".", ""),
+    title: "refinamento tipográfico",
+    description:
+      "ajuste global nos pesos das fontes para melhorar a legibilidade e consistência visual. substituição do peso 'black' (900) por 'bold' (700) em títulos principais e 'semibold' (600) em subtítulos. implementação de escala fluida para títulos h1, corrigindo problemas de proporção em telas menores.",
+    tags: ["ui", "typography", "design system", "refactor"],
+  },
+  {
     version: "0.2.3",
     id: "v-0-2-3",
     date: new Date()
@@ -288,7 +304,7 @@ const updates = [
   <section class="space-y-16">
     <header>
       <h1
-        class="text-[60px] leading-[0.95] tracking-tighter font-black text-black dark:text-white mb-4 lowercase"
+        class="text-4xl md:text-5xl lg:text-[60px] leading-[0.95] tracking-tight font-bold text-black dark:text-white mb-4 lowercase"
       >
         changelog
       </h1>
